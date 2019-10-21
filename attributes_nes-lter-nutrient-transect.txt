@@ -1,0 +1,14 @@
+﻿attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+cruise	Identifier for research cruise generally including abbreviation for research vessel and voyage number	character			NaN	Missing value
+cast	CTD rosette cast number chronological per cruise	numeric	dimensionless		NaN	Missing value
+niskin	Rosette bottle position number	numeric	dimensionless		NaN	Missing value
+date	Date and time of rosette bottle sample in UTC	Date		YYYY-MM-DD hh:mm:ss	NaN	Missing value
+latitude	Ship's latitude when rosette bottle closed	numeric	degree		NaN	Missing value
+longitude	Ship's longitude when rosette bottle closed	numeric	degree		NaN	Missing value
+depth	Depth of sample below sea surface. URI http://vocab.nerc.ac.uk/collection/P09/current/DEPH/	numeric	meter		NaN	Missing value
+sample_id	Identifier for subsample drawn from rosette bottle	numeric	dimensionless		NaN	Missing value
+replicate	Lowercase letter indicating replicate subsample drawn from the same rosette bottle	character			NaN	Missing value
+nitrate_nitrite	Nitrate+nitrite concentration in the water column. URI http://vocab.nerc.ac.uk/collection/P02/current/NTRA/	numeric	micromolePerLiter		NaN	Missing value
+ammonium	Ammonium concentration in the water column. Does not exactly match URI http://vocab.nerc.ac.uk/collection/P02/current/AMON/	numeric	micromolePerLiter		NaN	Missing value
+phosphate	Phosphate concentration in the water column. URI http://vocab.nerc.ac.uk/collection/P02/current/PHOS/	numeric	micromolePerLiter		NaN	Missing value
+silicate	Silicate concentration in the water column. URI http://vocab.nerc.ac.uk/collection/P02/current/SLCA/	numeric	micromolePerLiter		NaN	Missing value
