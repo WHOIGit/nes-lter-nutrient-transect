@@ -1,2 +1,3 @@
 # nes-lter-nutrient-transect
-EDI package
+
+Workflow for publishing the nutrient transect data from NES-LTER cruises to the EDI repository.

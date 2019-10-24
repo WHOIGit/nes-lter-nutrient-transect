@@ -1,4 +1,4 @@
-﻿attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
 cruise	Identifier for research cruise generally including abbreviation for research vessel and voyage number	character			NaN	Missing value
 cast	CTD rosette cast number chronological per cruise	numeric	dimensionless		NaN	Missing value
 niskin	Rosette bottle position number	numeric	dimensionless		NaN	Missing value
