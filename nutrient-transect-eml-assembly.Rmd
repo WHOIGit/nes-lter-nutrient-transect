@@ -60,7 +60,7 @@ for (k in 2:length(cruiselist)){
   
 # write csv file for EDI
 # Output the data table to csv file within the same folder as metadata files
-write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
+# write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
 
 ```
 
