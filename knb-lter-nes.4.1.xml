@@ -41,7 +41,18 @@
       <organizationName>Northeast U.S. Shelf LTER</organizationName>
       <role>Technician</role>
     </associatedParty>
-    <pubDate>2019-10-24</pubDate>
+    <associatedParty>
+      <individualName>
+        <givenName>Jaxine</givenName>
+        <givenName>L</givenName>
+        <surName>Wolfe</surName>
+      </individualName>
+      <organizationName>Northeast U.S. Shelf LTER</organizationName>
+      <electronicMailAddress>jawolfe@whoi.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
+      <role>Metadataprovider</role>
+    </associatedParty>
+    <pubDate>2019-10-29</pubDate>
     <abstract>
       <para>
   Dissolved inorganic nutrients are measured from water column bottle
@@ -187,9 +198,18 @@
           <section>
             <title>Nutrient Data Processing</title>
             <para>
-    The data cleaning and metadata template assembly was performed in R
-    Markdown. Further documentation can be found on GitHub, at
+    The data table was made by concatenating cruises called from the
+    REST API of the NES-LTER data system. The data cleaning and metadata
+    template assembly was performed in R Markdown. Further documentation
+    can be found on GitHub, at
     https://github.com/WHOIGit/nes-lter-fish-diet-isotope.
+  </para>
+          </section>
+          <section>
+            <title>Quality Assurance</title>
+            <para>
+    We assured that the geographic and temporal coverage of the clean
+    data table were within expected ranges.
   </para>
           </section>
         </description>

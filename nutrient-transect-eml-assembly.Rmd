@@ -5,25 +5,23 @@ date: "May 9, 2019"
 output: html_document
 ---
 
+## R Markdown Setup
+
 ```{r setup, include=FALSE}
 # knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
-# Load libraries for data cleaning 
-library(tidyverse)
-library(readxl)
-library(lubridate)
-
-# Load libraries for EML assembly
-# install.packages("devtools")
-library(devtools)
-# install_github("EDIorg/EMLassemblyline")
-library(EMLassemblyline)
-# load EML
-library(EML)
-
 # clear workspace for local development
 rm(list = ls())
+
+# install libraries for EML assembly
+# install.packages("devtools")
+# install_github("EDIorg/EMLassemblyline")
+
+# define R packages to require
+libs <- c("tidyverse", "readxl", "lubridate", "devtools", "EMLassemblyline", "EML")
+# load libraries
+lapply(libs, require, character.only = TRUE)
 
 # assign resused directory to a variable
 dir <- "/Users/jaxinewolfe/Documents/WHOI/NESLTER/nes-lter-nutrient-transect/"
@@ -32,13 +30,9 @@ setwd(dir)
 
 ```
 
-## R Markdown
+## Assemble NES-LTER Cruises 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Make data table by concatenating cruises called from API
+This chunk makes a data table by concatenating the specified cruises called from API.
 
 ```{r}
 # List of cruises to acquire from: EN608, EN617, EN627
@@ -60,7 +54,7 @@ for (k in 2:length(cruiselist)){
   
 # write csv file for EDI
 # Output the data table to csv file within the same folder as metadata files
-# write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
+write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
 
 ```
 
@@ -144,8 +138,8 @@ South <- min(all_cruises$latitude, na.rm = TRUE)
 West <- min(all_cruises$longitude, na.rm = TRUE)
 
 # ensure metadata template txt files are UTF-8 and at specified path
-# make_eml(path = "/Users/Stace/Desktop/nes-lter-nutrients-transect", # desktop
 make_eml(path = dir,
+         data.path = dir,
          dataset.title = "Dissolved inorganic nutrients from NES-LTER Transect cruises, including 4 macro-nutrients from water column bottle samples, ongoing since 2017",
          data.table = nutrient_csv,
          data.table.description = "Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises, ongoing since 2017, including nitrate + nitrite, ammonium, silicate, and phosphate.",

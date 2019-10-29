@@ -13,4 +13,8 @@ Samples are stored at -20 deg C until submitted to the Woods Hole Oceanographic 
 
 # Nutrient Data Processing
 
-The data cleaning and metadata template assembly was performed in R Markdown. Further documentation can be found on GitHub, at https://github.com/WHOIGit/nes-lter-fish-diet-isotope.
+The data table was made by concatenating cruises called from the REST API of the NES-LTER data system. The data cleaning and metadata template assembly was performed in R Markdown. Further documentation can be found on GitHub, at https://github.com/WHOIGit/nes-lter-fish-diet-isotope.
+
+# Quality Assurance
+
+We assured that the geographic and temporal coverage of the clean data table were within expected ranges.
