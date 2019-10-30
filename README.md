@@ -1,3 +1,3 @@
 # nes-lter-nutrient-transect
 
-Workflow for publishing the nutrient transect data from NES-LTER cruises to the EDI repository.
+Workflow for publishing the nutrient data from NES-LTER Transect cruises to the EDI repository.
