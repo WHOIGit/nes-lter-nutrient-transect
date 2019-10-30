@@ -1,4 +1,4 @@
-﻿keyword	keywordThesaurus
+keyword	keywordThesaurus
 inorganic matter	LTER Core Research Areas
 chemistry	LTER Controlled Vocabulary
 oceanography	LTER Controlled Vocabulary

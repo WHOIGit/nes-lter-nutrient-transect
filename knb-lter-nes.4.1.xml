@@ -24,17 +24,6 @@
     </creator>
     <associatedParty>
       <individualName>
-        <givenName>Heidi</givenName>
-        <givenName>M</givenName>
-        <surName>Sosik</surName>
-      </individualName>
-      <organizationName>Northeast U.S. Shelf LTER</organizationName>
-      <electronicMailAddress>hsosik@whoi.edu</electronicMailAddress>
-      <userId directory="https://orcid.org">https://orcid.org/0000-0002-4591-2842</userId>
-      <role>Principal Investigator</role>
-    </associatedParty>
-    <associatedParty>
-      <individualName>
         <givenName>E. Taylor</givenName>
         <surName>Crockford</surName>
       </individualName>
@@ -52,19 +41,21 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>Metadataprovider</role>
     </associatedParty>
-    <pubDate>2019-10-29</pubDate>
+    <pubDate>2019-10-30</pubDate>
     <abstract>
       <para>
   Dissolved inorganic nutrients are measured from water column bottle
   samples taken on NES-LTER Transect cruises (ongoing since 2017) and
-  include nitrate + nitrite, ammonium, silicate, and phosphate. Sampling
-  frequency is approximately seasonal. Samples were filtered, frozen,
-  then processed at the Woods Hole Oceanographic Institution’s Nutrient
-  Analytical Facility. Each sample may have up to 3 replicates,
-  indicated by a, b, or c in the data table. These macro-nutrients are
-  analyzed in seawater using a colorimetric assay in which light
-  absorbance is measured versus known standards, and final
-  concentrations are calculated in micromole per liter.
+  include nitrate + nitrite, ammonium, silicate, and phosphate. This
+  version of the data package is specific to NES-LTER Transect cruises
+  on R/V Endeavor; sampling frequency is approximately 6 months (summer
+  and winter). Samples were filtered, frozen, then processed at the
+  Woods Hole Oceanographic Institution’s Nutrient Analytical Facility.
+  Each sample may have up to 3 replicates, indicated by a, b, or c in
+  the data table. These macro-nutrients are analyzed in seawater using a
+  colorimetric assay in which light absorbance is measured versus known
+  standards, and final concentrations are calculated in micromole per
+  liter.
 </para>
     </abstract>
     <keywordSet>
@@ -90,26 +81,21 @@
     </keywordSet>
     <intellectualRights>
       <para>
-  This information is released under the Creative Commons license -
-  Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/).
-  The consumer of these data ("Data User" herein) is required
-  to cite it appropriately in any publication that results from its use.
-  The Data User should realize that these data may be actively used by
-  others for ongoing research and that coordination may be necessary to
-  prevent duplicate publication. The Data User is urged to contact the
-  authors of these data if any questions about methodology or results
-  occur. Where appropriate, the Data User is encouraged to consider
-  collaboration or co-authorship with the authors. The Data User should
-  realize that misinterpretation of data may occur if used out of
-  context of the original study. While substantial efforts are made to
-  ensure the accuracy of data and associated documentation, complete
-  accuracy of data sets cannot be guaranteed. All data are made
-  available "as is." The Data User should be aware, however,
-  that data are updated periodically and it is the responsibility of the
-  Data User to check for new versions of the data. The data authors and
-  the repository where these data were obtained shall not be liable for
-  damages resulting from any use or misinterpretation of the data. Thank
-  you.
+  This data package is released to the "public domain" under
+  Creative Commons CC0 1.0 "No Rights Reserved" (see:
+  https://creativecommons.org/publicdomain/zero/1.0/). It is considered
+  professional etiquette to provide attribution of the original work if
+  this data package is shared in whole or by individual components. A
+  generic citation is provided for this data package on the website
+  https://portal.edirepository.org (herein "website") in the
+  summary metadata page. Communication (and collaboration) with the
+  creators of this data package is recommended to prevent duplicate
+  research or publication. This data package (and its components) is
+  made available "as is" and with no warranty of accuracy or
+  fitness for use. The creators of this data package and the website
+  shall not be liable for any damages resulting from misinterpretation
+  or misuse of the data package or its components. Periodic updates of
+  this data package may be available from the website. Thank you.
 </para>
     </intellectualRights>
     <coverage>
@@ -149,67 +135,57 @@
   cruises</title>
             <para>
     Samples were collected from the water column at multiple depths
-    using Niskin bottles on a CTD-rosette system. Samples were collected
-    at the surface (depth = 0) with a bucket.
+    using Niskin bottles on a CTD-rosette system.
   </para>
           </section>
           <section>
             <title>Nutrient Filtering Protocol</title>
             <para>
-    We will replace much of the text quoted from an old protocol with
-    text from the current Nutrient_Sampling_Protocol.docx in
-    Sosik_protocols. The following is paraphrased from the WHOI Nutrient
-    Facility Cruise Protocol for Filtering Nutrient Samples, version 23
-    April 2007. Fill a B-D 60 ml LUER-LOKTM syringe with approximately
-    10mls of water and partially insert plunger. Shake vigorously to
-    cleanse the inside of the syringe and discard water. Repeat three
-    times. Completely fill syringe with sample. Insert the plunger and
-    remove any air in the syringe. Attach a EMD Millipore sterile
-    Sterivex (0.22um) filter to the syringe. Advance the plunger and
-    force 60mls of water through the filter to rinse the filter of any
-    previous sample. Rinse the filter with a full syringe each time a
-    new sample is introduced to the syringe. After cleaning the filter,
-    refill the syringe and rinse the sample vial 3 times with 5mls of
-    filtered water. For each rinse, replace the cap and shake
-    vigorously. Filter 17 ml of sample directly into the sample vial and
-    replace the cap and proceed to the next sample. Immediately store
-    samples in a -20C freezer and keep frozen until analysis.
+    Wearing nitrile gloves, connect filter (AcroPak 200 Capsule with
+    Super Membrane 0.2 um) with barb and tubing to Niskin spigot and
+    fill with water. Rinse/flush filter with 3 times the volume of the
+    filter. Then, without touching filter to sample vial (acid-washed
+    scintillation vial 20mL), triple rinse sample vial and take sample
+    (rinse vial and cap 3 times, then fill ~17 ml directly into the
+    sample vial). Store samples in a -20 deg C freezer and keep frozen
+    until analysis. If applicable, flush filter with milli-Q water and
+    dry air for using on next cast (filter may process up to 20 liters).
   </para>
           </section>
           <section>
             <title>WHOI Nutrient Facility Nutrient Analysis</title>
             <para>
     Samples are stored at -20 deg C until submitted to the Woods Hole
-    Oceanographic Institution’s Nutrient Analytical Facility,
-    https://web.whoi.edu/nutrient/. As of 2013, the facility operates a
-    four-channel segmented flow SEAL AA3 HR Autoanalyzer. Duplicates and
-    spiked additions are run for quality control. Standards are made
-    daily and Certified Reference material is run daily to ensure the
-    standards and/or reagents are good. If the samples fall outside of
-    the duplicate or spike addition quality control they are rerun until
+    Oceanographic Institution’s Nutrient Analytical Facility
+    (https://web.whoi.edu/nutrient/) which operates a four-channel
+    segmented flow SEAL AA3 HR Autoanalyzer. Duplicates and spiked
+    additions are run for quality control. Standards are made daily and
+    Certified Reference material is run daily to ensure the standards
+    and/or reagents are good. If the samples fall outside of the
+    duplicate or spike addition quality control they are rerun until
     they fall within quality control parameters. Precision is 1e-03
-    microMolePerLiter. All Below Detection Limit values are set to zero.
-    The detection limit is different depending on the nutrient, and the
-    detection limit has gotten lower over the time series with improving
-    technology. Please refer to the Facility’s website for current
-    detection limits.
+    microMolePerLiter. Please refer to the Facility’s website for
+    current detection limits which are different depending on the
+    nutrient.
   </para>
           </section>
           <section>
-            <title>Nutrient Data Processing</title>
+            <title>Nutrient Data Cleaning</title>
             <para>
     The data table was made by concatenating cruises called from the
-    REST API of the NES-LTER data system. The data cleaning and metadata
-    template assembly was performed in R Markdown. Further documentation
-    can be found on GitHub, at
-    https://github.com/WHOIGit/nes-lter-fish-diet-isotope.
+    REST API of the NES-LTER data system. All Below Detection Limit
+    values are set to zero. The data cleaning and metadata template
+    assembly was performed in R Markdown. Further documentation can be
+    found on GitHub, at
+    https://github.com/WHOIGit/nes-lter-nutrient-transect.
   </para>
           </section>
           <section>
             <title>Quality Assurance</title>
             <para>
     We assured that the geographic and temporal coverage of the clean
-    data table were within expected ranges.
+    data table were within expected ranges. We performed a range check
+    and visual inspection of plotted values for each nutrient.
   </para>
           </section>
         </description>

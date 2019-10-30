@@ -108,10 +108,10 @@ nut_cols <- c("nitrate_nitrite", "phosphate", "ammonium", "silicate")
 cruises_long <- all_cruises %>%
     gather(nutrients, value, nut_cols, factor_key = TRUE)
 
-for (i in nut_cols) {
+for (i in 1:length(nut_cols)) {
   nut_subset <- cruises_long %>% filter(nutrients == nut_cols[i])
 # ggplot where x = cast, y = value and the lineplots are grouped by cruise
-  p <- ggplot(data = cruises_long, aes(x = cast, y = value, color = cruise)) +
+  p <- ggplot(data = nut_subset, aes(x = cast, y = value, color = cruise)) +
     geom_point() +
     ylab(paste0(nut_cols[i], " concentration (µmol/L)")) +
     theme_classic()
@@ -131,13 +131,52 @@ if(any(all_cruises$silicate > 60)) cat("silicate_exceeds")
 
 ```
 
+## Create Template .txt files for EMLassembly
+
+```{r}
+
+nutrient_file <- "nes-lter-nutrient-transect"
+info <- "nutrient-transect-info.xlsx"
+# info_sheets <- c("ColumnHeaders", "Personnel", "Keywords", "CustomUnits")
+
+# read in nutrient info
+headers <- read_excel(path = paste0(dir, "/", info), 
+                  sheet = "ColumnHeaders", na = "NA")
+personnel <- read_excel(path = paste0(dir, "/", info), 
+                  sheet = "Personnel", na = "NA")
+keywords <- read_excel(path = paste0(dir, "/", info), 
+                  sheet = "Keywords", na = "NA")
+custom_units <- read_excel(path = paste0(dir, "/", info), 
+                  sheet = "CustomUnits", na = "NA")
+
+# write info data frames to text files for EML assembly
+write.table(personnel,"personnel.txt", 
+            quote = FALSE, na = "", sep = "\t", row.names = FALSE)
+write.table(headers, paste0("attributes_", nutrient_file, ".txt"), 
+            quote = FALSE, na = "", sep = "\t", row.names = FALSE)
+write.table(keywords,"keywords.txt", 
+            quote = FALSE, na = "", sep = "\t", row.names = FALSE)
+write.table(custom_units,"custom_units.txt", 
+            quote = FALSE, na = "", sep = "\t", row.names = FALSE)
+
+```
+
 
 ## Construct XML for Nutrient Data
 
 ```{r}
 
-nutrient_csv <- "nes-lter-nutrient-transect.csv"
 nutrient_pkg <- "knb-lter-nes.4.1"
+
+# Import EDI templates for diet dataset licensed under CC0
+import_templates(path = dir,
+                 license = "CC0",
+                 data.files = paste0(nutrient_file, ".csv"))
+# this will not overwrite existing files
+
+# eliminate unneccesary templates
+# bounding_boxes.txt must be eliminated to specify coverage manually
+unlink(c("bounding_boxes.txt", "additional_info.txt"))
 
 # Temporal coverage
 # Will need this in make_eml YYYY-MM-DD
@@ -159,7 +198,7 @@ West <- min(all_cruises$longitude, na.rm = TRUE)
 make_eml(path = dir,
          data.path = dir,
          dataset.title = "Dissolved inorganic nutrients from NES-LTER Transect cruises, including 4 macro-nutrients from water column bottle samples, ongoing since 2017",
-         data.table = nutrient_csv,
+         data.table = paste0(nutrient_file, ".csv"),
          data.table.description = "Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises, ongoing since 2017, including nitrate + nitrite, ammonium, silicate, and phosphate.",
          temporal.coverage = c(startdate_as_character, enddate_as_character),
          geographic.description = "NES-LTER Transect",
