@@ -37,9 +37,12 @@ This chunk makes a data table by concatenating the specified cruises called from
 ```{r}
 # List of cruises to acquire from: EN608, EN617, EN627
 
+# pull from API if compiled cruise data file doesnt exist
+if (!file.exists("nes-lter-nutrient-transect.csv")) {
+
 # create list of next cruises to concatenate
 cruiselist <- c("en608","en617", "en627")
-# plural because I'll keep appending to it
+# the other cruises will be added to this first cruise in the following for loop
 previous_cruises <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[1], ".csv"))
 
 for (k in 2:length(cruiselist)){
@@ -49,13 +52,17 @@ for (k in 2:length(cruiselist)){
   # if statment to reset the previous cruises until all cruises are read in
     if(k < length(cruiselist)) {
       previous_cruises <- all_cruises
-      }
+    }
 }
-  
-# write csv file for EDI
+# write csv file of concatenated cruises
 # Output the data table to csv file within the same folder as metadata files
 write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
 
+} else {
+  # read in fisheries
+  all_cruises <- read_csv("nes-lter-nutrient-transect.csv")
+}
+  
 ```
 
 ## Quality Assurance: Nutrient Check
@@ -73,7 +80,7 @@ nut_check <- all_cruises %>%
 
 ## Quality Assurance: Map Sampling Locations
 
-```{r, echo=FALSE}
+```{r}
 library(maps)
 library(dplyr)
 
@@ -93,12 +100,23 @@ ggplot() +
 
 ## Quality Assurance: Plot nutrients as a check
 
-```{r, echo=FALSE}
+```{r}
 
-plot(all_cruises$nitrate_nitrite)  # plot by row in data frame
-plot(all_cruises$ammonium)  # plot by row in data frame
-plot(all_cruises$phosphate)  # plot by row in data frame
-plot(all_cruises$silicate)  # plot by row in data frame
+nut_cols <- c("nitrate_nitrite", "phosphate", "ammonium", "silicate")
+
+# convert to long for ease of plotting
+cruises_long <- all_cruises %>%
+    gather(nutrients, value, nut_cols, factor_key = TRUE)
+
+for (i in nut_cols) {
+  nut_subset <- cruises_long %>% filter(nutrients == nut_cols[i])
+# ggplot where x = cast, y = value and the lineplots are grouped by cruise
+  p <- ggplot(data = cruises_long, aes(x = cast, y = value, color = cruise)) +
+    geom_point() +
+    ylab(paste0(nut_cols[i], " concentration (µmol/L)")) +
+    theme_classic()
+  print(p)
+}
 
 ```
 
@@ -106,10 +124,10 @@ plot(all_cruises$silicate)  # plot by row in data frame
 
 ```{r}
 # In terms of global range check, I checked the following: nitrate less than 30 umol/l and ammonium less than 5 umol/l (based on Rees et al. 2006 https://doi.org/10.1016/j.dsr2.2006.05.008), phosphate less than 3 (I can't find a good reference quickly but this appears to be upper for Atlantic), silicate less than 60 (Elements of Physical Oceanography chapter on marine silica cycle, for deep Atlantic, this is probably too high). AR24B cast 4 has anomalously high ammonium, with samples 241, 242, and 243 higher than the global range check. Anything special about this cast, or these samples in particular?
-if(any(all_cruises$nitrate_nitrite>30)) cat("nitrate_nitrite_exceeds") 
-if(any(all_cruises$ammonium>5)) cat("ammonium_exceeds")
-if(any(all_cruises$phosphate>3)) cat("phosphate_exceeds")
-if(any(all_cruises$silicate>60)) cat("silicate_exceeds")
+if(any(all_cruises$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds") 
+if(any(all_cruises$ammonium > 5)) cat("ammonium_exceeds")
+if(any(all_cruises$phosphate > 3)) cat("phosphate_exceeds")
+if(any(all_cruises$silicate > 60)) cat("silicate_exceeds")
 
 ```
 
