@@ -86,7 +86,7 @@ library(dplyr)
 
 nes <- map_data("state") %>% filter(long > -72 & lat < 42)
 
-# Justin's given coordinates
+# plot given coordinates
 ggplot() +
   geom_polygon(data = nes, mapping = aes(x = long, y = lat, group = group),
                fill = NA, color = "grey50") +
@@ -111,8 +111,8 @@ cruises_long <- all_cruises %>%
 for (i in 1:length(nut_cols)) {
   nut_subset <- cruises_long %>% filter(nutrients == nut_cols[i])
 # ggplot where x = cast, y = value and the lineplots are grouped by cruise
-  p <- ggplot(data = nut_subset, aes(x = cast, y = value, color = cruise)) +
-    geom_point() +
+  p <- ggplot(data = nut_subset, aes(x = date, y = value, color = cruise)) +
+    geom_boxplot() +
     ylab(paste0(nut_cols[i], " concentration (µmol/L)")) +
     theme_classic()
   print(p)
@@ -123,6 +123,7 @@ for (i in 1:length(nut_cols)) {
 ## Determine if any nutrients values exceed expectations
 
 ```{r}
+
 # In terms of global range check, I checked the following: nitrate less than 30 umol/l and ammonium less than 5 umol/l (based on Rees et al. 2006 https://doi.org/10.1016/j.dsr2.2006.05.008), phosphate less than 3 (I can't find a good reference quickly but this appears to be upper for Atlantic), silicate less than 60 (Elements of Physical Oceanography chapter on marine silica cycle, for deep Atlantic, this is probably too high). AR24B cast 4 has anomalously high ammonium, with samples 241, 242, and 243 higher than the global range check. Anything special about this cast, or these samples in particular?
 if(any(all_cruises$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds") 
 if(any(all_cruises$ammonium > 5)) cat("ammonium_exceeds")
@@ -240,7 +241,7 @@ project_insert <- function(x, projectnode) {
 }
 
 # read in project node
-project_eml <- read_xml("parent_project.txt", from = "xml")
+project_eml <- read_xml("parent_project_revised.txt", from = "xml")
 # read in xml files exported by make_eml
 nutrient_eml <- read_xml(paste0(dir, "/", nutrient_pkg, ".xml"), from = "xml")
 # all objects should be of class c("xml_document" "xml_node")
