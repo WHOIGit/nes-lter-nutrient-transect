@@ -70,12 +70,18 @@ write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
 
 # Mean nutrients
 nut_check <- all_cruises %>% 
-  group_by(cruise, cast) %>%
+  group_by(cruise) %>%
   summarise(mean_nitrate_nitrite = mean(nitrate_nitrite),
             mean_ammonium = mean(ammonium),
             mean_phosphate = mean(phosphate),
             mean_silicate = mean(silicate))
 
+# compare between old and new cruises read in from updated API
+# unique(round(all_cruises_old$nitrate_nitrite, 3) == round(all_cruises_new$nitrate_nitrite, 3))
+# unique(round(all_cruises_old$ammonium, 3) == round(all_cruises_new$ammonium, 3))
+# unique(round(all_cruises_old$phosphate, 3) == round(all_cruises_new$phosphate, 3))
+# unique(round(all_cruises_old$silicate, 3) == round(all_cruises_new$silicate, 3))
+# unique(round(all_cruises_old$depth, 1) == round(all_cruises_new$depth, 1))
 ```
 
 ## Quality Assurance: Map Sampling Locations
@@ -112,7 +118,8 @@ for (i in 1:length(nut_cols)) {
   nut_subset <- cruises_long %>% filter(nutrients == nut_cols[i])
 # ggplot where x = cast, y = value and the lineplots are grouped by cruise
   p <- ggplot(data = nut_subset, aes(x = date, y = value, color = cruise)) +
-    geom_boxplot() +
+    geom_boxplot(outlier.size = 0.5) +
+    # scale_x_datetime(date_breaks = "6 weeks") +
     ylab(paste0(nut_cols[i], " concentration (µmol/L)")) +
     theme_classic()
   print(p)
@@ -241,7 +248,7 @@ project_insert <- function(x, projectnode) {
 }
 
 # read in project node
-project_eml <- read_xml("parent_project_revised.txt", from = "xml")
+project_eml <- read_xml("parent_project.txt", from = "xml")
 # read in xml files exported by make_eml
 nutrient_eml <- read_xml(paste0(dir, "/", nutrient_pkg, ".xml"), from = "xml")
 # all objects should be of class c("xml_document" "xml_node")
