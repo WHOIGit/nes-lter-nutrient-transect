@@ -54,13 +54,17 @@ for (k in 2:length(cruiselist)){
       previous_cruises <- all_cruises
     }
 }
-# write csv file of concatenated cruises
-# Output the data table to csv file within the same folder as metadata files
-write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
-
+  all_cruises$nitrate_nitrite <- round(all_cruises$nitrate_nitrite, 3)
+  all_cruises$ammonium <- round(all_cruises$ammonium, 3)
+  all_cruises$phosphate <- round(all_cruises$phosphate, 3)
+  all_cruises$silicate <- round(all_cruises$silicate, 3)
+  # write csv file of concatenated cruises
+  # Output the data table to csv file within the same folder as metadata files
+  write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
 } else {
   # read in fisheries
   all_cruises <- read_csv("nes-lter-nutrient-transect.csv")
+  # round nutrient decimal places
 }
   
 ```

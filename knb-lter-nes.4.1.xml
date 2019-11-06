@@ -295,8 +295,8 @@
       <entityDescription>Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises, ongoing since 2017, including nitrate + nitrite, ammonium, silicate, and phosphate.</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">77130</size>
-        <authentication method="MD5">759c79710263d07063b81545dfb2262f</authentication>
+        <size unit="bytes">54513</size>
+        <authentication method="MD5">d93b7ad30b1bd21b9fb420a334a66a6d</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
