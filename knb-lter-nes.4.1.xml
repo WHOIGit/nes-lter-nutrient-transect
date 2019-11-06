@@ -41,7 +41,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>Metadataprovider</role>
     </associatedParty>
-    <pubDate>2019-11-05</pubDate>
+    <pubDate>2019-11-06</pubDate>
     <abstract>
       <para>
   Dissolved inorganic nutrients are measured from water column bottle
@@ -102,10 +102,10 @@
       <geographicCoverage>
         <geographicDescription>NES-LTER Transect</geographicDescription>
         <boundingCoordinates>
-          <westBoundingCoordinate>-70.90126</westBoundingCoordinate>
+          <westBoundingCoordinate>-70.90155</westBoundingCoordinate>
           <eastBoundingCoordinate>-70.52266</eastBoundingCoordinate>
           <northBoundingCoordinate>41.32464</northBoundingCoordinate>
-          <southBoundingCoordinate>39.7632</southBoundingCoordinate>
+          <southBoundingCoordinate>39.75764</southBoundingCoordinate>
         </boundingCoordinates>
       </geographicCoverage>
       <temporalCoverage>
@@ -114,7 +114,7 @@
             <calendarDate>2018-01-31</calendarDate>
           </beginDate>
           <endDate>
-            <calendarDate>2019-02-06</calendarDate>
+            <calendarDate>2019-08-25</calendarDate>
           </endDate>
         </rangeOfDates>
       </temporalCoverage>
@@ -295,8 +295,8 @@
       <entityDescription>Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises, ongoing since 2017, including nitrate + nitrite, ammonium, silicate, and phosphate.</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">59052</size>
-        <authentication method="MD5">3580e800541709c4efa7d0aa272def9b</authentication>
+        <size unit="bytes">77130</size>
+        <authentication method="MD5">759c79710263d07063b81545dfb2262f</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -447,7 +447,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">1.64</minimum>
-                  <maximum exclusive="false">500.18</maximum>
+                  <maximum exclusive="false">501.48</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -470,7 +470,7 @@
                 <numberType>natural</numberType>
                 <bounds>
                   <minimum exclusive="false">279</minimum>
-                  <maximum exclusive="false">1148</maximum>
+                  <maximum exclusive="false">1585</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -511,7 +511,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">0</minimum>
-                  <maximum exclusive="false">23.85</maximum>
+                  <maximum exclusive="false">24.97</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -534,7 +534,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">0</minimum>
-                  <maximum exclusive="false">1.75</maximum>
+                  <maximum exclusive="false">2.44</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -556,7 +556,7 @@
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">0.06</minimum>
+                  <minimum exclusive="false">0</minimum>
                   <maximum exclusive="false">1.58</maximum>
                 </bounds>
               </numericDomain>
@@ -580,7 +580,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">0</minimum>
-                  <maximum exclusive="false">13.51</maximum>
+                  <maximum exclusive="false">22.1</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -591,7 +591,7 @@
           </missingValueCode>
         </attribute>
       </attributeList>
-      <numberOfRecords>466</numberOfRecords>
+      <numberOfRecords>620</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>

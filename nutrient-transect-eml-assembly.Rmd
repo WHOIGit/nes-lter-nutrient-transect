@@ -35,13 +35,13 @@ setwd(dir)
 This chunk makes a data table by concatenating the specified cruises called from API.
 
 ```{r}
-# List of cruises to acquire from: EN608, EN617, EN627
+# List of cruises to acquire from: EN608, EN617, EN627, EN644
 
 # pull from API if compiled cruise data file doesnt exist
 if (!file.exists("nes-lter-nutrient-transect.csv")) {
 
 # create list of next cruises to concatenate
-cruiselist <- c("en608","en617", "en627")
+cruiselist <- c("en608","en617", "en627", "en644")
 # the other cruises will be added to this first cruise in the following for loop
 previous_cruises <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[1], ".csv"))
 
