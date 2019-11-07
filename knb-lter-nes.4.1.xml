@@ -41,7 +41,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>Metadataprovider</role>
     </associatedParty>
-    <pubDate>2019-11-06</pubDate>
+    <pubDate>2019-11-07</pubDate>
     <abstract>
       <para>
   Dissolved inorganic nutrients are measured from water column bottle
@@ -296,7 +296,7 @@
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
         <size unit="bytes">54513</size>
-        <authentication method="MD5">d93b7ad30b1bd21b9fb420a334a66a6d</authentication>
+        <authentication method="MD5">c093e8275efbccc10d4055fb67895452</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>

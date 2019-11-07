@@ -14,19 +14,22 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 # clear workspace for local development
 rm(list = ls())
 
-# install libraries for EML assembly
-# install.packages("devtools")
-# install_github("EDIorg/EMLassemblyline")
-
-# define R packages to require
-libs <- c("tidyverse", "readxl", "lubridate", "devtools", "EMLassemblyline", "EML")
-# load libraries
-lapply(libs, require, character.only = TRUE)
-
 # assign resused directory to a variable
 dir <- "/Users/jaxinewolfe/Documents/WHOI/NESLTER/nes-lter-nutrient-transect/"
 # set working directory
 setwd(dir)
+
+# define source for functions developed for the EDI packaging workflow
+source("edi-utilities.R")
+
+# install necessary libraries
+# install.packages("devtools")
+# install_github("EDIorg/EMLassemblyline")
+
+# define R packages to require
+libs <- c("tidyverse", "readxl", "lubridate", "devtools", "EMLassemblyline", "EML", "maps", "xml2")
+# load libraries
+lapply(libs, require, character.only = TRUE)
 
 ```
 
@@ -69,46 +72,63 @@ for (k in 2:length(cruiselist)){
   
 ```
 
-## Quality Assurance: Nutrient Check
+## QA: Comparing Old and New Cruises
 ```{r}
+# read in old cruises and subset new cruises read in from updated API
+all_cruises_new <- all_cruises %>% filter(cruise != "EN644")
+all_cruises_old <- read_csv("nes-lter-nutrient-transect-old.csv")
 
-# Mean nutrients
-nut_check <- all_cruises %>% 
-  group_by(cruise) %>%
-  summarise(mean_nitrate_nitrite = mean(nitrate_nitrite),
-            mean_ammonium = mean(ammonium),
-            mean_phosphate = mean(phosphate),
-            mean_silicate = mean(silicate))
-
-# compare between old and new cruises read in from updated API
-# unique(round(all_cruises_old$nitrate_nitrite, 3) == round(all_cruises_new$nitrate_nitrite, 3))
-# unique(round(all_cruises_old$ammonium, 3) == round(all_cruises_new$ammonium, 3))
-# unique(round(all_cruises_old$phosphate, 3) == round(all_cruises_new$phosphate, 3))
-# unique(round(all_cruises_old$silicate, 3) == round(all_cruises_new$silicate, 3))
-# unique(round(all_cruises_old$depth, 1) == round(all_cruises_new$depth, 1))
-```
-
-## Quality Assurance: Map Sampling Locations
-
-```{r}
-library(maps)
-library(dplyr)
-
-nes <- map_data("state") %>% filter(long > -72 & lat < 42)
-
-# plot given coordinates
-ggplot() +
-  geom_polygon(data = nes, mapping = aes(x = long, y = lat, group = group),
-               fill = NA, color = "grey50") +
-  geom_point(all_cruises, mapping = aes(x = longitude, y = latitude, color = cruise),
-            size = 1) + 
-  coord_fixed(1.3) +
-  theme_classic()
-
+# compare between old and new cruises
+unique(round(all_cruises_old$nitrate_nitrite, 3) == round(all_cruises_new$nitrate_nitrite, 3))
+unique(round(all_cruises_old$ammonium, 3) == round(all_cruises_new$ammonium, 3))
+unique(round(all_cruises_old$phosphate, 3) == round(all_cruises_new$phosphate, 3))
+unique(round(all_cruises_old$silicate, 3) == round(all_cruises_new$silicate, 3))
+unique(round(all_cruises_old$depth, 1) == round(all_cruises_new$depth, 1))
 ```
 
 
-## Quality Assurance: Plot nutrients as a check
+## QA: Nutrient Outlier Check
+```{r}
+# define the nutrient outlier columns
+nut_diff_cols <- c("nitrate_nitrite_diff", "phosphate_diff", "ammonium_diff", "silicate_diff")
+
+# calculate the difference between the replicates across all nutrients
+nut_check <- all_cruises %>%
+  group_by(cruise, cast, niskin, depth) %>%
+  mutate(nitrate_nitrite_diff = abs(nitrate_nitrite - lead(nitrate_nitrite)),
+         ammonium_diff = abs(ammonium - lead(ammonium)),
+         phosphate_diff = abs(phosphate - lead(phosphate)),
+         silicate_diff = abs(silicate - lead(silicate))) 
+
+# isolate the outlier value
+# nut_check[which.max(nut_check$nitrate_nitrite_diff),]
+
+# convert to long for ease of plotting
+nut_check_long <- nut_check %>%
+  select(nitrate_nitrite_diff, ammonium_diff, phosphate_diff, silicate_diff) %>%
+  filter(nitrate_nitrite_diff != 0) %>%
+  gather(nutrient_diffs, value, nut_diff_cols, factor_key = TRUE)
+
+# plot the differences and look for outliers
+ggplot(data = nut_check_long, aes(x = nutrient_diffs, y = value)) +
+    geom_boxplot(outlier.size = 0.5) +
+    # scale_x_datetime(date_breaks = "6 weeks") +
+    ylab(paste0("Concentration (µmol/L)")) +
+    theme_classic()
+
+```
+
+## QA: Map Sampling Locations
+
+```{r}
+
+# Map Check
+map_locs(all_cruises, longitude, latitude, region = "transect")
+
+```
+
+
+## QA: Plot nutrients as a check
 
 ```{r}
 
@@ -120,7 +140,8 @@ cruises_long <- all_cruises %>%
 
 for (i in 1:length(nut_cols)) {
   nut_subset <- cruises_long %>% filter(nutrients == nut_cols[i])
-# ggplot where x = cast, y = value and the lineplots are grouped by cruise
+  
+  # ggplot where x = cast, y = value and the lineplots are grouped by cruise
   p <- ggplot(data = nut_subset, aes(x = date, y = value, color = cruise)) +
     geom_boxplot(outlier.size = 0.5) +
     # scale_x_datetime(date_breaks = "6 weeks") +
@@ -131,7 +152,7 @@ for (i in 1:length(nut_cols)) {
 
 ```
 
-## Determine if any nutrients values exceed expectations
+## QA: Determine if any nutrients values exceed expectations
 
 ```{r}
 
@@ -143,125 +164,48 @@ if(any(all_cruises$silicate > 60)) cat("silicate_exceeds")
 
 ```
 
-## Create Template .txt files for EMLassembly
+## EML Assembly
+
+This chunk outputs the final xml file for EDI through the following steps:
+
+Step 1: Populating EML Assembly Line templates with metadata
+Step 2: Calculating the geospatial and temporal coverage 
+Step 3: Making the XML file 
+Step 4: Inserting a custom NES-LTER parent project node 
 
 ```{r}
 
-nutrient_file <- "nes-lter-nutrient-transect"
-info <- "nutrient-transect-info.xlsx"
-# info_sheets <- c("ColumnHeaders", "Personnel", "Keywords", "CustomUnits")
+# define input files
+metadata <- "nutrient-transect-info"
+edi_filename <- "nes-lter-nutrient-transect"
+pkg_id <- "knb-lter-nes.4.1"
 
-# read in nutrient info
-headers <- read_excel(path = paste0(dir, "/", info), 
-                  sheet = "ColumnHeaders", na = "NA")
-personnel <- read_excel(path = paste0(dir, "/", info), 
-                  sheet = "Personnel", na = "NA")
-keywords <- read_excel(path = paste0(dir, "/", info), 
-                  sheet = "Keywords", na = "NA")
-custom_units <- read_excel(path = paste0(dir, "/", info), 
-                  sheet = "CustomUnits", na = "NA")
+# Make EML Templates 
+xlsx_to_template(metadata.path = metadata, 
+                 edi.filename = edi_filename, 
+                 rights = "CC0")
 
-# write info data frames to text files for EML assembly
-write.table(personnel,"personnel.txt", 
-            quote = FALSE, na = "", sep = "\t", row.names = FALSE)
-write.table(headers, paste0("attributes_", nutrient_file, ".txt"), 
-            quote = FALSE, na = "", sep = "\t", row.names = FALSE)
-write.table(keywords,"keywords.txt", 
-            quote = FALSE, na = "", sep = "\t", row.names = FALSE)
-write.table(custom_units,"custom_units.txt", 
-            quote = FALSE, na = "", sep = "\t", row.names = FALSE)
+# Data Coverage
+# isolate date and geospatial columns for input
+date_col <- as.Date(all_cruises$date)
+lat_col <- all_cruises$latitude
+lon_col <- all_cruises$longitude
+# run function to determine geospatial and temporal coverage
+coverage <- data_coverage(dates = date_col, lat = lat_col, lon = lon_col)
 
-```
-
-
-## Construct XML for Nutrient Data
-
-```{r}
-
-nutrient_pkg <- "knb-lter-nes.4.1"
-
-# Import EDI templates for diet dataset licensed under CC0
-import_templates(path = dir,
-                 license = "CC0",
-                 data.files = paste0(nutrient_file, ".csv"))
-# this will not overwrite existing files
-
-# eliminate unneccesary templates
-# bounding_boxes.txt must be eliminated to specify coverage manually
-unlink(c("bounding_boxes.txt", "additional_info.txt"))
-
-# Temporal coverage
-# Will need this in make_eml YYYY-MM-DD
-column_of_dates <- as.Date(all_cruises$date)
-startdate <- min(column_of_dates, na.rm = TRUE)
-enddate <- max(column_of_dates, na.rm = TRUE)
-# temporal.coverage argument is expecting objects of 'character' class, not 'Date'
-startdate_as_character <- as.character(startdate)
-enddate_as_character <- as.character(enddate)
-
-# Geographic coverage
-# Will need this order in make_eml: North, East, South, West
-North <- max(all_cruises$latitude, na.rm = TRUE)
-East <- max(all_cruises$longitude, na.rm = TRUE)
-South <- min(all_cruises$latitude, na.rm = TRUE)
-West <- min(all_cruises$longitude, na.rm = TRUE)
-
-# ensure metadata template txt files are UTF-8 and at specified path
-make_eml(path = dir,
-         data.path = dir,
+# Make EML
+make_eml(path = getwd(),
          dataset.title = "Dissolved inorganic nutrients from NES-LTER Transect cruises, including 4 macro-nutrients from water column bottle samples, ongoing since 2017",
-         data.table = paste0(nutrient_file, ".csv"),
+         data.table = paste0(edi_filename, ".csv"),
          data.table.description = "Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises, ongoing since 2017, including nitrate + nitrite, ammonium, silicate, and phosphate.",
-         temporal.coverage = c(startdate_as_character, enddate_as_character),
+         temporal.coverage = c(coverage$startdate, coverage$enddate),
          geographic.description = "NES-LTER Transect",
-         geographic.coordinates = c(North, East, South, West),
+         geographic.coordinates = c(coverage$North, coverage$East, coverage$South, coverage$West),
          maintenance.description = "ongoing",
          user.id = "NES",
          affiliation = "LTER",
-         package.id = nutrient_pkg)
+         package.id = pkg_id)
 
+# Insert Custom Project Node
+project_insert(edi_pkg = pkg_id)
 ```
-
-## Insert Custom Project Node
-
-Step 1: Read in the xml file and the new xml node
-Step 2: Insert the new node or replace the old node with the new node
-Step 3: Write the modified xml file 
-
-Instructions for node replacement using the xml2 package can be found [here](https://cran.r-project.org/web/packages/xml2/vignettes/modification.html).
-
-```{r}
-# install.packages("xml2")
-library(xml2)
-
-# Function inserts project node after the methods node of an xml document
-project_insert <- function(x, projectnode) {
-  if (is.na(xml_find_first(x, ".//project")) == FALSE) {
-    stop("<project> node already exists")
-  }
-  
-  # find methods node
-  methodsnode <- xml_find_first(x, ".//methods")
-  # add project node after methods and before dataTable
-  xml_add_sibling(methodsnode, projectnode, where = "after")
-  
-  if (eml_validate(x) == FALSE) {
-    warning("XML document not valid")
-  }
-  return(x)
-}
-
-# read in project node
-project_eml <- read_xml("parent_project.txt", from = "xml")
-# read in xml files exported by make_eml
-nutrient_eml <- read_xml(paste0(dir, "/", nutrient_pkg, ".xml"), from = "xml")
-# all objects should be of class c("xml_document" "xml_node")
-
-# make the neccessary modifications
-nutrient_eml_final <- project_insert(nutrient_eml, project_eml)
-
-# write modified xml file
-write_xml(nutrient_eml_final, paste0(dir, "/", nutrient_pkg, ".xml"))
-
-```
-
