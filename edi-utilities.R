@@ -1,8 +1,5 @@
 #### Source Code for Data Publishing ####
 
-dir <- "/Users/jaxinewolfe/Documents/WHOI/NESLTER/edi-utility-functions/"
-setwd(dir)
-
 # Create Template .txt files for EMLassembly ----------
 
 # read in metadata info and import additional templates

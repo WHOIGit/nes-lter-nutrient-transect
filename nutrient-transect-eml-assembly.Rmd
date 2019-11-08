@@ -5,18 +5,17 @@ date: "May 9, 2019"
 output: html_document
 ---
 
-## R Markdown Setup
+## Setup
 
 ```{r setup, include=FALSE}
-# knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
 # clear workspace for local development
 rm(list = ls())
 
-# assign resused directory to a variable
+# assign relative path to directory
 dir <- "/Users/jaxinewolfe/Documents/WHOI/NESLTER/nes-lter-nutrient-transect/"
-# set working directory
+# set as working directory
 setwd(dir)
 
 # define source for functions developed for the EDI packaging workflow
@@ -33,30 +32,30 @@ lapply(libs, require, character.only = TRUE)
 
 ```
 
-## Assemble NES-LTER Cruises 
+## Compile NES-LTER Cruise Data
 
-This chunk makes a data table by concatenating the specified cruises called from API.
+This chunk concatenates a data table of the specified cruises called from the Rest API.
 
 ```{r}
-# List of cruises to acquire from: EN608, EN617, EN627, EN644
 
-# pull from API if compiled cruise data file doesnt exist
+# pull from API if compiled cruise data file doesnt exist in directory
 if (!file.exists("nes-lter-nutrient-transect.csv")) {
-
-# create list of next cruises to concatenate
-cruiselist <- c("en608","en617", "en627", "en644")
-# the other cruises will be added to this first cruise in the following for loop
-previous_cruises <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[1], ".csv"))
-
-for (k in 2:length(cruiselist)){
-  next_cruise <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[k], ".csv"))
-  # bind the next cruise to the compiled cruise dataset
-  all_cruises <- rbind(previous_cruises, next_cruise)
-  # if statment to reset the previous cruises until all cruises are read in
-    if(k < length(cruiselist)) {
-      previous_cruises <- all_cruises
-    }
-}
+  # create list of cruises to acquire data from
+  cruiselist <- c("en608","en617", "en627", "en644")
+  # load in the initial cruise to which the other cruises will be added
+  previous_cruises <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[1], ".csv"))
+  
+  # loop through cruiselist to compile cruise data into one file
+  for (k in 2:length(cruiselist)){
+    next_cruise <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[k], ".csv"))
+    # bind the next cruise to the compiled cruise dataset
+    all_cruises <- rbind(previous_cruises, next_cruise)
+    # if statment to reset the previous cruises until all cruises are read in
+      if(k < length(cruiselist)) {
+        previous_cruises <- all_cruises
+      }
+  }
+  # round the nutrient values to the thousandths place
   all_cruises$nitrate_nitrite <- round(all_cruises$nitrate_nitrite, 3)
   all_cruises$ammonium <- round(all_cruises$ammonium, 3)
   all_cruises$phosphate <- round(all_cruises$phosphate, 3)
@@ -65,14 +64,17 @@ for (k in 2:length(cruiselist)){
   # Output the data table to csv file within the same folder as metadata files
   write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
 } else {
-  # read in fisheries
+  # read in existant data file
   all_cruises <- read_csv("nes-lter-nutrient-transect.csv")
-  # round nutrient decimal places
+  # assumes that nutrient data is already rounded
 }
   
 ```
 
 ## QA: Comparing Old and New Cruises
+
+Check that the updated API hasn't produced data that diverges from a past timepoint. 
+
 ```{r}
 # read in old cruises and subset new cruises read in from updated API
 all_cruises_new <- all_cruises %>% filter(cruise != "EN644")
@@ -84,13 +86,15 @@ unique(round(all_cruises_old$ammonium, 3) == round(all_cruises_new$ammonium, 3))
 unique(round(all_cruises_old$phosphate, 3) == round(all_cruises_new$phosphate, 3))
 unique(round(all_cruises_old$silicate, 3) == round(all_cruises_new$silicate, 3))
 unique(round(all_cruises_old$depth, 1) == round(all_cruises_new$depth, 1))
+# these should all be TRUE
 ```
 
 
 ## QA: Nutrient Outlier Check
+
+Check if there are severe differences in nutrient values between the replicates across cruise, cast, niskin, and depth. Plot these differences to perform a visual check.
+
 ```{r}
-# define the nutrient outlier columns
-nut_diff_cols <- c("nitrate_nitrite_diff", "phosphate_diff", "ammonium_diff", "silicate_diff")
 
 # calculate the difference between the replicates across all nutrients
 nut_check <- all_cruises %>%
@@ -99,9 +103,11 @@ nut_check <- all_cruises %>%
          ammonium_diff = abs(ammonium - lead(ammonium)),
          phosphate_diff = abs(phosphate - lead(phosphate)),
          silicate_diff = abs(silicate - lead(silicate))) 
-
 # isolate the outlier value
 # nut_check[which.max(nut_check$nitrate_nitrite_diff),]
+
+# define the nutrient outlier columns to gather on
+nut_diff_cols <- c("nitrate_nitrite_diff", "phosphate_diff", "ammonium_diff", "silicate_diff")
 
 # convert to long for ease of plotting
 nut_check_long <- nut_check %>%
@@ -120,6 +126,8 @@ ggplot(data = nut_check_long, aes(x = nutrient_diffs, y = value)) +
 
 ## QA: Map Sampling Locations
 
+Call the map_locs function from edi-utility.R to map the sampling locations. Perform a visual check.
+
 ```{r}
 
 # Map Check
@@ -130,14 +138,17 @@ map_locs(all_cruises, longitude, latitude, region = "transect")
 
 ## QA: Plot nutrients as a check
 
-```{r}
+Plot the distribution of nutrient values across all cruises using a boxplot. 
 
+```{r}
+# define the nutrient columns 
 nut_cols <- c("nitrate_nitrite", "phosphate", "ammonium", "silicate")
 
 # convert to long for ease of plotting
 cruises_long <- all_cruises %>%
     gather(nutrients, value, nut_cols, factor_key = TRUE)
 
+# loop through nutrient columns
 for (i in 1:length(nut_cols)) {
   nut_subset <- cruises_long %>% filter(nutrients == nut_cols[i])
   
@@ -152,11 +163,12 @@ for (i in 1:length(nut_cols)) {
 
 ```
 
-## QA: Determine if any nutrients values exceed expectations
+## QA: Determine if any nutrient values exceed expectations
+
+According to a global range check: nitrate less than 30 umol/l and ammonium less than 5 umol/l based on [Rees et al. 2006](https://doi.org/10.1016/j.dsr2.2006.05.008), phosphate less than 3 (no great reference but this appears to be upper for Atlantic), silicate less than 60 (Elements of Physical Oceanography chapter on marine silica cycle, for deep Atlantic, this is probably too high).
 
 ```{r}
 
-# In terms of global range check, I checked the following: nitrate less than 30 umol/l and ammonium less than 5 umol/l (based on Rees et al. 2006 https://doi.org/10.1016/j.dsr2.2006.05.008), phosphate less than 3 (I can't find a good reference quickly but this appears to be upper for Atlantic), silicate less than 60 (Elements of Physical Oceanography chapter on marine silica cycle, for deep Atlantic, this is probably too high). AR24B cast 4 has anomalously high ammonium, with samples 241, 242, and 243 higher than the global range check. Anything special about this cast, or these samples in particular?
 if(any(all_cruises$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds") 
 if(any(all_cruises$ammonium > 5)) cat("ammonium_exceeds")
 if(any(all_cruises$phosphate > 3)) cat("phosphate_exceeds")
