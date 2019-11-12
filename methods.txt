@@ -1,4 +1,4 @@
-# CTD and Rosette Bottle and Bucket Sampling on NES-LTER cruises
+# CTD and Rosette Bottle Sampling on NES-LTER cruises
 
 Samples were collected from the water column at multiple depths using Niskin bottles on a CTD-rosette system.
 
@@ -16,4 +16,4 @@ The data table was made by concatenating cruises called from the REST API of the
 
 # Quality Assurance
 
-We assured that the geographic and temporal coverage of the clean data table were within expected ranges. We performed a range check and visual inspection of plotted values for each nutrient.
+We assured that the geographic and temporal coverage of the clean data table were within expected ranges. For each nutrient we checked differences between replicates, visually inspected plotted values, and performed a range check.

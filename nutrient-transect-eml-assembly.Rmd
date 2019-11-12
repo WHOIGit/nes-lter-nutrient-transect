@@ -131,7 +131,7 @@ Call the map_locs function from edi-utility.R to map the sampling locations. Per
 ```{r}
 
 # Map Check
-map_locs(all_cruises, longitude, latitude, region = "transect")
+map_locs(all_cruises, longitude, latitude, region = "transect", color.by = cruise)
 
 ```
 
@@ -215,7 +215,7 @@ make_eml(path = getwd(),
          geographic.coordinates = c(coverage$North, coverage$East, coverage$South, coverage$West),
          maintenance.description = "ongoing",
          user.id = "NES",
-         affiliation = "LTER",
+         user.domain = "LTER",
          package.id = pkg_id)
 
 # Insert Custom Project Node

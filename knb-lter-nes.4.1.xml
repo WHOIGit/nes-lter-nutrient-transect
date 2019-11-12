@@ -41,7 +41,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>Metadataprovider</role>
     </associatedParty>
-    <pubDate>2019-11-08</pubDate>
+    <pubDate>2019-11-12</pubDate>
     <abstract>
       <para>
   Dissolved inorganic nutrients are measured from water column bottle
@@ -51,15 +51,15 @@
   on R/V Endeavor; sampling frequency is approximately 6 months (summer
   and winter). Samples were filtered, frozen, then processed at the
   Woods Hole Oceanographic Institution’s Nutrient Analytical Facility.
-  Each sample may have up to 3 replicates, indicated by a, b, or c in
-  the data table. These macro-nutrients are analyzed in seawater using a
+  Each sample may have up to 2 replicates, indicated by a or b in the
+  data table. These macro-nutrients are analyzed in seawater using a
   colorimetric assay in which light absorbance is measured versus known
   standards, and final concentrations are calculated in micromole per
   liter.
 </para>
     </abstract>
     <keywordSet>
-      <keyword>inorganic matter</keyword>
+      <keyword>inorganic nutrients</keyword>
       <keywordThesaurus>LTER Core Research Areas</keywordThesaurus>
     </keywordSet>
     <keywordSet>
@@ -131,8 +131,7 @@
       <methodStep>
         <description>
           <section>
-            <title>CTD and Rosette Bottle and Bucket Sampling on NES-LTER
-  cruises</title>
+            <title>CTD and Rosette Bottle Sampling on NES-LTER cruises</title>
             <para>
     Samples were collected from the water column at multiple depths
     using Niskin bottles on a CTD-rosette system.
@@ -184,8 +183,9 @@
             <title>Quality Assurance</title>
             <para>
     We assured that the geographic and temporal coverage of the clean
-    data table were within expected ranges. We performed a range check
-    and visual inspection of plotted values for each nutrient.
+    data table were within expected ranges. For each nutrient we checked
+    differences between replicates, visually inspected plotted values,
+    and performed a range check.
   </para>
           </section>
         </description>
@@ -204,38 +204,20 @@
       </personnel>
       <personnel>
         <individualName>
+          <givenName>Stace</givenName>
+          <surName>Beaulieu</surName>
+        </individualName>
+        <electronicMailAddress>sbeaulieu@whoi.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0002-2609-5453</userId>
+        <role>Co-Principal Investigator</role>
+      </personnel>
+      <personnel>
+        <individualName>
           <givenName>Changsheng</givenName>
           <surName>Chen</surName>
         </individualName>
         <electronicMailAddress>c1chen@umassd.edu</electronicMailAddress>
         <userId directory="https://orcid.org">https://orcid.org/0000-0001-8715-6101</userId>
-        <role>Co-Principal Investigator</role>
-      </personnel>
-      <personnel>
-        <individualName>
-          <givenName>Joel</givenName>
-          <surName>Llopiz</surName>
-        </individualName>
-        <electronicMailAddress>jllopiz@whoi.edu</electronicMailAddress>
-        <userId directory="https://orcid.org">https://orcid.org/0000-0002-7584-7471</userId>
-        <role>Co-Principal Investigator</role>
-      </personnel>
-      <personnel>
-        <individualName>
-          <givenName>Michael</givenName>
-          <surName>Neubert</surName>
-        </individualName>
-        <electronicMailAddress>mneubert@whoi.edu</electronicMailAddress>
-        <userId directory="https://orcid.org">https://orcid.org/0000-0001-8820-5008</userId>
-        <role>Co-Principal Investigator</role>
-      </personnel>
-      <personnel>
-        <individualName>
-          <givenName>Rachel</givenName>
-          <surName>Stanley</surName>
-        </individualName>
-        <electronicMailAddress>rstanle2@wellesley.edu</electronicMailAddress>
-        <userId directory="https://orcid.org">https://orcid.org/0000-0003-4860-2476</userId>
         <role>Co-Principal Investigator</role>
       </personnel>
       <personnel>
@@ -249,20 +231,20 @@
       </personnel>
       <personnel>
         <individualName>
-          <givenName>Stace</givenName>
-          <surName>Beaulieu</surName>
-        </individualName>
-        <electronicMailAddress>sbeaulieu@whoi.edu</electronicMailAddress>
-        <userId directory="https://orcid.org">https://orcid.org/0000-0002-2609-5453</userId>
-        <role>Co-Principal Investigator</role>
-      </personnel>
-      <personnel>
-        <individualName>
           <givenName>Steven</givenName>
           <surName>Lentz</surName>
         </individualName>
         <electronicMailAddress>slentz@whoi.edu</electronicMailAddress>
         <userId directory="https://orcid.org">https://orcid.org/0000-0001-7498-0281</userId>
+        <role>Co-Principal Investigator</role>
+      </personnel>
+      <personnel>
+        <individualName>
+          <givenName>Joel</givenName>
+          <surName>Llopiz</surName>
+        </individualName>
+        <electronicMailAddress>jllopiz@whoi.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0002-7584-7471</userId>
         <role>Co-Principal Investigator</role>
       </personnel>
       <personnel>
@@ -276,11 +258,29 @@
       </personnel>
       <personnel>
         <individualName>
+          <givenName>Michael</givenName>
+          <surName>Neubert</surName>
+        </individualName>
+        <electronicMailAddress>mneubert@whoi.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0001-8820-5008</userId>
+        <role>Co-Principal Investigator</role>
+      </personnel>
+      <personnel>
+        <individualName>
           <givenName>Tatiana</givenName>
           <surName>Rynearson</surName>
         </individualName>
         <electronicMailAddress>rynearson@uri.edu</electronicMailAddress>
         <userId directory="https://orcid.org">https://orcid.org/0000-0003-2951-0066</userId>
+        <role>Co-Principal Investigator</role>
+      </personnel>
+      <personnel>
+        <individualName>
+          <givenName>Rachel</givenName>
+          <surName>Stanley</surName>
+        </individualName>
+        <electronicMailAddress>rstanle2@wellesley.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0003-4860-2476</userId>
         <role>Co-Principal Investigator</role>
       </personnel>
       <abstract>
@@ -375,7 +375,7 @@
         </attribute>
         <attribute>
           <attributeName>date</attributeName>
-          <attributeDefinition>Date and time of rosette bottle sample in UTC</attributeDefinition>
+          <attributeDefinition>Date and time in UTC when rosette bottle closed</attributeDefinition>
           <storageType>date</storageType>
           <measurementScale>
             <dateTime>
