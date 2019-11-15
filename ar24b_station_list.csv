@@ -1,0 +1,19 @@
+stationfullname,station,latitudeN,longitudeW,depth,comment
+LTER Station 1,LTER1,41.13034,-70.829493,,LTER
+LTER Station 3,LTER3,40.80012,-70.828928,,LTER
+OSSM,OSSM,39.939804,-70.884048,,CTD cast with samples for CP04OSSM-00007 
+Glider recover,Glider340,39.994304,-70.779797,,1/2 mile away from Glider 340 recovery site
+Glider deploy,Glider376,40.024797,-70.620453,,1/2 mile away from Glider 376 & 387 deployment site
+Glider recover,Glider336,40.078064,-70.720231,,~1/2 mile away from Glider 336 recovery site & Glider 339 deployment site
+CNSM,CNSM,40.135714,-70.774493,,CTD cast with samples for CP01CNSM-00008
+Glider deploy,Glider388,39.849702,-70.735458,,~1/2 mile away from Gliders 388 and 380 deployment site
+ISSM,ISSM,40.363792,-70.883422,,CTD cast with samples at CP03ISSM-00007 deployment site
+AUV survey,AC-1,39.923143,-70.908225,,AC-1 during AUV survey
+UI,UI,40.365775,-70.773727,,Across Shelf CTD Survey - nitrate samples only
+CS1,CS1,40.293173,-70.774678,,Across Shelf CTD Survey - nitrate samples only
+CS2,CS2,40.219175,-70.775084,,Across Shelf CTD Survey - nitrate samples only
+CN,CN,40.136449,-70.774079,,Across Shelf CTD Survey - nitrate samples only
+CS3,CS3,40.071737,-70.774907,,Across Shelf CTD Survey - nitrate samples only
+CS4,CS4,40.008092,-70.773699,,Across Shelf CTD Survey - nitrate samples only
+UO,UO,39.94075,-70.774306,,Across Shelf CTD Survey - nitrate samples only
+,,,,,
