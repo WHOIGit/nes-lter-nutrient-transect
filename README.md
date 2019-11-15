@@ -11,8 +11,8 @@ This workflow includes the following:
 - Microsoft Excel
 - R and R studio (*packages:* tidyverse, readxl, lubridate, devtools, EMLassemblyline, EML, maps, xml2)
 
-###Collaborators:
+### Collaborators:
 Heidi Sosik (creator), Taylor Crockford (technician), Stace Beaulieu (associate; co-PI for the NES-LTER project), Jaxine Wolfe (associate; metadata provider)
 
-###Package Status:
+### Package Status:
 Not Published
