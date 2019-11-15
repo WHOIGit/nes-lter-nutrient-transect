@@ -41,7 +41,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>Metadataprovider</role>
     </associatedParty>
-    <pubDate>2019-11-12</pubDate>
+    <pubDate>2019-11-13</pubDate>
     <abstract>
       <para>
   Dissolved inorganic nutrients are measured from water column bottle
@@ -102,7 +102,7 @@
       <geographicCoverage>
         <geographicDescription>NES-LTER Transect</geographicDescription>
         <boundingCoordinates>
-          <westBoundingCoordinate>-70.90155</westBoundingCoordinate>
+          <westBoundingCoordinate>-71.068</westBoundingCoordinate>
           <eastBoundingCoordinate>-70.52266</eastBoundingCoordinate>
           <northBoundingCoordinate>41.32464</northBoundingCoordinate>
           <southBoundingCoordinate>39.75764</southBoundingCoordinate>
@@ -111,7 +111,7 @@
       <temporalCoverage>
         <rangeOfDates>
           <beginDate>
-            <calendarDate>2018-01-31</calendarDate>
+            <calendarDate>2017-09-02</calendarDate>
           </beginDate>
           <endDate>
             <calendarDate>2019-08-25</calendarDate>
@@ -295,8 +295,8 @@
       <entityDescription>Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises, ongoing since 2017, including nitrate + nitrite, ammonium, silicate, and phosphate.</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">54513</size>
-        <authentication method="MD5">c093e8275efbccc10d4055fb67895452</authentication>
+        <size unit="bytes">77249</size>
+        <authentication method="MD5">153f0afeb48cc4b6fc5d1a2a168280cf</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -423,7 +423,7 @@
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">-70.9</minimum>
+                  <minimum exclusive="false">-71.07</minimum>
                   <maximum exclusive="false">-70.52</maximum>
                 </bounds>
               </numericDomain>
@@ -447,7 +447,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">1.64</minimum>
-                  <maximum exclusive="false">501.48</maximum>
+                  <maximum exclusive="false">1000.62</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -469,7 +469,7 @@
               <numericDomain>
                 <numberType>natural</numberType>
                 <bounds>
-                  <minimum exclusive="false">279</minimum>
+                  <minimum exclusive="false">7</minimum>
                   <maximum exclusive="false">1585</maximum>
                 </bounds>
               </numericDomain>
@@ -591,7 +591,7 @@
           </missingValueCode>
         </attribute>
       </attributeList>
-      <numberOfRecords>620</numberOfRecords>
+      <numberOfRecords>852</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>

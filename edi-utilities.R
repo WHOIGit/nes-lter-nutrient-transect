@@ -137,7 +137,7 @@ project_insert <- function(edi_pkg) {
 
 # Quality Assurance: Mapping Sample Locations ----------
 
-map_locs <- function(x, longitude, latitude, region, color.by = NULL) {
+map_locs <- function(x, longitude, latitude, region) {
   if (region == "transect") {
     nes_region <- map_data("state") %>% filter(long > -72 & lat < 42)
   }
@@ -148,7 +148,7 @@ map_locs <- function(x, longitude, latitude, region, color.by = NULL) {
   ggplot() +
     geom_polygon(data = nes_region, mapping = aes(x = long, y = lat, group = group),
                  fill = NA, color = "grey50") +
-    geom_point(x, mapping = aes(x = longitude, y = latitude, color = color.by),
+    geom_point(x, mapping = aes(x = longitude, y = latitude, color = cruise),
                size = 1) + 
     coord_fixed(1.3) +
     theme_classic()

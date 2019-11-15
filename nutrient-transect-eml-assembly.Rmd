@@ -37,11 +37,10 @@ lapply(libs, require, character.only = TRUE)
 This chunk concatenates a data table of the specified cruises called from the Rest API.
 
 ```{r}
-
 # pull from API if compiled cruise data file doesnt exist in directory
 if (!file.exists("nes-lter-nutrient-transect.csv")) {
   # create list of cruises to acquire data from
-  cruiselist <- c("en608","en617", "en627", "en644")
+  cruiselist <- c("en608","en617", "en627", "en644", "ar22", "ar32")
   # load in the initial cruise to which the other cruises will be added
   previous_cruises <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[1], ".csv"))
   
@@ -60,6 +59,11 @@ if (!file.exists("nes-lter-nutrient-transect.csv")) {
   all_cruises$ammonium <- round(all_cruises$ammonium, 3)
   all_cruises$phosphate <- round(all_cruises$phosphate, 3)
   all_cruises$silicate <- round(all_cruises$silicate, 3)
+  
+  # reorder columns as necessary
+  all_cruises <- all_cruises[,c("cruise", "cast", "niskin", "date", "latitude", "longitude", 
+                              "depth", "sample_id", "replicate", "nitrate_nitrite", "ammonium", "phosphate", "silicate")]
+  
   # write csv file of concatenated cruises
   # Output the data table to csv file within the same folder as metadata files
   write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
@@ -68,7 +72,66 @@ if (!file.exists("nes-lter-nutrient-transect.csv")) {
   all_cruises <- read_csv("nes-lter-nutrient-transect.csv")
   # assumes that nutrient data is already rounded
 }
-  
+```
+
+Redacted code which pulls in the nearest station for each sample.
+```{r}
+
+# library(plyr)
+# 
+# # pull from API if compiled cruise data file doesnt exist in directory
+# if (!file.exists("nes-lter-nutrient-transect.csv")) {
+#   # create list of cruises to acquire data from
+#   cruiselist <- c("en608","en617", "en627", "en644", "ar22", "ar32")
+#   # load in the initial cruise to which the other cruises will be added
+#   first_cruise <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[1], ".csv"))
+#   # load associated ctd metadata
+#   first_ctd <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/ctd/", cruiselist[1], "/metadata.csv")) %>%
+#     select(-date, -latitude, -longitude)
+#   # merge data frames
+#   prev_all <- left_join(first_cruise, first_ctd, by = c("cruise", "cast"))
+#   
+#   # loop through cruiselist to compile cruise data into one file
+#   for (k in 2:length(cruiselist)){
+#     # read in cruise data
+#     next_cruise <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[k], ".csv"))
+#     # read in ctd metadata
+#     next_ctd <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/ctd/", cruiselist[k], "/metadata.csv")) %>%
+#       select(-date, -latitude, -longitude)
+#     # merge cruies and ctd metadata
+#     next_all <- left_join(next_cruise, next_ctd, by = c("cruise", "cast"))
+#     
+#     # bind the next cruise to the compiled cruise dataset
+#     all_cruises <- rbind.fill(prev_all, next_all)
+#     
+#     # if statment to reset the previous cruises until all cruises are read in
+#       if(k < length(cruiselist)) {
+#         prev_all <- all_cruises
+#       }
+#   }
+#   # round the nutrient values to the thousandths place
+#   all_cruises$nitrate_nitrite <- round(all_cruises$nitrate_nitrite, 3)
+#   all_cruises$ammonium <- round(all_cruises$ammonium, 3)
+#   all_cruises$phosphate <- round(all_cruises$phosphate, 3)
+#   all_cruises$silicate <- round(all_cruises$silicate, 3)
+#   all_cruises$distance_km <- round(all_cruises$distance_km, 2)
+#   
+#   # set missing values in distance to -9999
+#   all_cruises$distance_km[is.na(all_cruises$distance_km)] <- -9999
+#   
+#   # write csv file of concatenated cruises
+#   # Output the data table to csv file within the same folder as metadata files
+#   write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
+# } else {
+#   # read in existant data file
+#   all_cruises <- read_csv("nes-lter-nutrient-transect.csv")
+#   # assumes that nutrient data is already rounded
+# }
+
+# reorder columns as necessary
+all_cruises <- all_cruises[,c("cruise", "cast", "niskin", "date", "latitude", "longitude", 
+                              "depth", "sample_id", "replicate", "nitrate_nitrite", "ammonium", "phosphate", "silicate")]
+
 ```
 
 ## QA: Comparing Old and New Cruises
@@ -131,7 +194,7 @@ Call the map_locs function from edi-utility.R to map the sampling locations. Per
 ```{r}
 
 # Map Check
-map_locs(all_cruises, longitude, latitude, region = "transect", color.by = cruise)
+map_locs(all_cruises, longitude, latitude, region = "transect")
 
 ```
 
