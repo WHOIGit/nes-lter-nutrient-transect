@@ -41,7 +41,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>Metadataprovider</role>
     </associatedParty>
-    <pubDate>2019-11-13</pubDate>
+    <pubDate>2019-11-22</pubDate>
     <abstract>
       <para>
   Dissolved inorganic nutrients are measured from water column bottle
@@ -173,7 +173,16 @@
             <para>
     The data table was made by concatenating cruises called from the
     REST API of the NES-LTER data system. All Below Detection Limit
-    values are set to zero. The data cleaning and metadata template
+    values are set to zero. Nearest station is based on a
+    cruise-specific station list. NES-LTER standard stations L1 to L13
+    are the same for cruises starting with EN617 in August 2018. Prior
+    to this: On AR22 and AR24 the NES-LTER transect was on longitude
+    70.83 W (to the east of present transect). AR22 LTER stations 1, 2,
+    3 corresponded to AR24 LTER stations 1, 3, 5. On EN608 the NES-LTER
+    transect was established on the present longitude 70.8833 W with
+    standard stations L1 to L13; however, on EN608 and AR28 the position
+    for standard station L5 was at a different latitude (1 naut. mile
+    north of present station).The data cleaning and metadata template
     assembly was performed in R Markdown. Further documentation can be
     found on GitHub, at
     https://github.com/WHOIGit/nes-lter-nutrient-transect.
@@ -291,12 +300,12 @@
       </funding>
     </project>
     <dataTable>
-      <entityName>Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises, ongoing since 2017, including nitrate + nitrite, ammonium, silicate, and phosphate.</entityName>
-      <entityDescription>Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises, ongoing since 2017, including nitrate + nitrite, ammonium, silicate, and phosphate.</entityDescription>
+      <entityName>Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises</entityName>
+      <entityDescription>Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
-        <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">77249</size>
-        <authentication method="MD5">153f0afeb48cc4b6fc5d1a2a168280cf</authentication>
+        <objectName>nut_nearest_stations.csv</objectName>
+        <size unit="bytes">142135</size>
+        <authentication method="MD5">79e204aec84108905f48e4b049ac653e</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -581,6 +590,90 @@
                 <bounds>
                   <minimum exclusive="false">0</minimum>
                   <maximum exclusive="false">22.1</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>alternate_sample_id</attributeName>
+          <attributeDefinition>Sample identifier for project other than LTER</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Sample identifier for project other than LTER</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>project_id</attributeName>
+          <attributeDefinition>Project associated with the sample collected</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>LTER</code>
+                    <definition>Long-Term Ecological Research</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>JP</code>
+                    <definition>MIT-WHOI Joint Program</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>nearest_station</attributeName>
+          <attributeDefinition>Nearest station is provided per cruise</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Nearest station is provided per cruise</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>station_distance</attributeName>
+          <attributeDefinition>Distance from sample location to nearest station</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>kilometer</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.03</minimum>
+                  <maximum exclusive="false">20.23</maximum>
                 </bounds>
               </numericDomain>
             </ratio>

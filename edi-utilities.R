@@ -1,6 +1,7 @@
 #### Source Code for Data Publishing ####
 
 # Create Template .txt files for EMLassembly ----------
+# required packages: readxml
 
 # read in metadata info and import additional templates
 # write info data frames to text files for EML assembly
@@ -57,7 +58,7 @@ xlsx_to_template <- function(metadata.path, edi.filename, rights, bbox = FALSE, 
 # run function
 # xlsx_to_template(metadata.path = growgraze_info, edi.filename = growgraze_file, rights = "CCBY")
 
-# Construct EML ----------
+# Define Coverage for make_eml ----------
 
 # date, lat, and lon columns must be identified as input for this function
 # Compiles a list of geographic and temporal coverage
@@ -91,6 +92,7 @@ data_coverage <- function(dates, lat, lon) {
 # coverage <- data_coverage(dates = date_col, lat = lat_col, lon = lon_col)
 
 # Insert Custom Project Node ------------
+# required packages: xml2
 
 # Function inserts project node after the methods node of an xml document
 # requires the existance of a parent_project.txt
@@ -128,7 +130,6 @@ project_insert <- function(edi_pkg) {
 }
 
 ## Example use: 
-
 # read in xml files exported by make_eml
 # growgraze_pkg <- "knb-lter-nes.5.1"
 # all objects should be of class c("xml_document" "xml_node")
@@ -136,26 +137,28 @@ project_insert <- function(edi_pkg) {
 # project_insert(edi_pkg = growgraze_pkg)
 
 # Quality Assurance: Mapping Sample Locations ----------
+# packages required: dplyr, ggplot2, maps
 
-map_locs <- function(x, longitude, latitude, region) {
+map_locs <- function(df, xvar = "longitude", yvar = "latitude", colorvar = "cruise", region = "shelf") {
   if (region == "transect") {
     nes_region <- map_data("state") %>% filter(long > -72 & lat < 42)
   }
   if (region == "shelf") {
     nes_region <- map_data("state") %>% filter(long > -77)
-  }
+  } 
+  
   # Map given coordinates
-  ggplot() +
+  ggplot(df, mapping = aes_string(x = xvar, y = yvar, color = colorvar)) +
+    geom_point(size = 1) + 
     geom_polygon(data = nes_region, mapping = aes(x = long, y = lat, group = group),
                  fill = NA, color = "grey50") +
-    geom_point(x, mapping = aes(x = longitude, y = latitude, color = cruise),
-               size = 1) + 
     coord_fixed(1.3) +
     theme_classic()
 }
 
 # Example code
-# map_locs(x = growgraze_EDI, longitude, latitude, region = "transect", color.by = cruise)
+# map_locs(df = all_cruises, xvar = "longitude", yvar = "latitude", 
+#          region = "transect", colorvar = "cruise")
 
 
 

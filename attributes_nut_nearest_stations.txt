@@ -12,3 +12,7 @@ nitrate_nitrite	Nitrate+nitrite concentration in the water column. URI http://vo
 ammonium	Ammonium concentration in the water column. Does not exactly match URI http://vocab.nerc.ac.uk/collection/P02/current/AMON/	numeric	micromolePerLiter		NaN	Missing value
 phosphate	Phosphate concentration in the water column. URI http://vocab.nerc.ac.uk/collection/P02/current/PHOS/	numeric	micromolePerLiter		NaN	Missing value
 silicate	Silicate concentration in the water column. URI http://vocab.nerc.ac.uk/collection/P02/current/SLCA/	numeric	micromolePerLiter		NaN	Missing value
+alternate_sample_id	Sample identifier for project other than LTER	character			NaN	Missing value
+project_id	Project associated with the sample collected	categorical			NaN	Missing value
+nearest_station	Nearest station is provided per cruise	character			NaN	Missing value
+station_distance	Distance from sample location to nearest station	numeric	kilometer		NaN	Missing value
