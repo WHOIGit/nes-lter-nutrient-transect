@@ -300,8 +300,8 @@
       </funding>
     </project>
     <dataTable>
-      <entityName>Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises</entityName>
-      <entityDescription>Dissolved inorganic nutrients measured from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
+      <entityName>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityName>
+      <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nut_nearest_stations.csv</objectName>
         <size unit="bytes">142135</size>
