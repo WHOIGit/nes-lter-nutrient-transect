@@ -9,7 +9,7 @@ depth	Depth of sample below sea surface. URI http://vocab.nerc.ac.uk/collection/
 sample_id	Identifier for subsample drawn from rosette bottle	numeric	dimensionless		NaN	Missing value
 replicate	Lowercase letter indicating replicate subsample drawn from the same rosette bottle	character			NaN	Missing value
 nitrate_nitrite	Nitrate+nitrite concentration in the water column. URI http://vocab.nerc.ac.uk/collection/P02/current/NTRA/	numeric	micromolePerLiter		NaN	Missing value
-ammonium	Ammonium concentration in the water column. Does not exactly match URI http://vocab.nerc.ac.uk/collection/P02/current/AMON/	numeric	micromolePerLiter		NaN	Missing value
+ammonium	Ammonium concentration in the water column	numeric	micromolePerLiter		NaN	Missing value
 phosphate	Phosphate concentration in the water column. URI http://vocab.nerc.ac.uk/collection/P02/current/PHOS/	numeric	micromolePerLiter		NaN	Missing value
 silicate	Silicate concentration in the water column. URI http://vocab.nerc.ac.uk/collection/P02/current/SLCA/	numeric	micromolePerLiter		NaN	Missing value
 alternate_sample_id	Sample identifier for project other than LTER	character			NaN	Missing value

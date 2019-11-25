@@ -46,16 +46,14 @@
       <para>
   Dissolved inorganic nutrients are measured from water column bottle
   samples taken on NES-LTER Transect cruises (ongoing since 2017) and
-  include nitrate + nitrite, ammonium, silicate, and phosphate. This
-  version of the data package is specific to NES-LTER Transect cruises
-  on R/V Endeavor; sampling frequency is approximately 6 months (summer
-  and winter). Samples were filtered, frozen, then processed at the
-  Woods Hole Oceanographic Institution’s Nutrient Analytical Facility.
-  Each sample may have up to 2 replicates, indicated by a or b in the
-  data table. These macro-nutrients are analyzed in seawater using a
-  colorimetric assay in which light absorbance is measured versus known
-  standards, and final concentrations are calculated in micromole per
-  liter.
+  include nitrate + nitrite, ammonium, silicate, and phosphate. Sampling
+  frequency is approximately seasonal. Samples were filtered, frozen,
+  then processed at the Woods Hole Oceanographic Institution’s Nutrient
+  Analytical Facility. Each sample may have up to 2 replicates,
+  indicated by a or b in the data table. These macro-nutrients are
+  analyzed in seawater using a colorimetric assay in which light
+  absorbance is measured versus known standards, and final
+  concentrations are calculated in micromole per liter.
 </para>
     </abstract>
     <keywordSet>
@@ -308,9 +306,9 @@
       <entityName>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityName>
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
-        <objectName>nut_nearest_stations.csv</objectName>
-        <size unit="bytes">142135</size>
-        <authentication method="MD5">79e204aec84108905f48e4b049ac653e</authentication>
+        <objectName>nes-lter-nutrient-transect.csv</objectName>
+        <size unit="bytes">93536</size>
+        <authentication method="MD5">c76dae85c19dd19bcb3e4b337f411dc0</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -537,7 +535,7 @@
         </attribute>
         <attribute>
           <attributeName>ammonium</attributeName>
-          <attributeDefinition>Ammonium concentration in the water column. Does not exactly match URI http://vocab.nerc.ac.uk/collection/P02/current/AMON/</attributeDefinition>
+          <attributeDefinition>Ammonium concentration in the water column</attributeDefinition>
           <storageType>float</storageType>
           <measurementScale>
             <ratio>
@@ -677,7 +675,7 @@
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">0.03</minimum>
+                  <minimum exclusive="false">0.02</minimum>
                   <maximum exclusive="false">20.23</maximum>
                 </bounds>
               </numericDomain>

@@ -47,12 +47,15 @@ if (!file.exists("nut_nearest_stations.csv")) {
   round_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth", "station_distance")
   # round columns
   all_cruises[, round_cols] <- round(all_cruises[, round_cols], 3)
+  
+  # write csv
+  write.csv(all_cruises, "nes-lter-nutrient-transect.csv", row.names = FALSE)
 }
 ```
 
 ## QA: Comparing Old and New Cruises
 
-Check that the updated API hasn't produced data that diverges from a past timepoint. 
+Check that the updated API hasn't produced data that diverges from a past timepoint. If there is no output, the data has passed the comparison test.
 
 ```{r}
 # define columns to compare
@@ -166,6 +169,13 @@ if(any(all_cruises$silicate > 60)) cat("silicate_exceeds")
 
 ```
 
+## QA: Station Distance Outliers
+```{r}
+# isolate samples that were taken at a distance greater than 2km from the nearest station
+st_dist_outliers <- all_cruises %>% filter(station_distance > 2)
+
+```
+
 ## EML Assembly
 
 This chunk outputs the final xml file for EDI through the following steps:
@@ -179,7 +189,7 @@ Step 4: Inserting a custom NES-LTER parent project node
 
 # define input files
 metadata <- "nutrient-transect-info"
-edi_filename <- "nut_nearest_stations"
+edi_filename <- "nes-lter-nutrient-transect"
 pkg_id <- "knb-lter-nes.4.1"
 
 # Make EML Templates 
