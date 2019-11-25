@@ -26,138 +26,17 @@ source("edi-utilities.R")
 # install_github("EDIorg/EMLassemblyline")
 
 # define R packages to require
-libs <- c("tidyverse", "readxl", "lubridate", "devtools", "EMLassemblyline", "EML", "maps", "xml2", "reticulate")
+libs <- c("tidyverse", "readxl", "lubridate", "devtools", "EMLassemblyline", "EML", "maps", "xml2")
 # load libraries
 lapply(libs, require, character.only = TRUE)
 
 ```
 
-## Compile NES-LTER Cruise Data (REDACTED)
-
-REDACTED because the cruise data is compiled using a Python script that additionally determines the project ID, nearest station, and station distance.
-
-This chunk concatenates a data table of the specified cruises called from the Rest API. 
-
-```{r}
-
-# library(plyr)
-
-# pull from API if compiled cruise data file doesnt exist in directory
-# if (!file.exists("nes-lter-nutrient-transect.csv")) {
-#   # create list of cruises to acquire data from
-#   cruiselist <- c("en608","en617", "en627", "en644", "ar22", "ar32")
-#   # load in the initial cruise to which the other cruises will be added
-#   first_cruise <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[1], ".csv"))
-#   # load associated ctd metadata
-#   first_ctd <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/ctd/", cruiselist[1], "/metadata.csv")) %>%
-#     select(-date, -latitude, -longitude)
-#   # merge data frames
-#   prev_all <- left_join(first_cruise, first_ctd, by = c("cruise", "cast"))
-# 
-#   # loop through cruiselist to compile cruise data into one file
-#   for (k in 2:length(cruiselist)){
-#     # read in cruise data
-#     next_cruise <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/nut/", cruiselist[k], ".csv"))
-#     # read in ctd metadata
-#     next_ctd <- read_csv(paste0("https://nes-lter-data.whoi.edu/api/ctd/", cruiselist[k], "/metadata.csv")) %>%
-#       select(-date, -latitude, -longitude)
-#     # merge cruies and ctd metadata
-#     next_all <- left_join(next_cruise, next_ctd, by = c("cruise", "cast"))
-# 
-#     # bind the next cruise to the compiled cruise dataset
-#     all_cruises <- rbind(prev_all, next_all)
-# 
-#     # if statment to reset the previous cruises until all cruises are read in
-#       if(k < length(cruiselist)) {
-#         prev_all <- all_cruises
-#       }
-#   }
-#   # round the nutrient values to the thousandths place
-#   all_cruises$nitrate_nitrite <- round(all_cruises$nitrate_nitrite, 3)
-#   all_cruises$ammonium <- round(all_cruises$ammonium, 3)
-#   all_cruises$phosphate <- round(all_cruises$phosphate, 3)
-#   all_cruises$silicate <- round(all_cruises$silicate, 3)
-#   all_cruises$distance_km <- round(all_cruises$distance_km, 2)
-# 
-#   # set missing values in distance to -9999
-#   all_cruises$distance_km[is.na(all_cruises$distance_km)] <- -9999
-# 
-#   # write csv file of concatenated cruises
-#   # Output the data table to csv file within the same folder as metadata files
-#   write.csv(all_cruises, 'nes-lter-nutrient-transect.csv', row.names=FALSE)
-# } else {
-#   # read in existant data file
-#   all_cruises <- read_csv("nes-lter-nutrient-transect.csv")
-#   # assumes that nutrient data is already rounded
-# }
-
-```
-
-## Evaluate Python Script to Generate Compiled Cruise Data
-IN PROGRESS. Alternative sample ID, project ID, nearest station, and station distance were determined for each sample using python script from a Jupyter Notebook developed by Joe Futrelle. This output was saved as a csv in the working directory and will now be input. 
-
 Note: geopy is required to run this snippet
-```{python}
-# py_eval(
-# import pandas as pd
-#     
-# def get_cruise_stations(cruise):
-#     url = 'https://nes-lter-data.whoi.edu/api/stations/{}.csv'.format(cruise)
-#     return pd.read_csv(url)
-#     
-# from geopy.distance import distance as geo_distance
-# 
-# class StationLocator(object):
-#     def __init__(self, cruise):
-#         self.station_metadata = get_cruise_stations(cruise.lower())
-# 
-#     def station_distances(self, lat, lon):
-#         distances = []
-#         index = []
-#         for station in self.station_metadata.itertuples():
-#             index.append(station.Index)
-#             distance = geo_distance([lat,lon], [station.latitude, station.longitude]).km
-#             distances.append(distance)
-#         distances = pd.Series(distances, index=index)
-#         return distances
-# 
-#     def nearest_station(self, lat, lon):
-#         distances = self.station_distances(lat, lon)
-#         i = distances.idxmin()
-#         distance = distances.loc[i]
-#         station_name = self.station_metadata['name'][i]
-#         return station_name, distance
-#     
-#     def nearest_stations(self, df, lat_col='latitude', lon_col='longitude'):
-#         names, distances, index = [], [], []
-#         for row in df.itertuples():
-#             lat = getattr(row, lat_col)
-#             lon = getattr(row, lon_col)
-#             name, distance = self.nearest_station(lat, lon)
-#             names.append(name)
-#             distances.append(distance)
-#         df = df.copy()
-#         df['nearest_station'] = names
-#         df['station_distance'] = distances
-#         return df
-#     
-#     def nut_nearest_stations(cruise):
-#         url = 'https://nes-lter-data.whoi.edu/api/nut/{}.csv'.format(cruise.lower())
-#         nut = pd.read_csv(url)
-#         locator = StationLocator(cruise)
-#         return locator.nearest_stations(nut)
-#         
-#     cruises = ['en608','en617','en627', 'en644', 'ar22', 'ar32']
-#     result = pd.concat([nut_nearest_stations(cruise) for cruise in cruises])    
-#     
-#     OUTPUT_FILE = 'nut_nearest_stations.csv'
-#     result.to_csv(OUTPUT_FILE, index=None)
-#   )
-```
 
 ## Read in Compiled Cruise Data
 
-This chunk loads in the cruise data compiled by nearest_station_generalized.ipynb
+This chunk loads in the cruise data compiled from the REST API by nearest_station_generalized.ipynb, a python script run in a Jupyter Notebook which determines alternative sample ID, project ID, nearest station, and station distance (developed by Joe Futrelle). This output was saved as a csv in the working directory which is read by this chunk.
 ```{r}
 
 if (!file.exists("nut_nearest_stations.csv")) {
