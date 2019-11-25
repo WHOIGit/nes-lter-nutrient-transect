@@ -55,29 +55,29 @@ if (!file.exists("nut_nearest_stations.csv")) {
 
 ## QA: Comparing Old and New Cruises
 
-Check that the updated API hasn't produced data that diverges from a past timepoint. If there is no output, the data has passed the comparison test.
+Check that the updated API hasn't produced data that diverges from a past timepoint. If there is no output, the data has passed the comparison test. UPDATE: Test passed, code commented out.
 
 ```{r}
-# define columns to compare
-num_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth")
-
-# subset new cruises read in from updated API
-all_cruises_new <- all_cruises %>% 
-  filter(cruise != "EN644" & cruise != "AR22" & cruise !=  "AR32") %>%
-  select(num_cols)
-# read in old cruises
-all_cruises_old <- read_csv("nes-lter-nutrient-transect-old.csv") %>%
-  select(num_cols)
-
-for (i in 1:length(num_cols)) {
-  val_check <- round(all_cruises_new[,i], 3) == round(all_cruises_old[,i], 3)
-  
-  # report if any fail the check
-  if (isTRUE("FALSE" %in% val_check)) {
-    print(paste0(names(all_cruises_new[,i]), " contains a mismatch at row(s): ", 
-                 match("FALSE", val_check)))
-  }
-}
+# # define columns to compare
+# num_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth")
+# 
+# # subset new cruises read in from updated API
+# all_cruises_new <- all_cruises %>% 
+#   filter(cruise != "EN644" & cruise != "AR22" & cruise !=  "AR32") %>%
+#   select(num_cols)
+# # read in old cruises
+# all_cruises_old <- read_csv("nes-lter-nutrient-transect-old.csv") %>%
+#   select(num_cols)
+# 
+# for (i in 1:length(num_cols)) {
+#   val_check <- round(all_cruises_new[,i], 3) == round(all_cruises_old[,i], 3)
+#   
+#   # report if any fail the check
+#   if (isTRUE("FALSE" %in% val_check)) {
+#     print(paste0(names(all_cruises_new[,i]), " contains a mismatch at row(s): ", 
+#                  match("FALSE", val_check)))
+#   }
+# }
 
 ```
 
