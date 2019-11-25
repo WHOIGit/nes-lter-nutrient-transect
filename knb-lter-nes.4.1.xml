@@ -41,7 +41,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>Metadataprovider</role>
     </associatedParty>
-    <pubDate>2019-11-22</pubDate>
+    <pubDate>2019-11-25</pubDate>
     <abstract>
       <para>
   Dissolved inorganic nutrients are measured from water column bottle
@@ -134,21 +134,25 @@
             <title>CTD and Rosette Bottle Sampling on NES-LTER cruises</title>
             <para>
     Samples were collected from the water column at multiple depths
-    using Niskin bottles on a CTD-rosette system.
+    using Niskin bottles on a CTD rosette system. Some samples were
+    collected at the surface with a bucket.
   </para>
           </section>
           <section>
             <title>Nutrient Filtering Protocol</title>
             <para>
-    Wearing nitrile gloves, connect filter (AcroPak 200 Capsule with
-    Super Membrane 0.2 um) with barb and tubing to Niskin spigot and
-    fill with water. Rinse/flush filter with 3 times the volume of the
-    filter. Then, without touching filter to sample vial (acid-washed
-    scintillation vial 20mL), triple rinse sample vial and take sample
-    (rinse vial and cap 3 times, then fill ~17 ml directly into the
-    sample vial). Store samples in a -20 deg C freezer and keep frozen
-    until analysis. If applicable, flush filter with milli-Q water and
-    dry air for using on next cast (filter may process up to 20 liters).
+    Wearing nitrile gloves, connect filter (2018 to present: AcroPak 200
+    Capsule with Super Membrane 0.2 um) with barb and tubing to Niskin
+    spigot and fill with water. (Prior to 2018: Fill a B-D 60 ml
+    LUER-LOKTM syringe, shake and discard 3 times, then attach EMD
+    Millipore sterile Sterivex with 0.22 um filter.) Rinse/flush filter
+    with 3 times the volume of the filter. Then, without touching filter
+    to sample vial (acid-washed scintillation vial 20mL), triple rinse
+    sample vial and take sample (rinse vial and cap 3 times, then fill
+    ~17 ml directly into the sample vial). Store samples in a -20 deg C
+    freezer and keep frozen until analysis. If applicable, flush filter
+    with milli-Q water and dry air for using on next cast (AcroPak
+    filter may process up to 20 liters).
   </para>
           </section>
           <section>
@@ -182,8 +186,9 @@
     transect was established on the present longitude 70.8833 W with
     standard stations L1 to L13; however, on EN608 and AR28 the position
     for standard station L5 was at a different latitude (1 naut. mile
-    north of present station).The data cleaning and metadata template
-    assembly was performed in R Markdown. Further documentation can be
+    north of present station). Data assembly was performed using Jupyter
+    Notebook with Python, and data cleaning and metadata template
+    assembly were performed in R Markdown. Further documentation can be
     found on GitHub, at
     https://github.com/WHOIGit/nes-lter-nutrient-transect.
   </para>
@@ -388,7 +393,7 @@
           <storageType>date</storageType>
           <measurementScale>
             <dateTime>
-              <formatString>YYYY-MM-DD hh:mm:ss</formatString>
+              <formatString>YYYY-MM-DD hh:mm:ss+hh:mm</formatString>
               <dateTimeDomain/>
             </dateTime>
           </measurementScale>

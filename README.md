@@ -10,6 +10,9 @@ This workflow includes the following:
 **Base Requirements:**
 - Microsoft Excel
 - R and R studio (*packages:* tidyverse, readxl, lubridate, devtools, EMLassemblyline, EML, maps, xml2)
+- Python 3.6+ (*libraries:* pandas, geopy)
+- Anaconda
+- Jupiter Notebook
 
 ### Collaborators:
 Heidi Sosik (creator), Taylor Crockford (technician), Joe Futrelle (python script provider), Stace Beaulieu (associate; co-PI for the NES-LTER project), Jaxine Wolfe (associate; metadata provider)
