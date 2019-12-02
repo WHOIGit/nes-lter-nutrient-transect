@@ -48,6 +48,9 @@ if (!file.exists("nut_nearest_stations.csv")) {
   # round columns
   all_cruises[, round_cols] <- round(all_cruises[, round_cols], 3)
   
+  # reorder by ascending cruise date
+  all_cruises <- all_cruises[with(all_cruises, order(date)),]
+  
   # write csv
   write.csv(all_cruises, "nes-lter-nutrient-transect.csv", row.names = FALSE)
 }
@@ -195,7 +198,8 @@ pkg_id <- "knb-lter-nes.4.1"
 # Make EML Templates 
 xlsx_to_template(metadata.path = metadata, 
                  edi.filename = edi_filename, 
-                 rights = "CC0")
+                 rights = "CC0",
+                 other.info = TRUE)
 
 # Data Coverage
 # isolate date and geospatial columns for input

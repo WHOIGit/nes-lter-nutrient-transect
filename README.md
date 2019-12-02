@@ -3,9 +3,10 @@
 This repository displays the workflow used to process the NES-LTER nutrient transect cruise data in preparation for publication to the Environmental Data Initiative repository. This data collection is ongoing since 2017.
 
 This workflow includes the following:
-1) cleans the provided data
-2) performs quality assurance on the data
-3) assembles and outputs the final XML file for submission to EDI
+1) compiles cruise data from the [REST API](https://github.com/WHOIGit/nes-lter-ims/wiki/Using-REST-API) and supplies useful fields for the end user
+2) cleans the provided data
+3) performs quality assurance on the data
+4) assembles and outputs the final XML file for submission to EDI
 
 **Base Requirements:**
 - Microsoft Excel
