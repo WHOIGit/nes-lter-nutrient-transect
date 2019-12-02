@@ -45,8 +45,10 @@ if (!file.exists("nut_nearest_stations.csv")) {
 
   # define columns to round
   round_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth", "station_distance")
-  # round columns
+  # round nutrient, distance, and depth columns
   all_cruises[, round_cols] <- round(all_cruises[, round_cols], 3)
+  # round lat and lon columns
+  all_cruises[, c("latitude", "longitude")] <- round(all_cruises[, c("latitude", "longitude")], 4)
   
   # reorder by ascending cruise date
   all_cruises <- all_cruises[with(all_cruises, order(date)),]

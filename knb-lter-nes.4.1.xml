@@ -108,9 +108,9 @@
         <geographicDescription>NES-LTER Transect</geographicDescription>
         <boundingCoordinates>
           <westBoundingCoordinate>-71.068</westBoundingCoordinate>
-          <eastBoundingCoordinate>-70.52266</eastBoundingCoordinate>
-          <northBoundingCoordinate>41.32464</northBoundingCoordinate>
-          <southBoundingCoordinate>39.75764</southBoundingCoordinate>
+          <eastBoundingCoordinate>-70.5227</eastBoundingCoordinate>
+          <northBoundingCoordinate>41.3246</northBoundingCoordinate>
+          <southBoundingCoordinate>39.7576</southBoundingCoordinate>
         </boundingCoordinates>
       </geographicCoverage>
       <temporalCoverage>
@@ -324,8 +324,8 @@
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">93536</size>
-        <authentication method="MD5">2e0de6b1529b8228503f5f29fac60756</authentication>
+        <size unit="bytes">90423</size>
+        <authentication method="MD5">282336cc3cd3114a41c8c505692fcdcf</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
