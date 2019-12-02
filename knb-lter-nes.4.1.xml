@@ -77,6 +77,13 @@
       <keyword>Silicate</keyword>
       <keywordThesaurus>Global Change Master Directory (GCMD)</keywordThesaurus>
     </keywordSet>
+    <additionalInfo>
+      <para>
+  This data package includes data from MIT-WHOI Joint Program (JP)
+  cruises funded by WHOI Academic Programs Office, with Chief Scientists
+  Glen Gawarkiewicz (AR22) and Joel Llopiz (AR32).
+</para>
+    </additionalInfo>
     <intellectualRights>
       <para>
   This data package is released to the "public domain" under
@@ -318,7 +325,7 @@
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
         <size unit="bytes">93536</size>
-        <authentication method="MD5">c76dae85c19dd19bcb3e4b337f411dc0</authentication>
+        <authentication method="MD5">2e0de6b1529b8228503f5f29fac60756</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
