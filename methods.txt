@@ -1,12 +1,14 @@
-# CTD and Rosette Bottle Sampling on NES-LTER cruises
+# CTD Rosette Bottle and Bucket Sampling on NES-LTER cruises
 
 Samples were collected from the water column at multiple depths using Niskin bottles on a CTD rosette system. Some samples were collected at the surface with a bucket.
 
 # Nutrient Filtering Protocol
 
-Wearing nitrile gloves, prior to 2018: Fill a B-D 60 ml LUER-LOKTM syringe with approximately 10 ml of water and partially insert plunger. Shake vigorously to cleanse the inside of the syringe and discard water. Repeat 3 times. Completely fill syringe with sample. Insert the plunger and remove any air in the syringe. Attach a EMD Millipore sterile Sterivex 0.22 um filter to the syringe. Advance the plunger and force 60 ml of water through the filter to rinse the filter of any previous sample; 2018 to present: connect AcroPak 200 Capsule with Super Membrane 0.2 um filter with barb and tubing to Niskin spigot and fill with water. Rinse filter with 3 times the volume of the filter.
+Prior to 2018, and for bucket samples: Wearing nitrile gloves, collect water from the niskin or bucket with a clean bottle that is rinsed 3 times with the sample water. Rinse the full length of a B-D 60 ml LUER-LOKTM syringe with a small volume of sample water 3 times. Completely fill syringe with sample water and force 60 ml through a EMD Millipore sterile Sterivex 0.22 um filter. Then refill the syringe.
 
-After rinsing the filter, refill the filter (prior to 2018: syringe). Then, without touching filter to sample vial (acid-washed scintillation vial 20 ml), triple rinse sample vial with 5 ml of filtered water. For each rinse, replace the cap and shake vigorously. Filter 17 ml of sample directly into the sample vial and replace the cap and proceed to the next sample. Store samples in a -20 deg C freezer and keep frozen until analysis. If applicable, flush AcroPak filter with milli-Q water and air dry for using on next cast (AcroPak filter may process up to 20 liters).
+2018 to present: Wearing nitrile gloves, connect AcroPak 200 Capsule with Super Membrane 0.2 um filter with barb and tubing to niskin spigot and fill with water. Rinse filter with 3 times the volume of the filter. Then refill the filter.
+
+All samples: Then, without touching filter to sample vial (acid-washed scintillation vial 20 ml), rinse sample vial with 5 ml of filtered water 3 times. For each rinse, replace the cap and shake vigorously. Filter 17 ml of sample directly into the sample vial and replace the cap and proceed to the next sample. Store samples in a -20 deg C freezer and keep frozen until analysis. If applicable, flush AcroPak filter with milli-Q water and air dry for using on next cast (AcroPak filter may process up to 20 liters).
 
 # WHOI Nutrient Facility Nutrient Analysis
 
