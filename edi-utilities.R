@@ -160,5 +160,73 @@ map_locs <- function(df, xvar = "longitude", yvar = "latitude", colorvar = "crui
 # map_locs(df = all_cruises, xvar = "longitude", yvar = "latitude", 
 #          region = "transect", colorvar = "cruise")
 
+read_from_api <- function(type, cruises) {
+  # expand the cruises into a dataframe (avoids nested for loops)
+  z <- expand.grid(cruises)
+  
+  # read in data based on the specified source
+  if (type == "metadata") {
+    urls <- paste0("https://nes-lter-data.whoi.edu/api/ctd/", z$Var1, "/metadata.csv")
+    urls <- unlist(urls)
+  }
+  if (type == "summary") {
+    urls <- paste0("https://nes-lter-data.whoi.edu/api/ctd/", z$Var1, "/bottle_summary.csv")
+    urls <- unlist(urls)
+  }
+  if (type == "nutrient") {
+    urls <- paste0("https://nes-lter-data.whoi.edu/api/nut/", z$Var1, ".csv")
+    urls <- unlist(urls)
+  }
+  if (type == "chl") {
+    urls <- paste0("https://nes-lter-data.whoi.edu/api/chl/", z$Var1, ".csv")
+    urls <- unlist(urls)
+  }
+  if (type == "bottles") {
+    urls <- paste0("https://nes-lter-data.whoi.edu/api/ctd/", z$Var1, "/bottles.csv")
+    urls <- unlist(urls)
+  }
+  if (type == "stations") {
+    urls <- paste0("https://nes-lter-data.whoi.edu/api/stations/", z$Var1, ".csv")
+    urls <- unlist(urls)
+  }
+  
+  ## Cruise Compilation ##
+  # case: more than one cruise given
+  if (length(cruises) > 1) {
+    # begin compilation  
+    prev_cruise <- read_csv(urls[1])
+    
+    if (isFALSE("cruise" %in% names(prev_cruise))) {
+      prev_cruise$cruise <- toupper(cruises[1])
+    }
+    
+    # loop through urls to compile cruise data into one file
+    for (k in 2:length(urls)){
+      # read in data per cruise
+      next_cruise <- read_csv(urls[k])
+      
+      if (isFALSE("cruise" %in% names(next_cruise))) {
+        next_cruise$cruise <- toupper(cruises[k])
+      }
+      
+      # bind the next cruise to the compiled cruise dataset
+      all <- plyr::rbind.fill(prev_cruise, next_cruise)
+      
+      # if statment to reset the previous cruises until all cruises are read in
+      if(k < length(urls)) {
+        prev_cruise <- all
+      }
+    }
+    return(all)
+    
+    # case: only one cruise is given
+  } else {
+    all <- read_csv(urls)
+    return(all)
+  }
+}
 
+# Example code
+# cruises <- c("en608","en617", "en627")
+# ctd_metadata <- read_from_api(type = "metadata", cruises = cruises)
 
