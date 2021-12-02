@@ -161,7 +161,7 @@ map_locs <- function(df, xvar = "longitude", yvar = "latitude", colorvar = "crui
 #          region = "transect", colorvar = "cruise")
 
 api_list_cruises <- function() {
-  return(fromJSON(file="https://nes-lter-data.whoi.edu/api/cruises"))
+  return(fromJSON(file="https://nes-lter-data.whoi.edu/api/cruises")$cruises)
 }
 
 read_from_api <- function(type, cruises) {
