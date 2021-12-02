@@ -35,43 +35,17 @@ lapply(libs, require, character.only = TRUE)
 ## Read in Compiled Cruise Data
 
 This chunk loads in the cruise data compiled from the REST API by nearest_station_generalized.ipynb, a python script run in a Jupyter Notebook which determines alternative sample ID, project ID, nearest station, and station distance (developed by Joe Futrelle). This output was saved as a csv in the working directory which is read by this chunk.
-```{r}
-
-if (!file.exists("nut_nearest_stations.csv")) {
-  print("Run nearest_station_generalized.ipynb to generate compiled cruise output")
-} else {
-  # read in existant data file
-  all_cruises <- read_csv("nut_nearest_stations.csv")
-
-  # define columns to round
-  round_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth", "station_distance")
-  # round nutrient, distance, and depth columns
-  all_cruises[, round_cols] <- round(all_cruises[, round_cols], 3)
-  # round lat and lon columns
-  all_cruises[, c("latitude", "longitude")] <- round(all_cruises[, c("latitude", "longitude")], 4)
-  
-  # reorder by ascending cruise date
-  all_cruises <- all_cruises[with(all_cruises, order(date)),]
-  
-  # write csv
-  write.csv(all_cruises, "nes-lter-nutrient-transect.csv", row.names = FALSE)
-}
-```
 
 ```{r}
-cruise_list = c('AR22', 'AR24A', 'AR24B', 'AR24C', 'AR28A', 'AR28B', 'AR31A',
-       'AR31B', 'AR31C', 'AR32', 'AR34A', 'AR34B', 'AR38', 'AR39B',
-       'EN608', 'EN617', 'EN627', 'EN644', 'EN649', 'EN655', 'EN657')
-# FIXME remove cruises before 11/2019
+cruise_list <- api_list_cruises()
 
 all_cruises <- NA
 for(cruise_id in cruise_list) {
   cruise_id <- str_to_lower(cruise_id)
   nut_url <- glue::glue('{base_api_url}/nut/{cruise_id}.csv')
-  cruise_nut <- NA
-  cruise_nut <- read_csv(nut_url)
-  if(!is.na(cruise_nut)) {
-    print(nut_url)
+  print(nut_url)
+  cruise_nut <- tryCatch(read_csv(nut_url), error=function(cond) { NA })
+  if(nrow(cruise_nut) > 0 && !is.na(cruise_nut)) {
     if(is.na(all_cruises)) {
       all_cruises <- cruise_nut
     } else {
@@ -84,6 +58,16 @@ for(cruise_id in cruise_list) {
 ```{r}
 all_cruises <- all_cruises[order(all_cruises$date), ]
 all_cruises <- all_cruises %>% filter(date < '2019-11-01')
+
+# define columns to round
+round_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth", "distance_km")
+# round nutrient, distance, and depth columns
+all_cruises[, round_cols] <- round(all_cruises[, round_cols], 3)
+# round lat and lon columns
+all_cruises[, c("latitude", "longitude")] <- round(all_cruises[, c("latitude", "longitude")], 4)
+
+# write csv
+  write.csv(all_cruises, "nes-lter-nutrient-transect.csv", row.names = FALSE)
 ```
 
 
