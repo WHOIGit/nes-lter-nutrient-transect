@@ -13,20 +13,20 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 # clear workspace for local development
 rm(list = ls())
 
-# assign relative path to directory
-dir <- "/Users/jaxinewolfe/Documents/WHOI/NESLTER/nes-lter-nutrient-transect/"
-# set as working directory
-setwd(dir)
+require(here)
+
 
 # define source for functions developed for the EDI packaging workflow
-source("edi-utilities.R")
+source(here("edi-utilities.R"))
+
+base_api_url <- 'https://nes-lter-data.whoi.edu/api'
 
 # install necessary libraries
 # install.packages("devtools")
 # install_github("EDIorg/EMLassemblyline")
 
 # define R packages to require
-libs <- c("tidyverse", "readxl", "lubridate", "devtools", "EMLassemblyline", "EML", "maps", "xml2")
+libs <- c("tidyverse", "readxl", "lubridate", "devtools", "EMLassemblyline", "EML", "maps", "xml2", "rjson")
 # load libraries
 lapply(libs, require, character.only = TRUE)
 
@@ -58,32 +58,32 @@ if (!file.exists("nut_nearest_stations.csv")) {
 }
 ```
 
-## QA: Comparing Old and New Cruises
+```{r}
+cruise_list = c('AR22', 'AR24A', 'AR24B', 'AR24C', 'AR28A', 'AR28B', 'AR31A',
+       'AR31B', 'AR31C', 'AR32', 'AR34A', 'AR34B', 'AR38', 'AR39B',
+       'EN608', 'EN617', 'EN627', 'EN644', 'EN649', 'EN655', 'EN657')
+# FIXME remove cruises before 11/2019
 
-Check that the updated API hasn't produced data that diverges from a past timepoint. If there is no output, the data has passed the comparison test. UPDATE: Test passed, code commented out.
+all_cruises <- NA
+for(cruise_id in cruise_list) {
+  cruise_id <- str_to_lower(cruise_id)
+  nut_url <- glue::glue('{base_api_url}/nut/{cruise_id}.csv')
+  cruise_nut <- NA
+  cruise_nut <- read_csv(nut_url)
+  if(!is.na(cruise_nut)) {
+    print(nut_url)
+    if(is.na(all_cruises)) {
+      all_cruises <- cruise_nut
+    } else {
+      all_cruises <- plyr::rbind.fill(all_cruises, cruise_nut)
+    }
+  }
+}
+```
 
 ```{r}
-# # define columns to compare
-# num_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth")
-# 
-# # subset new cruises read in from updated API
-# all_cruises_new <- all_cruises %>% 
-#   filter(cruise != "EN644" & cruise != "AR22" & cruise !=  "AR32") %>%
-#   select(num_cols)
-# # read in old cruises
-# all_cruises_old <- read_csv("nes-lter-nutrient-transect-old.csv") %>%
-#   select(num_cols)
-# 
-# for (i in 1:length(num_cols)) {
-#   val_check <- round(all_cruises_new[,i], 3) == round(all_cruises_old[,i], 3)
-#   
-#   # report if any fail the check
-#   if (isTRUE("FALSE" %in% val_check)) {
-#     print(paste0(names(all_cruises_new[,i]), " contains a mismatch at row(s): ", 
-#                  match("FALSE", val_check)))
-#   }
-# }
-
+all_cruises <- all_cruises[order(all_cruises$date), ]
+all_cruises <- all_cruises %>% filter(date < '2019-11-01')
 ```
 
 
@@ -177,7 +177,7 @@ if(any(all_cruises$silicate > 60)) cat("silicate_exceeds")
 ## QA: Station Distance Outliers
 ```{r}
 # isolate samples that were taken at a distance greater than 2km from the nearest station
-st_dist_outliers <- all_cruises %>% filter(station_distance > 2)
+st_dist_outliers <- all_cruises %>% filter(distance_km > 2)
 
 ```
 
