@@ -1,7 +1,7 @@
 #### Source Code for Data Publishing ####
 
 # Create Template .txt files for EMLassembly ----------
-# required packages: readxml
+# required packages: readxml, rjson
 
 # read in metadata info and import additional templates
 # write info data frames to text files for EML assembly
@@ -159,6 +159,10 @@ map_locs <- function(df, xvar = "longitude", yvar = "latitude", colorvar = "crui
 # Example code
 # map_locs(df = all_cruises, xvar = "longitude", yvar = "latitude", 
 #          region = "transect", colorvar = "cruise")
+
+api_list_cruises <- function() {
+  return(fromJSON(file="https://nes-lter-data.whoi.edu/api/cruises"))
+}
 
 read_from_api <- function(type, cruises) {
   # expand the cruises into a dataframe (avoids nested for loops)
