@@ -179,7 +179,7 @@ Step 4: Inserting a custom NES-LTER parent project node
 # define input files
 metadata <- "nutrient-transect-info"
 edi_filename <- "nes-lter-nutrient-transect"
-pkg_id <- "knb-lter-nes.4.1"
+pkg_id <- "knb-lter-nes.4.2"
 
 # Make EML Templates 
 xlsx_to_template(metadata.path = metadata, 
