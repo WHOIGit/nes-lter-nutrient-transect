@@ -66,6 +66,10 @@ all_cruises[, round_cols] <- round(all_cruises[, round_cols], 3)
 # round lat and lon columns
 all_cruises[, c("latitude", "longitude")] <- round(all_cruises[, c("latitude", "longitude")], 4)
 
+# remove OOI data
+
+all_cruises <- all_cruises %>% filter(project_id != "OOI")
+
 # write csv
   write.csv(all_cruises, "nes-lter-nutrient-transect.csv", row.names = FALSE)
 ```
