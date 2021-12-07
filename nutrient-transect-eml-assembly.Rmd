@@ -57,7 +57,6 @@ for(cruise_id in cruise_list) {
 
 ```{r}
 all_cruises <- all_cruises[order(all_cruises$date), ]
-all_cruises <- all_cruises %>% filter(date < '2019-11-01')
 
 # define columns to round
 round_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth", "distance_km")
