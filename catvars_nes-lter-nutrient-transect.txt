@@ -1,4 +1,3 @@
 attributeName	code	definition
 project_id	LTER	Long-Term Ecological Research
 project_id	JP	MIT-WHOI Joint Program
-project_id	OOI	Ocean Observatories Initiative

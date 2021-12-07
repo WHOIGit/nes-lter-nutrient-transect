@@ -15,4 +15,4 @@ silicate	Silicate concentration in the water column. URI http://vocab.nerc.ac.uk
 alternate_sample_id	Sample identifier for project other than LTER	character			NaN	Missing value
 project_id	Project associated with the sample collected	categorical			NaN	Missing value
 nearest_station	Nearest station is provided per cruise	character			NaN	Missing value
-distance_km	Distance from sample location to nearest station	numeric	kilometer		NaN	Missing value
+station_distance	Distance from sample location to nearest station	numeric	kilometer		NaN	Missing value

@@ -1,4 +1,4 @@
-"cruise","cast","niskin","date","latitude","longitude","depth","sample_id","replicate","nitrate_nitrite","ammonium","phosphate","silicate","alternate_sample_id","project_id","nearest_station","distance_km"
+"cruise","cast","niskin","date","latitude","longitude","depth","sample_id","replicate","nitrate_nitrite","ammonium","phosphate","silicate","alternate_sample_id","project_id","nearest_station","station_distance"
 "AR22",1,1,2017-09-02 15:24:59,41.1298,-70.8313,27.739,7,"a",0,0.79,0.093,2.175,NA,"JP","JP1",0.113
 "AR22",1,1,2017-09-02 15:24:59,41.1298,-70.8313,27.739,8,"b",0,0.454,0.094,2.195,NA,"JP","JP1",0.113
 "AR22",1,2,2017-09-02 15:27:23,41.1298,-70.8313,20.7,9,"a",0,0.572,0.107,0.768,NA,"JP","JP1",0.113

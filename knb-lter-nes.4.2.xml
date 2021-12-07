@@ -224,8 +224,8 @@
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">202186</size>
-        <authentication method="MD5">6ac29c53d455ea1ac0a66fd5fc08c02d</authentication>
+        <size unit="bytes">202191</size>
+        <authentication method="MD5">c8b04c93860ae578513319103f01d1fe</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -553,10 +553,6 @@
                     <code>JP</code>
                     <definition>MIT-WHOI Joint Program</definition>
                   </codeDefinition>
-                  <codeDefinition>
-                    <code>OOI</code>
-                    <definition>Ocean Observatories Initiative</definition>
-                  </codeDefinition>
                 </enumeratedDomain>
               </nonNumericDomain>
             </nominal>
@@ -585,7 +581,7 @@
           </missingValueCode>
         </attribute>
         <attribute>
-          <attributeName>distance_km</attributeName>
+          <attributeName>station_distance</attributeName>
           <attributeDefinition>Distance from sample location to nearest station</attributeDefinition>
           <storageType>float</storageType>
           <measurementScale>
