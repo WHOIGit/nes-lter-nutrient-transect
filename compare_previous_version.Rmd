@@ -8,6 +8,7 @@ output: html_notebook
 ```{r}
 require(compareDF)
 library(here)
+library(readr)
 
 # read locally-produced v2 table
 v2 = read_csv(here('nes-lter-nutrient-transect.csv'))
