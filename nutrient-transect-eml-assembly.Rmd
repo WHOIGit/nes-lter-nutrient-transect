@@ -34,7 +34,7 @@ lapply(libs, require, character.only = TRUE)
 
 ## Read in Compiled Cruise Data
 
-This chunk loads in the cruise data compiled from the REST API by nearest_station_generalized.ipynb, a python script run in a Jupyter Notebook which determines alternative sample ID, project ID, nearest station, and station distance (developed by Joe Futrelle). This output was saved as a csv in the working directory which is read by this chunk.
+This chunk loads in the cruise data compiled from the REST API.
 
 ```{r}
 cruise_list <- api_list_cruises()
@@ -156,6 +156,7 @@ for (i in 1:length(nut_cols)) {
 According to a global range check: nitrate less than 30 umol/l and ammonium less than 5 umol/l based on [Rees et al. 2006](https://doi.org/10.1016/j.dsr2.2006.05.008), phosphate less than 3 (no great reference but this appears to be upper for Atlantic), silicate less than 60 (Elements of Physical Oceanography chapter on marine silica cycle, for deep Atlantic, this is probably too high).
 
 ```{r}
+summary(all_cruises) # visual min max for all columns
 
 if(any(all_cruises$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds") 
 if(any(all_cruises$ammonium > 5)) cat("ammonium_exceeds")
