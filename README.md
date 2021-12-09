@@ -11,12 +11,9 @@ This workflow includes the following:
 **Base Requirements:**
 - Microsoft Excel
 - R and R studio (*packages:* tidyverse, readxl, lubridate, devtools, EMLassemblyline, EML, maps, xml2)
-- Python 3.6+ (*libraries:* pandas, geopy)
-- Anaconda
-- Jupyter Notebook
 
 ### Collaborators:
-Heidi Sosik (creator), Taylor Crockford (technician), Joe Futrelle (python script provider), Stace Beaulieu (associate; co-PI for the NES-LTER project), Jaxine Wolfe (associate; metadata provider)
+Heidi Sosik (creator), Taylor Crockford (technician), Joe Futrelle (developer), Stace Beaulieu (associate; co-PI for the NES-LTER project), Jaxine Wolfe (associate; metadata provider)
 
 ### Package Status:
 The first version of this data package is published to the EDI repository and can be found [here](https://doi.org/10.6073/pasta/ef03b9f0d7acf5a6ac532eff09f448fd).
