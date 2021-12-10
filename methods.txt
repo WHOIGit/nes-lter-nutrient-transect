@@ -8,7 +8,7 @@ Prior to 2018, and for bucket samples: Wearing nitrile gloves, collect water fro
 
 2018 to present: Wearing nitrile gloves, connect AcroPak 200 Capsule with Super Membrane 0.2 um filter with barb and tubing to niskin spigot and fill with water. Rinse filter with 3 times the volume of the filter. Then refill the filter.
 
-All samples: Then, without touching filter to sample vial (acid-washed scintillation vial 20 ml), rinse sample vial with 5 ml of filtered water 3 times. For each rinse, replace the cap and shake vigorously. Filter 17 ml of sample directly into the sample vial and replace the cap and proceed to the next sample. Store samples in a -20 deg C freezer and keep frozen until analysis. If applicable, flush AcroPak filter with milli-Q water and air dry for using on next cast (AcroPak filter may process up to 20 liters).
+All samples: Then, without touching filter to sample vial (acid-washed scintillation vial 20 ml), rinse sample vial with 5 ml of filtered water 3 times. For each rinse, replace the cap and shake vigorously. Filter 17 ml of sample directly into the sample vial and replace the cap and proceed to the next sample. Store samples in a -20 deg C freezer and keep frozen until analysis. If applicable, flush AcroPak filter with milli-Q water and refrigerate for using on next cast (AcroPak filter may process up to 20 liters).
 
 # WHOI Nutrient Facility Nutrient Analysis
 
