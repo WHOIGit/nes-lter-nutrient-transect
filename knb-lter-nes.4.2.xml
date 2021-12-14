@@ -241,8 +241,8 @@
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">199828</size>
-        <authentication method="MD5">e9c6dbf07dc95e8ed52c2977292163c6</authentication>
+        <size unit="bytes">200933</size>
+        <authentication method="MD5">d1aeb390bb4309d29e596763efee52cf</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
