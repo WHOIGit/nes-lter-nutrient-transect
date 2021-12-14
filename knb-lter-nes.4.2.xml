@@ -131,7 +131,7 @@
           <para># WHOI Nutrient Facility Nutrient Analysis</para>
           <para>Samples are stored at -20 deg C until submitted to the Woods Hole Oceanographic Institution's Nutrient Analytical Facility (https://web.whoi.edu/nutrient/) which operates a four-channel segmented flow SEAL AA3 HR Autoanalyzer. Duplicates and spiked additions are run for quality control. Standards are made daily and Certified Reference material is run daily to ensure the standards and/or reagents are good. If the samples fall outside of the duplicate or spike addition quality control they are rerun until they fall within quality control parameters. Precision is 1e-03 microMolePerLiter. Please refer to the Facility's website for current detection limits which are different depending on the nutrient.</para>
           <para># Nutrient Data Cleaning</para>
-          <para>The data table was made by concatenating cruises called from the REST API of the NES-LTER data system. All Below Detection Limit values are set to zero. Nearest station is based on a cruise-specific station list. NES-LTER standard stations L1 to L13 are the same for cruises starting with EN617 in August 2018. Prior to this: the NES-LTER transect was established on the present longitude 70.8833 W on EN608; however, on EN608 and AR28 the position for standard station L5 was 1 naut. mile north of present station L5. Data assembly, cleaning, and metadata template assembly were performed in R Markdown. Additional nutrients data for Ocean Observatories Initiative (OOI) cruises on R/V Neil Armstrong are available from the OOI Alfresco document server (Coastal Pioneer Array &gt; Cruise Data &gt; select a cruise &gt; Ship Data &gt; Water Sampling). Further documentation can be found on GitHub, at https://github.com/WHOIGit/nes-lter-nutrient-transect.</para>
+          <para>The data table was made by concatenating cruises called from the REST API of the NES-LTER data system. All Below Detection Limit values are set to zero. Nearest station is based on a cruise-specific station list. NES-LTER standard stations L1 to L13 are the same for cruises starting with EN617 in August 2018. Prior to this: the NES-LTER transect was established on the present longitude 70.8833 W on EN608; however, the position for standard station L5 was 1 naut. mile north of present station L5. The station list for EN608 was used for cruises prior to EN608. Data assembly, cleaning, and metadata template assembly were performed in R Markdown. Additional nutrients data for Ocean Observatories Initiative (OOI) cruises on R/V Neil Armstrong are available from the OOI Alfresco document server (Coastal Pioneer Array &gt; Cruise Data &gt; select a cruise &gt; Ship Data &gt; Water Sampling). Further documentation can be found on GitHub, at https://github.com/WHOIGit/nes-lter-nutrient-transect.</para>
           <para># Quality Assurance</para>
           <para>We assured that the geographic and temporal coverage of the clean data table were within expected ranges. No values changed as compared to the previous version of this data package. For each nutrient we checked differences between replicates, visually inspected plotted values, and performed a range check.</para>
         </description>
@@ -241,8 +241,8 @@
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">200588</size>
-        <authentication method="MD5">685e34d136b9b3508f48f1141ba4f9dc</authentication>
+        <size unit="bytes">199828</size>
+        <authentication method="MD5">e9c6dbf07dc95e8ed52c2977292163c6</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
