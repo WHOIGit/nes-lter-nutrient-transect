@@ -167,9 +167,9 @@ if(any(all_cruises$silicate > 60)) cat("silicate_exceeds")
 
 ## QA: Station Distance Outliers
 ```{r}
-# isolate samples that were taken at a distance greater than 2km from the nearest station
-st_dist_outliers <- all_cruises %>% filter(station_distance > 2)
-
+# fill outliers for station_distance > 2km with NA
+all_cruises$nearest_station[all_cruises$station_distance > 2] <- NA
+all_cruises$station_distance[all_cruises$station_distance > 2] <- NA
 ```
 
 ## EML Assembly

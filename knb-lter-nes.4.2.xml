@@ -58,7 +58,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>metadataProvider</role>
     </associatedParty>
-    <pubDate>2021-12-10</pubDate>
+    <pubDate>2021-12-14</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle samples taken on NES-LTER Transect cruises (ongoing since 2017) and include nitrate + nitrite, ammonium, silicate, and phosphate. Sampling frequency is approximately seasonal. Samples were filtered, frozen, then processed at the Woods Hole Oceanographic Institution’s Nutrient Analytical Facility. Each sample may have up to 2 replicates, indicated by a or b in the data table. These macro-nutrients are analyzed in seawater using a colorimetric assay in which light absorbance is measured versus known standards, and final concentrations are calculated in micromole per liter.</para>
     </abstract>
@@ -241,8 +241,8 @@
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">202191</size>
-        <authentication method="MD5">c8b04c93860ae578513319103f01d1fe</authentication>
+        <size unit="bytes">202025</size>
+        <authentication method="MD5">1f8a7845b9de5a1f83aef64d71d5f87f</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -610,7 +610,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">0.001</minimum>
-                  <maximum exclusive="false">20.234</maximum>
+                  <maximum exclusive="false">105.837</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
