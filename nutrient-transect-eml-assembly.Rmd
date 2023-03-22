@@ -10,20 +10,17 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
-# clear workspace for local development
-rm(list = ls())
-
 library(EMLassemblyline)
 library(ediutilities)
 library(here)
 library(lubridate)
 library(tidyverse)
-require(readxl)
-require(lubridate)
-require(devtools)
-require(EML)
-require(maps)
-require(xml2)
+library(readxl)
+library(lubridate)
+library(devtools)
+library(EML)
+library(maps)
+library(xml2)
 
 base_api_url <- 'https://nes-lter-data.whoi.edu/api'
 
@@ -85,6 +82,7 @@ all_cruises$station_distance[all_cruises$station_distance > 2] <- NA
 
 # write csv
 write.csv(all_cruises, "nes-lter-nutrient-transect.csv", row.names = FALSE, quote = FALSE)
+
 ```
 
 ## QA: Nutrient Outlier Check
@@ -189,7 +187,7 @@ Step 4: Inserting a custom NES-LTER parent project node
 # define input files
 metadata <- "nutrient-transect-info"
 edi_filename <- "nes-lter-nutrient-transect"
-pkg_id <- "knb-lter-nes.4.2"
+pkg_id <- "knb-lter-nes.4.3"
 
 # Make EML Templates 
 excel_to_template(here(metadata), edi_filename, rights='CC0')
