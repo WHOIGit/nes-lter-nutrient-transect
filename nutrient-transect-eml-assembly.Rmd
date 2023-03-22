@@ -10,25 +10,23 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
-# clear workspace for local development
-rm(list = ls())
-
-require(here)
-
-
-# define source for functions developed for the EDI packaging workflow
-source(here("edi-utilities.R"))
+library(EMLassemblyline)
+library(ediutilities)
+library(here)
+library(lubridate)
+library(tidyverse)
+library(readxl)
+library(lubridate)
+library(devtools)
+library(EML)
+library(maps)
+library(xml2)
 
 base_api_url <- 'https://nes-lter-data.whoi.edu/api'
 
 # install necessary libraries
 # install.packages("devtools")
 # install_github("EDIorg/EMLassemblyline")
-
-# define R packages to require
-libs <- c("tidyverse", "readxl", "lubridate", "devtools", "EMLassemblyline", "EML", "maps", "xml2", "rjson")
-# load libraries
-lapply(libs, require, character.only = TRUE)
 
 ```
 
@@ -40,13 +38,19 @@ This chunk loads in the cruise data compiled from the REST API.
 cruise_list <- api_list_cruises()
 
 all_cruises <- NA
+print(cruise_list)
 for(cruise_id in cruise_list) {
   cruise_id <- str_to_lower(cruise_id)
   nut_url <- glue::glue('{base_api_url}/nut/{cruise_id}.csv')
   print(nut_url)
-  cruise_nut <- tryCatch(read_csv(nut_url), error=function(cond) { NA })
+
+  cruise_nut <- tryCatch(read_csv(nut_url), 
+                 error=function(cond) 
+                     { message(cond)
+                       return(NA) })
+
   if(nrow(cruise_nut) > 0 && !is.na(cruise_nut)) {
-    if(is.na(all_cruises)) {
+    if(length(all_cruises) == 1 && is.na(all_cruises)) {
       all_cruises <- cruise_nut
     } else {
       all_cruises <- plyr::rbind.fill(all_cruises, cruise_nut)
@@ -77,9 +81,9 @@ all_cruises$nearest_station[all_cruises$station_distance > 2] <- NA
 all_cruises$station_distance[all_cruises$station_distance > 2] <- NA
 
 # write csv
-  write.csv(all_cruises, "nes-lter-nutrient-transect.csv", row.names = FALSE)
-```
+write.csv(all_cruises, "nes-lter-nutrient-transect.csv", row.names = FALSE, quote = FALSE)
 
+```
 
 ## QA: Nutrient Outlier Check
 
@@ -183,13 +187,10 @@ Step 4: Inserting a custom NES-LTER parent project node
 # define input files
 metadata <- "nutrient-transect-info"
 edi_filename <- "nes-lter-nutrient-transect"
-pkg_id <- "knb-lter-nes.4.2"
+pkg_id <- "knb-lter-nes.4.3"
 
 # Make EML Templates 
-xlsx_to_template(metadata.path = metadata, 
-                 edi.filename = edi_filename, 
-                 rights = "CC0",
-                 other.info = TRUE)
+excel_to_template(here(metadata), edi_filename, rights='CC0')
 
 # Data Coverage
 # isolate date and geospatial columns for input
@@ -202,6 +203,7 @@ coverage <- data_coverage(dates = date_col, lat = lat_col, lon = lon_col)
 # Make EML
 make_eml(path = here(),
          dataset.title = "Dissolved inorganic nutrients from NES-LTER Transect cruises, including 4 macro-nutrients from water column bottle samples, ongoing since 2017",
+         data.table.name = edi_filename,
          data.table = paste0(edi_filename, ".csv"),
          data.table.description = "Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises",
          temporal.coverage = c(coverage$startdate, coverage$enddate),
