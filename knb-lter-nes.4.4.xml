@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="knb-lter-nes.4.3" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd" system="edi">
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="knb-lter-nes.4.4" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd" system="edi">
   <access authSystem="https://pasta.edirepository.org/authentication" order="allowFirst" scope="document">
     <allow>
       <principal>uid=NES,o=LTER,dc=ecoinformatics,dc=org</principal>
@@ -58,7 +58,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>metadataProvider</role>
     </associatedParty>
-    <pubDate>2024-04-29</pubDate>
+    <pubDate>2024-04-30</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle samples taken on NES-LTER Transect cruises (ongoing since 2017) and include nitrate + nitrite, ammonium, silicate, and phosphate. Sampling frequency is approximately seasonal. Samples were filtered, frozen, then processed at the Woods Hole Oceanographic Institution’s Nutrient Analytical Facility. Each sample may have up to 2 replicates, indicated by a or b in the data table. These macro-nutrients are analyzed in seawater using a colorimetric assay in which light absorbance is measured versus known standards, and final concentrations are calculated in micromole per liter.</para>
     </abstract>
