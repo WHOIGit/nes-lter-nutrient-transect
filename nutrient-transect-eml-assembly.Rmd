@@ -47,9 +47,9 @@ for(cruise_id in cruise_list) {
   cruise_nut <- tryCatch(read_csv(nut_url), 
                  error=function(cond) 
                      { message(cond)
-                       return(NA) })
+                       return(NULL) })
 
-  if(nrow(cruise_nut) > 0 && !is.na(cruise_nut)) {
+  if(nrow(cruise_nut) > 0 && !is.null(cruise_nut)) {
     if(length(all_cruises) == 1 && is.na(all_cruises)) {
       all_cruises <- cruise_nut
     } else {
@@ -187,7 +187,7 @@ Step 4: Inserting a custom NES-LTER parent project node
 # define input files
 metadata <- "nutrient-transect-info"
 edi_filename <- "nes-lter-nutrient-transect"
-pkg_id <- "knb-lter-nes.4.3"
+pkg_id <- "knb-lter-nes.4.4"
 
 # Make EML Templates 
 excel_to_template(here(metadata), edi_filename, rights='CC0')

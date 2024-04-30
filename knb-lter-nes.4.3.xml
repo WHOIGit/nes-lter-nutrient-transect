@@ -58,7 +58,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>metadataProvider</role>
     </associatedParty>
-    <pubDate>2023-03-22</pubDate>
+    <pubDate>2024-04-29</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle samples taken on NES-LTER Transect cruises (ongoing since 2017) and include nitrate + nitrite, ammonium, silicate, and phosphate. Sampling frequency is approximately seasonal. Samples were filtered, frozen, then processed at the Woods Hole Oceanographic Institution’s Nutrient Analytical Facility. Each sample may have up to 2 replicates, indicated by a or b in the data table. These macro-nutrients are analyzed in seawater using a colorimetric assay in which light absorbance is measured versus known standards, and final concentrations are calculated in micromole per liter.</para>
     </abstract>
@@ -87,7 +87,7 @@
       <para>This data package includes data from MIT-WHOI Joint Program (JP) cruises funded by WHOI Academic Programs Office, with Chief Scientists Glen Gawarkiewicz (AR22 and AR38) and Joel Llopiz (AR32). We'd like to thank the Ocean Observatories Initiative (OOI) for collaboration on other cruises on R/V Neil Armstrong included in this package.</para>
     </additionalInfo>
     <intellectualRights>
-      <para>This data package is released to the public domain under Creative Commons CC0 1.0 No Rights Reserved (see: https://creativecommons.org/publicdomain/zero/1.0/). It is considered professional etiquette to provide attribution of the original work if this data package is shared in whole or by individual components. A generic citation is provided for this data package on the website https://portal.edirepository.org (herein "website") in the summary metadata page. Communication (and collaboration) with the creators of this data package is recommended to prevent duplicate research or publication. This data package (and its components) is made available as is and with no warranty of accuracy or fitness for use. The creators of this data package and the website shall not be liable for any damages resulting from misinterpretation or misuse of the data package or its components. Periodic updates of this data package may be available from the website. Thank you.
+      <para>This data package is released to the "public domain" under Creative Commons CC0 1.0 "No Rights Reserved" (see: https://creativecommons.org/publicdomain/zero/1.0/). It is considered professional etiquette to provide attribution of the original work if this data package is shared in whole or by individual components. A generic citation is provided for this data package on the website https://portal.edirepository.org (herein "website") in the summary metadata page. Communication (and collaboration) with the creators of this data package is recommended to prevent duplicate research or publication. This data package (and its components) is made available "as is" and with no warranty of accuracy or fitness for use. The creators of this data package and the website shall not be liable for any damages resulting from misinterpretation or misuse of the data package or its components. Periodic updates of this data package may be available from the website. Thank you.
 </para>
     </intellectualRights>
     <coverage>
@@ -95,8 +95,8 @@
         <geographicDescription>NES-LTER Transect</geographicDescription>
         <boundingCoordinates>
           <westBoundingCoordinate>-71.068</westBoundingCoordinate>
-          <eastBoundingCoordinate>-70.5227</eastBoundingCoordinate>
-          <northBoundingCoordinate>41.3246</northBoundingCoordinate>
+          <eastBoundingCoordinate>-70.5626</eastBoundingCoordinate>
+          <northBoundingCoordinate>41.3274</northBoundingCoordinate>
           <southBoundingCoordinate>39.7576</southBoundingCoordinate>
         </boundingCoordinates>
       </geographicCoverage>
@@ -106,7 +106,7 @@
             <calendarDate>2017-09-02</calendarDate>
           </beginDate>
           <endDate>
-            <calendarDate>2022-04-27</calendarDate>
+            <calendarDate>2023-08-12</calendarDate>
           </endDate>
         </rangeOfDates>
       </temporalCoverage>
@@ -241,8 +241,8 @@
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">248607</size>
-        <authentication method="MD5">89c3b917231d12dd32afbed9eab67281</authentication>
+        <size unit="bytes">317729</size>
+        <authentication method="MD5">475435e7a2ff19d59a1fd9eb58bd1bd5</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -309,7 +309,7 @@
                 <numberType>natural</numberType>
                 <bounds>
                   <minimum exclusive="false">1</minimum>
-                  <maximum exclusive="false">23</maximum>
+                  <maximum exclusive="false">24</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -347,7 +347,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">39.7576</minimum>
-                  <maximum exclusive="false">41.3246</maximum>
+                  <maximum exclusive="false">41.3274</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -370,7 +370,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">-71.068</minimum>
-                  <maximum exclusive="false">-70.5227</maximum>
+                  <maximum exclusive="false">-70.5626</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -416,7 +416,7 @@
                 <numberType>natural</numberType>
                 <bounds>
                   <minimum exclusive="false">7</minimum>
-                  <maximum exclusive="false">3829</maximum>
+                  <maximum exclusive="false">4115</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -457,7 +457,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">0</minimum>
-                  <maximum exclusive="false">25.718</maximum>
+                  <maximum exclusive="false">27.321</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -621,7 +621,7 @@
           </missingValueCode>
         </attribute>
       </attributeList>
-      <numberOfRecords>2519</numberOfRecords>
+      <numberOfRecords>3230</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>
