@@ -80,6 +80,53 @@ all_cruises <- all_cruises %>% filter(project_id != "OOI")
 all_cruises$nearest_station[all_cruises$station_distance > 2] <- NA
 all_cruises$station_distance[all_cruises$station_distance > 2] <- NA
 
+```
+## Read in Sosik data that are not out put from API because they lack Niskin metadata 
+
+```{r}
+
+# samples that do not have metadata output from API
+# Read in the samples lacking bottle metadata csv file.
+# If the entry exists in all_cruises, copy pertinent data from the samples file
+# to all_cruises. If the entry does not exist in all_cruises, do not add it to 
+# all_cruises because the nutient data is missing from the samples file.
+
+need_metadata <-read_csv('samples_lacking_bottle_metadata-v2.csv')
+need_metadata <- need_metadata %>%
+  mutate(chl = round(chl, 3)) %>% 
+  mutate(phaeo = round(phaeo, 3)) 
+
+need_metadata$date <- as.POSIXct(need_metadata$date, tz = "GMT", "%m/%d/%Y %H:%M")
+
+all_cruises$cast <- as.character(all_cruises$cast)
+need_metadata$cast <- as.character(need_metadata$cast)
+all_cruises$niskin <- as.character(all_cruises$niskin)
+need_metadata$niskin <- as.character(need_metadata$niskin)
+
+# Fill in row data from need_metadata for rows found in all_cruises
+all_cruises$key <- with(all_cruises, paste(cruise, cast, niskin, replicate, sep = "_"))
+need_metadata$key <- with(need_metadata, paste(cruise, cast, niskin, replicate, sep = "_"))
+
+indices <- match(all_cruises$key, need_metadata$key)
+
+all_cruises$date[!is.na(indices)] <- need_metadata$date[indices[!is.na(indices)]]
+all_cruises$latitude[!is.na(indices)] <- need_metadata$latitude[indices[!is.na(indices)]]
+all_cruises$longitude[!is.na(indices)] <- need_metadata$longitude[indices[!is.na(indices)]]
+all_cruises$depth[!is.na(indices)] <- need_metadata$depth[indices[!is.na(indices)]]
+all_cruises$project_id[!is.na(indices)] <- need_metadata$project_id[indices[!is.na(indices)]]
+all_cruises$nearest_station[!is.na(indices)] <- need_metadata$nearest_station[indices[!is.na(indices)]]
+all_cruises$station_distance[!is.na(indices)] <- need_metadata$distance[indices[!is.na(indices)]]
+
+# Remove the temporary key columns
+all_cruises$key <- NULL
+need_metadata$key <- NULL
+head(all_cruises)
+
+all_cruises$sample_id[is.na(all_cruises$sample_id)] <- "NaN"
+all_cruises$alternate_sample_id[is.na(all_cruises$alternate_sample_id)] <- "NaN"
+
+all_cruises <- all_cruises[order(all_cruises$date), ]
+
 # write csv
 write.csv(all_cruises, "nes-lter-nutrient-transect.csv", row.names = FALSE, quote = FALSE)
 

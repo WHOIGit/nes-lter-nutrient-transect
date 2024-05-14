@@ -58,7 +58,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0001-9620-5382</userId>
       <role>metadataProvider</role>
     </associatedParty>
-    <pubDate>2024-04-30</pubDate>
+    <pubDate>2024-05-14</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle samples taken on NES-LTER Transect cruises (ongoing since 2017) and include nitrate + nitrite, ammonium, silicate, and phosphate. Sampling frequency is approximately seasonal. Samples were filtered, frozen, then processed at the Woods Hole Oceanographic Institution’s Nutrient Analytical Facility. Each sample may have up to 2 replicates, indicated by a or b in the data table. These macro-nutrients are analyzed in seawater using a colorimetric assay in which light absorbance is measured versus known standards, and final concentrations are calculated in micromole per liter.</para>
     </abstract>
@@ -95,7 +95,7 @@
         <geographicDescription>NES-LTER Transect</geographicDescription>
         <boundingCoordinates>
           <westBoundingCoordinate>-71.068</westBoundingCoordinate>
-          <eastBoundingCoordinate>-70.5626</eastBoundingCoordinate>
+          <eastBoundingCoordinate>-70.5227</eastBoundingCoordinate>
           <northBoundingCoordinate>41.3274</northBoundingCoordinate>
           <southBoundingCoordinate>39.7576</southBoundingCoordinate>
         </boundingCoordinates>
@@ -241,8 +241,8 @@
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">317729</size>
-        <authentication method="MD5">475435e7a2ff19d59a1fd9eb58bd1bd5</authentication>
+        <size unit="bytes">323902</size>
+        <authentication method="MD5">4d62698542f162bdb98bf614edc67df3</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -370,7 +370,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">-71.068</minimum>
-                  <maximum exclusive="false">-70.5626</maximum>
+                  <maximum exclusive="false">-70.5227</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -610,7 +610,7 @@
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">0.004</minimum>
-                  <maximum exclusive="false">1.997</maximum>
+                  <maximum exclusive="false">1.985</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
