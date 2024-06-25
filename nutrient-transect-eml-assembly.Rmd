@@ -1,6 +1,6 @@
 ---
 title: "Creating a Data Package for NES-LTER Nutrient Transect Cruise Data"
-author: "Stace Beaulieu, Jaxine Wolfe, and Joe Futrelle"
+author: "Stace Beaulieu and Joe Futrelle"
 date: "2021-12-07"
 output: html_document
 ---
@@ -72,9 +72,6 @@ all_cruises[, round_cols] <- round(all_cruises[, round_cols], 3)
 # round lat and lon columns
 all_cruises[, c("latitude", "longitude")] <- round(all_cruises[, c("latitude", "longitude")], 4)
 
-# remove OOI data
-
-all_cruises <- all_cruises %>% filter(project_id != "OOI")
 
 # fill outliers for station_distance > 2km with NA
 all_cruises$nearest_station[all_cruises$station_distance > 2] <- NA
@@ -122,13 +119,7 @@ all_cruises$key <- NULL
 need_metadata$key <- NULL
 head(all_cruises)
 
-all_cruises$sample_id[is.na(all_cruises$sample_id)] <- "NaN"
-all_cruises$alternate_sample_id[is.na(all_cruises$alternate_sample_id)] <- "NaN"
-
-all_cruises <- all_cruises[order(all_cruises$date), ]
-
-# write csv
-write.csv(all_cruises, "nes-lter-nutrient-transect.csv", row.names = FALSE, quote = FALSE)
+all_cruises$nearest_station[is.na(all_cruises$nearest_station)] <- ""
 
 ```
 
@@ -231,13 +222,19 @@ Step 4: Inserting a custom NES-LTER parent project node
 
 ```{r}
 
+all_cruises$alternate_sample_id[all_cruises$alternate_sample_id == NaN] <- ""
+all_cruises <- all_cruises[order(all_cruises$date), ]
+
+# Write to the csv file
+write.csv(all_cruises, "nes-lter-nutrient-transect.csv", na = "NaN", row.names = FALSE, quote = FALSE)
+
 # define input files
 metadata <- "nutrient-transect-info"
 edi_filename <- "nes-lter-nutrient-transect"
-pkg_id <- "knb-lter-nes.4.4"
+pkg_id <- "knb-lter-nes.4.3"
 
 # Make EML Templates 
-excel_to_template(here(metadata), edi_filename, rights='CC0')
+excel_to_template(here(metadata), edi_filename, rights='CC0', file_type=".md")
 
 # Data Coverage
 # isolate date and geospatial columns for input
