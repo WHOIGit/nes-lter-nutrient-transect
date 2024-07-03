@@ -1,3 +1,9 @@
+Three projects NES-LTER, Ocean Observatories Initiative (OOI), and MIT-WHOI Joint Program (JP) provide dissolved inorganic nutrient data from CTD rosette bottle and bucket sampling on NES-LTER Transect cruises. Methods are the same across the thre projects.
+
+From 2017 through 2022, spring and fall sample collection typically occurred on cruises funded and operated by the Ocean Observatories Initiative (OOI). These cruises are identified with the project_id OOI, and they include data collected for both the NES-LTER and OOI projects. Please note that OOI data are included here as a convenience to researchers wishing to use the data from both projects, and that the authoritative source for OOI data is the OOI Alfresco document server for Cruise Data from the Coastal Pioneer NES Array (https://alfresco.oceanobservatories.org/).
+
+ MIT-WHOI Joint Program (JP) cruises (AR22, AR32, and AR38) are funded by WHOI Academic Programs Office.
+
 # CTD Rosette Bottle and Bucket Sampling on NES-LTER cruises
 
 Samples were collected from the water column at multiple depths using
@@ -66,3 +72,5 @@ table were within expected ranges. No values changed as compared to the
 previous version of this data package. For each nutrient we checked
 differences between replicates, visually inspected plotted values, and
 performed a range check.
+
+For published version 3, preliminary quality flags were assigned to the data. Automated code was used each nutrient type individually to check for differences between replicates. Quality is indicated in the data table with IODE Primary Level flags: 1 good; 2 not evaluated, not available or unknown; 3 questionable/suspect; 4 bad; 9 missing data. [See IODE Ocean Data Standards recommendation here: https://www.iode.org/index.php?option=com_oe&task=viewDocumentRecord&docID=10762] Thresholds for flag 3 and 4 were set for each nutrient type, and if poor replication was above a threshold, both nutrients received the same flag. It is posseble one replicate is good and future versions of the package will include manual checking to assess the automated flagging and apply appropriate flagging quality control. Due to the preliminary nature of the current flagging scheme, no data have been removed from the data set at this time. Future manually checked versions of flagging will possibly replace values with NA. 

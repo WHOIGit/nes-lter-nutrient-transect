@@ -7,4 +7,4 @@ Analytical Facility. Each sample may have up to 2 replicates, indicated
 by a or b in the data table. These macro-nutrients are analyzed in
 seawater using a colorimetric assay in which light absorbance is
 measured versus known standards, and final concentrations are calculated
-in micromole per liter.
+in micromole per liter. Some of the data are from cruises in collaboration with the Ocean Observatories Initiative (OOI).
