@@ -71,6 +71,8 @@ round_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth",
 all_cruises[, round_cols] <- round(all_cruises[, round_cols], 3)
 # round lat and lon columns
 all_cruises[, c("latitude", "longitude")] <- round(all_cruises[, c("latitude", "longitude")], 4)
+# round depth
+all_cruises[, c("depth")] <- round(all_cruises[, c("depth")], 1)
 
 
 # fill outliers for station_distance > 2km with NA
@@ -91,7 +93,8 @@ all_cruises$station_distance[all_cruises$station_distance > 2] <- NA
 need_metadata <-read_csv('samples_lacking_bottle_metadata-v2.csv')
 need_metadata <- need_metadata %>%
   mutate(chl = round(chl, 3)) %>% 
-  mutate(phaeo = round(phaeo, 3)) 
+  mutate(phaeo = round(phaeo, 3)) %>% 
+  mutate(depth = round(depth, 1)) 
 
 need_metadata$date <- as.POSIXct(need_metadata$date, tz = "GMT", "%m/%d/%Y %H:%M")
 

@@ -55,7 +55,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0003-4537-5853</userId>
       <role>softwareDeveloper</role>
     </associatedParty>
-    <pubDate>2024-06-24</pubDate>
+    <pubDate>2024-07-03</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle&#13;
 samples taken on NES-LTER Transect cruises (ongoing since 2017) and&#13;
@@ -109,7 +109,7 @@ Facility for analyzing the samples collected for this data package.&#13;
         <geographicDescription>NES-LTER Transect</geographicDescription>
         <boundingCoordinates>
           <westBoundingCoordinate>-71.1032</westBoundingCoordinate>
-          <eastBoundingCoordinate>-70.5227</eastBoundingCoordinate>
+          <eastBoundingCoordinate>-70.3445</eastBoundingCoordinate>
           <northBoundingCoordinate>41.3274</northBoundingCoordinate>
           <southBoundingCoordinate>39.7551</southBoundingCoordinate>
         </boundingCoordinates>
@@ -312,8 +312,8 @@ performed a range check.&#13;
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">427063</size>
-        <authentication method="MD5">ffe9a52602a9058d90f535c324e08731</authentication>
+        <size unit="bytes">430915</size>
+        <authentication method="MD5">562b753191ce80e60c571611e9d0fe72</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -433,7 +433,7 @@ performed a range check.&#13;
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">-71.1032</minimum>
-                  <maximum exclusive="false">-70.5227</maximum>
+                  <maximum exclusive="false">-70.3445</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -455,8 +455,8 @@ performed a range check.&#13;
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">0.785</minimum>
-                  <maximum exclusive="false">1000.616</maximum>
+                  <minimum exclusive="false">0.8</minimum>
+                  <maximum exclusive="false">1000.6</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -672,7 +672,7 @@ performed a range check.&#13;
           </missingValueCode>
         </attribute>
       </attributeList>
-      <numberOfRecords>4395</numberOfRecords>
+      <numberOfRecords>4527</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>
