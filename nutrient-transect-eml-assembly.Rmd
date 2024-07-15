@@ -1,7 +1,7 @@
 ---
 title: "Creating a Data Package for NES-LTER Nutrient Transect Cruise Data"
-author: "Stace Beaulieu and Joe Futrelle"
-date: "2021-12-07"
+author: "Kate Morkeski, Joanne Koch, Stace Beaulieu and Joe Futrelle"
+date: "2024-07-15"
 output: html_document
 ---
 
@@ -237,7 +237,7 @@ edi_filename <- "nes-lter-nutrient-transect"
 pkg_id <- "knb-lter-nes.4.3"
 
 # Make EML Templates 
-excel_to_template(here(metadata), edi_filename, rights='CC0', file_type=".md")
+excel_to_template(here(metadata), edi_filename, rights='CC0', file_type=".md", del_rights = FALSE)
 
 # Data Coverage
 # isolate date and geospatial columns for input
@@ -262,5 +262,5 @@ make_eml(path = here(),
          package.id = pkg_id)
 
 # Insert Custom Project Node
-project_insert(edi_pkg = pkg_id)
+project_insert(edi_pkg = pkg_id, filename = 'parent_project_NESI-II_RAPID_OOI.txt')
 ```

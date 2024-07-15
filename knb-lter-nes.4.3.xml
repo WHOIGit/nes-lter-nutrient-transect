@@ -55,18 +55,18 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0003-4537-5853</userId>
       <role>softwareDeveloper</role>
     </associatedParty>
-    <pubDate>2024-07-03</pubDate>
+    <pubDate>2024-07-15</pubDate>
     <abstract>
-      <para>Dissolved inorganic nutrients are measured from water column bottle&#13;
-samples taken on NES-LTER Transect cruises (ongoing since 2017) and&#13;
-include nitrate + nitrite, ammonium, silicate, and phosphate. Sampling&#13;
-frequency is approximately seasonal. Samples were filtered, frozen, then&#13;
-processed at the Woods Hole Oceanographic Institution's Nutrient&#13;
-Analytical Facility. Each sample may have up to 2 replicates, indicated&#13;
-by a or b in the data table. These macro-nutrients are analyzed in&#13;
-seawater using a colorimetric assay in which light absorbance is&#13;
-measured versus known standards, and final concentrations are calculated&#13;
-in micromole per liter.&#13;
+      <para>Dissolved inorganic nutrients are measured from water column bottle
+samples taken on NES-LTER Transect cruises (ongoing since 2017) and
+include nitrate + nitrite, ammonium, silicate, and phosphate. Sampling
+frequency is approximately seasonal. Samples were filtered, frozen, then
+processed at the Woods Hole Oceanographic Institution's Nutrient
+Analytical Facility. Each sample may have up to 2 replicates, indicated
+by a or b in the data table. These macro-nutrients are analyzed in
+seawater using a colorimetric assay in which light absorbance is
+measured versus known standards, and final concentrations are calculated
+in micromole per liter. Some of the data are from cruises in collaboration with the Ocean Observatories Initiative (OOI).
 </para>
     </abstract>
     <keywordSet>
@@ -91,17 +91,17 @@ in micromole per liter.&#13;
       <keywordThesaurus>Global Change Master Directory (GCMD)</keywordThesaurus>
     </keywordSet>
     <additionalInfo>
-      <para>This data package includes data from MIT-WHOI Joint Program (JP) cruises&#13;
-funded by WHOI Academic Programs Office, with Chief Scientists Glen&#13;
-Gawarkiewicz (AR22 and AR38) and Joel Llopiz (AR32). We'd like to thank&#13;
-the Ocean Observatories Initiative (OOI) for collaboration on other&#13;
+      <para>This data package includes data from MIT-WHOI Joint Program (JP) cruises
+funded by WHOI Academic Programs Office, with Chief Scientists Glen
+Gawarkiewicz (AR22 and AR38) and Joel Llopiz (AR32). We'd like to thank
+the Ocean Observatories Initiative (OOI) for collaboration on other
 cruises on R/V Neil Armstrong included in this package.</para>
-      <para>Special thanks to Paul Henderson at the WHOI Nutrient Analytical&#13;
-Facility for analyzing the samples collected for this data package.&#13;
+      <para>Special thanks to Paul Henderson at the WHOI Nutrient Analytical
+Facility for analyzing the samples collected for this data package.
 </para>
     </additionalInfo>
     <intellectualRights>
-      <para>This data package is released to the "public domain" under Creative Commons CC0 1.0 "No Rights Reserved" (see: https://creativecommons.org/publicdomain/zero/1.0/). It is considered professional etiquette to provide attribution of the original work if this data package is shared in whole or by individual components. A generic citation is provided for this data package on the website https://portal.edirepository.org (herein "website") in the summary metadata page. Communication (and collaboration) with the creators of this data package is recommended to prevent duplicate research or publication. This data package (and its components) is made available "as is" and with no warranty of accuracy or fitness for use. The creators of this data package and the website shall not be liable for any damages resulting from misinterpretation or misuse of the data package or its components. Periodic updates of this data package may be available from the website. Thank you.
+      <para>This data package is released to the "public domain" under Creative Commons CC0 1.0 "No Rights Reserved" (see: https://creativecommons.org/publicdomain/zero/1.0/). It is considered professional etiquette to provide attribution of the original work if this data package is shared in whole or by individual components. A generic citation is provided for this data package on the website https://portal.edirepository.org (herein "website") in the summary metadata page. Communication (and collaboration) with the creators of this data package is recommended to prevent duplicate research or publication. This data package (and its components) is made available "as is" and with no warranty of accuracy or fitness for use. The creators of this data package and the website shall not be liable for any damages resulting from misinterpretation or misuse of the data package or its components. For those data identified in the data table from the Ocean Observatories Initiative (OOI), see the Limitation of Liability and Disclaimer in the OOI User Terms and Conditions (https://oceanobservatories.org/how-to-use-acknowledge-and-cite-data/). Periodic updates of this data package may be available from the website. Thank you.
 </para>
     </intellectualRights>
     <coverage>
@@ -136,80 +136,88 @@ Facility for analyzing the samples collected for this data package.&#13;
     <methods>
       <methodStep>
         <description>
-          <markdown># CTD Rosette Bottle and Bucket Sampling on NES-LTER cruises&#13;
-&#13;
-Samples were collected from the water column at multiple depths using&#13;
-Niskin bottles on a CTD rosette system. Some samples were collected at&#13;
-the surface with a bucket.&#13;
-&#13;
-# Nutrient Filtering Protocol&#13;
-&#13;
-Prior to 2018, and for bucket samples: Wearing nitrile gloves, collect&#13;
-water from the niskin or bucket with a clean bottle that is rinsed 3&#13;
-times with the sample water. Rinse the full length of a B-D 60 ml&#13;
-LUER-LOKTM syringe with a small volume of sample water 3 times.&#13;
-Completely fill syringe with sample water and force 60 ml through a EMD&#13;
-Millipore sterile Sterivex 0.22 um filter. Then refill the syringe.&#13;
-&#13;
-2018 to present: Wearing nitrile gloves, connect AcroPak 200 Capsule&#13;
-with Super Membrane 0.2 um filter with barb and tubing to niskin spigot&#13;
-and fill with water. Rinse filter with 3 times the volume of the filter.&#13;
-Then refill the filter.&#13;
-&#13;
-All samples: Then, without touching filter to sample vial (acid-washed&#13;
-scintillation vial 20 ml), rinse sample vial with 5 ml of filtered water&#13;
-3 times. For each rinse, replace the cap and shake vigorously. Filter 17&#13;
-ml of sample directly into the sample vial and replace the cap and&#13;
-proceed to the next sample. Store samples in a -20 deg C freezer and&#13;
-keep frozen until analysis. If applicable, flush AcroPak filter with&#13;
-milli-Q water and refrigerate for using on next cast (AcroPak filter may&#13;
-process up to 20 liters).&#13;
-&#13;
-# WHOI Nutrient Facility Nutrient Analysis&#13;
-&#13;
-Samples are stored at -20 deg C until submitted to the Woods Hole&#13;
-Oceanographic Institution's Nutrient Analytical Facility&#13;
-(https://web.whoi.edu/nutrient/) which operates a four-channel segmented&#13;
-flow SEAL AA3 HR Autoanalyzer. Duplicates and spiked additions are run&#13;
-for quality control. Standards are made daily and Certified Reference&#13;
-material is run daily to ensure the standards and/or reagents are good.&#13;
-If the samples fall outside of the duplicate or spike addition quality&#13;
-control they are rerun until they fall within quality control&#13;
-parameters. Precision is 1e-03 microMolePerLiter. Please refer to the&#13;
-Facility's website for current detection limits which are different&#13;
-depending on the nutrient.&#13;
-&#13;
-# Nutrient Data Cleaning&#13;
-&#13;
-The data table was made by concatenating cruises called from the REST&#13;
-API of the NES-LTER data system. All Below Detection Limit values are&#13;
-set to zero. Nearest station is based on a cruise-specific station list.&#13;
-NES-LTER standard stations L1 to L13 are the same for cruises starting&#13;
-with EN617 in August 2018. Prior to this: the NES-LTER transect was&#13;
-established on the present longitude 70.8833 W on EN608; however, the&#13;
-position for standard station L5 was 1 naut. mile north of present&#13;
-station L5. The station list for EN608 was used for cruises prior to&#13;
-EN608. Data assembly, cleaning, and metadata template assembly were&#13;
-performed in R Markdown. Additional nutrients data for Ocean&#13;
-Observatories Initiative (OOI) cruises on R/V Neil Armstrong are&#13;
-available from the OOI Alfresco document server (Coastal Pioneer Array&#13;
-\&gt; Cruise Data \&gt; select a cruise \&gt; Ship Data \&gt; Water Sampling).&#13;
-Further documentation can be found on GitHub, at&#13;
-https://github.com/WHOIGit/nes-lter-nutrient-transect.&#13;
-&#13;
-# Quality Assurance&#13;
-&#13;
-We assured that the geographic and temporal coverage of the clean data&#13;
-table were within expected ranges. No values changed as compared to the&#13;
-previous version of this data package. For each nutrient we checked&#13;
-differences between replicates, visually inspected plotted values, and&#13;
-performed a range check.&#13;
+          <markdown>Three projects NES-LTER, Ocean Observatories Initiative (OOI), and MIT-WHOI Joint Program (JP) provide dissolved inorganic nutrient data from CTD rosette bottle and bucket sampling on NES-LTER Transect cruises. Methods are the same across the thre projects.
+
+From 2017 through 2022, spring and fall sample collection typically occurred on cruises funded and operated by the Ocean Observatories Initiative (OOI). These cruises are identified with the project_id OOI, and they include data collected for both the NES-LTER and OOI projects. Please note that OOI data are included here as a convenience to researchers wishing to use the data from both projects, and that the authoritative source for OOI data is the OOI Alfresco document server for Cruise Data from the Coastal Pioneer NES Array (https://alfresco.oceanobservatories.org/).
+
+ MIT-WHOI Joint Program (JP) cruises (AR22, AR32, and AR38) are funded by WHOI Academic Programs Office.
+
+# CTD Rosette Bottle and Bucket Sampling on NES-LTER cruises
+
+Samples were collected from the water column at multiple depths using
+Niskin bottles on a CTD rosette system. Some samples were collected at
+the surface with a bucket.
+
+# Nutrient Filtering Protocol
+
+Prior to 2018, and for bucket samples: Wearing nitrile gloves, collect
+water from the niskin or bucket with a clean bottle that is rinsed 3
+times with the sample water. Rinse the full length of a B-D 60 ml
+LUER-LOKTM syringe with a small volume of sample water 3 times.
+Completely fill syringe with sample water and force 60 ml through a EMD
+Millipore sterile Sterivex 0.22 um filter. Then refill the syringe.
+
+2018 to present: Wearing nitrile gloves, connect AcroPak 200 Capsule
+with Super Membrane 0.2 um filter with barb and tubing to niskin spigot
+and fill with water. Rinse filter with 3 times the volume of the filter.
+Then refill the filter.
+
+All samples: Then, without touching filter to sample vial (acid-washed
+scintillation vial 20 ml), rinse sample vial with 5 ml of filtered water
+3 times. For each rinse, replace the cap and shake vigorously. Filter 17
+ml of sample directly into the sample vial and replace the cap and
+proceed to the next sample. Store samples in a -20 deg C freezer and
+keep frozen until analysis. If applicable, flush AcroPak filter with
+milli-Q water and refrigerate for using on next cast (AcroPak filter may
+process up to 20 liters).
+
+# WHOI Nutrient Facility Nutrient Analysis
+
+Samples are stored at -20 deg C until submitted to the Woods Hole
+Oceanographic Institution's Nutrient Analytical Facility
+(https://web.whoi.edu/nutrient/) which operates a four-channel segmented
+flow SEAL AA3 HR Autoanalyzer. Duplicates and spiked additions are run
+for quality control. Standards are made daily and Certified Reference
+material is run daily to ensure the standards and/or reagents are good.
+If the samples fall outside of the duplicate or spike addition quality
+control they are rerun until they fall within quality control
+parameters. Precision is 1e-03 microMolePerLiter. Please refer to the
+Facility's website for current detection limits which are different
+depending on the nutrient.
+
+# Nutrient Data Cleaning
+
+The data table was made by concatenating cruises called from the REST
+API of the NES-LTER data system. All Below Detection Limit values are
+set to zero. Nearest station is based on a cruise-specific station list.
+NES-LTER standard stations L1 to L13 are the same for cruises starting
+with EN617 in August 2018. Prior to this: the NES-LTER transect was
+established on the present longitude 70.8833 W on EN608; however, the
+position for standard station L5 was 1 naut. mile north of present
+station L5. The station list for EN608 was used for cruises prior to
+EN608. Data assembly, cleaning, and metadata template assembly were
+performed in R Markdown. Additional nutrients data for Ocean
+Observatories Initiative (OOI) cruises on R/V Neil Armstrong are
+available from the OOI Alfresco document server (Coastal Pioneer Array
+\&gt; Cruise Data \&gt; select a cruise \&gt; Ship Data \&gt; Water Sampling).
+Further documentation can be found on GitHub, at
+https://github.com/WHOIGit/nes-lter-nutrient-transect.
+
+# Quality Assurance
+
+We assured that the geographic and temporal coverage of the clean data
+table were within expected ranges. No values changed as compared to the
+previous version of this data package. For each nutrient we checked
+differences between replicates, visually inspected plotted values, and
+performed a range check.
+
+For published version 3, preliminary quality flags were assigned to the data. Automated code was used each nutrient type individually to check for differences between replicates. Quality is indicated in the data table with IODE Primary Level flags: 1 good; 2 not evaluated, not available or unknown; 3 questionable/suspect; 4 bad; 9 missing data. [See IODE Ocean Data Standards recommendation here: https://www.iode.org/index.php?option=com_oe&amp;task=viewDocumentRecord&amp;docID=10762] Thresholds for flag 3 and 4 were set for each nutrient type, and if poor replication was above a threshold, both nutrients received the same flag. It is posseble one replicate is good and future versions of the package will include manual checking to assess the automated flagging and apply appropriate flagging quality control. Due to the preliminary nature of the current flagging scheme, no data have been removed from the data set at this time. Future manually checked versions of flagging will possibly replace values with NA. 
 </markdown>
         </description>
       </methodStep>
     </methods>
     <project>
-      <title>Northeast U.S. Shelf LTER</title>
+      <title>LTER: Scales of Variability in Ecosystem Dynamics and Production on the Changing Northeast U.S. Shelf (NES II)</title>
       <personnel>
         <individualName>
           <givenName>Heidi</givenName>
@@ -218,15 +226,6 @@ performed a range check.&#13;
         <electronicMailAddress>hsosik@whoi.edu</electronicMailAddress>
         <userId directory="https://orcid.org">https://orcid.org/0000-0002-4591-2842</userId>
         <role>Principal Investigator</role>
-      </personnel>
-      <personnel>
-        <individualName>
-          <givenName>Stace</givenName>
-          <surName>Beaulieu</surName>
-        </individualName>
-        <electronicMailAddress>sbeaulieu@whoi.edu</electronicMailAddress>
-        <userId directory="https://orcid.org">https://orcid.org/0000-0002-2609-5453</userId>
-        <role>Co-Principal Investigator</role>
       </personnel>
       <personnel>
         <individualName>
@@ -244,15 +243,6 @@ performed a range check.&#13;
         </individualName>
         <electronicMailAddress>rji@whoi.edu</electronicMailAddress>
         <userId directory="https://orcid.org">https://orcid.org/0000-0002-8839-5427</userId>
-        <role>Co-Principal Investigator</role>
-      </personnel>
-      <personnel>
-        <individualName>
-          <givenName>Steven</givenName>
-          <surName>Lentz</surName>
-        </individualName>
-        <electronicMailAddress>slentz@whoi.edu</electronicMailAddress>
-        <userId directory="https://orcid.org">https://orcid.org/0000-0001-7498-0281</userId>
         <role>Co-Principal Investigator</role>
       </personnel>
       <personnel>
@@ -293,6 +283,15 @@ performed a range check.&#13;
       </personnel>
       <personnel>
         <individualName>
+          <givenName>Mei</givenName>
+          <surName>Sato</surName>
+        </individualName>
+        <electronicMailAddress>msato@whoi.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0003-4860-2476</userId>
+        <role>Co-Principal Investigator</role>
+      </personnel>
+      <personnel>
+        <individualName>
           <givenName>Rachel</givenName>
           <surName>Stanley</surName>
         </individualName>
@@ -300,12 +299,64 @@ performed a range check.&#13;
         <userId directory="https://orcid.org">https://orcid.org/0000-0003-4860-2476</userId>
         <role>Co-Principal Investigator</role>
       </personnel>
+      <personnel>
+        <individualName>
+          <givenName>Weifeng</givenName>
+          <surName>Zhang</surName>
+        </individualName>
+        <electronicMailAddress>wzhang@whoi.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0002-2819-1780</userId>
+        <role>Co-Principal Investigator</role>
+      </personnel>
       <abstract>
         <para>The Northeast U.S. Shelf (NES) Long-Term Ecological Research (LTER) project integrates observations, experiments, and models to understand and predict how planktonic food webs are changing, and how those changes impact the productivity of higher trophic levels. The NES-LTER is co-located with the Northeast U.S. Continental Shelf Large Marine Ecosystem, spanning the Middle Atlantic Bight and Gulf of Maine. Our focal cross-shelf transect extends about 150 km southward from Martha’s Vineyard, MA, to just beyond the shelf break. Our overarching question is: How is climate change impacting the pelagic NES ecosystem and, in particular, affecting the relationship between compositional (e.g., species diversity and size structure) and aggregate (e.g., rates of primary production, and transfer of energy to important forage fish species) variability?</para>
       </abstract>
       <funding>
-        <para>NSF Award OCE-1655686</para>
+        <para>NSF Award OCE-2322676</para>
       </funding>
+      <relatedProject>
+        <title>LTER: Linking Pelagic Community Structure with Ecosystem Dynamics and Production Regimes on the Changing Northeast US Shelf (NES I)</title>
+        <personnel>
+          <individualName>
+            <givenName>Heidi</givenName>
+            <surName>Sosik</surName>
+          </individualName>
+          <electronicMailAddress>hsosik@whoi.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0002-4591-2842</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>NSF Award OCE-1655686</funding>
+      </relatedProject>
+      <relatedProject>
+        <title>RAPID: Collaborative Research: Autumn transition in plankton ecology during an ocean heatwave on the Northeast U.S. Shelf</title>
+        <personnel>
+          <individualName>
+            <givenName>Heidi</givenName>
+            <surName>Sosik</surName>
+          </individualName>
+          <electronicMailAddress>hsosik@whoi.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">0000-0002-4591-2842</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <award>
+          <funderName>National Science Foundation</funderName>
+          <awardNumber>NSF Award OCE-210243</awardNumber>
+          <title>RAPID: Collaborative Research: Autumn transition in plankton ecology during an ocean heatwave on the Northeast U.S. Shelf</title>
+        </award>
+      </relatedProject>
+      <relatedProject>
+        <title>Management and Operation of the Ocean Observatories Initiative (OOI)</title>
+        <personnel>
+          <individualName>
+            <givenName>James</givenName>
+            <surName>Edson</surName>
+          </individualName>
+          <electronicMailAddress>jedson@whoi.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0002-8777-031X</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>NSF Award OCE-1743430</funding>
+      </relatedProject>
     </project>
     <dataTable>
       <entityName>nes-lter-nutrient-transect</entityName>
@@ -675,15 +726,6 @@ performed a range check.&#13;
       <numberOfRecords>4527</numberOfRecords>
     </dataTable>
   </dataset>
-  <additionalMetadata>
-    <metadata>
-      <unitList>
-        <unit id="micromolePerLiter" multiplierToSI="0.001" name="micromolePerLiter" parentSI="molePerCubicMeter" unitType="amountOfSubstanceConcentration">
-          <description>micromole per liter</description>
-        </unit>
-      </unitList>
-    </metadata>
-  </additionalMetadata>
   <additionalMetadata>
     <metadata>
       <emlEditor>
