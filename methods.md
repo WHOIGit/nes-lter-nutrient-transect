@@ -49,15 +49,15 @@ depending on the nutrient.
 
 # Nutrient Data Cleaning
 
-The data table was made by concatenating cruises called from the REST
+The data table is made by concatenating cruises called from the REST
 API of the NES-LTER data system. All Below Detection Limit values are
-set to zero. Nearest station is based on a cruise-specific station list.
-NES-LTER standard stations L1 to L13 are the same for cruises starting
-with EN617 in August 2018. Prior to this: the NES-LTER transect was
-established on the present longitude 70.8833 W on EN608; however, the
-position for standard station L5 was 1 naut. mile north of present
-station L5. The station list for EN608 was used for cruises prior to
-EN608. Data assembly, cleaning, and metadata template assembly were
+set to zero. Nearest station is calculated based on the staton location 
+on the date of sample collection. Station L5 was shifted 1 nautical mile 
+due south during the first year of the project, in July 2018 for cruise 
+EN617, and has remained there since. Stations L7, L8, and L9 were shifted 
+at the start of 2023.  
+
+Data assembly, cleaning, and metadata template assembly are
 performed in R Markdown. Additional nutrients data for Ocean
 Observatories Initiative (OOI) cruises on R/V Neil Armstrong are
 available from the OOI Alfresco document server (Coastal Pioneer Array
@@ -68,7 +68,7 @@ https://github.com/WHOIGit/nes-lter-nutrient-transect.
 # Quality Assurance
 
 We assured that the geographic and temporal coverage of the clean data
-table were within expected ranges. No values changed as compared to the
+table are within expected ranges. No values changed as compared to the
 previous version of this data package. For each nutrient we checked
 differences between replicates, visually inspected plotted values, and
 performed a range check.
