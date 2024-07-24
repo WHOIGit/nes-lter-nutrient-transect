@@ -1,0 +1,18 @@
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+cruise	Identifier for research cruise generally including abbreviation for research vessel and voyage number	character				
+cast	CTD rosette cast number chronological per cruise	numeric	dimensionless		NaN	Missing value
+niskin	Rosette bottle position number	numeric	dimensionless		NaN	Missing value
+date	Date and time in UTC when rosette bottle closed	Date		YYYY-MM-DD hh:mm:ss		
+latitude	Ship's latitude when rosette bottle closed	numeric	degree		NaN	Missing value
+longitude	Ship's longitude when rosette bottle closed	numeric	degree		NaN	Missing value
+depth	Depth of sample below sea surface. URI http://vocab.nerc.ac.uk/collection/P09/current/DEPH/	numeric	meter		NaN	Missing value
+sample_id	Identifier for subsample drawn from rosette bottle	numeric	dimensionless		NaN	Missing value
+replicate	Lowercase letter indicating replicate subsample drawn from the same rosette bottle	character				
+nitrate_nitrite	Nitrate+nitrite concentration in the water column http://vocab.nerc.ac.uk/collection/P02/current/NTRA/	numeric	micromolePerLiter		NaN	Missing value
+ammonium	Ammonium concentration in the water column http://vocab.nerc.ac.uk/collection/P02/current/AMON/	numeric	micromolePerLiter		NaN	Missing value
+phosphate	Phosphate concentration in the water column http://vocab.nerc.ac.uk/collection/P02/current/PHOS/	numeric	micromolePerLiter		NaN	Missing value
+silicate	Silicate concentration in the water column http://vocab.nerc.ac.uk/collection/P02/current/SLCA/	numeric	micromolePerLiter		NaN	Missing value
+alternate_sample_id	Sample identifier for project other than LTER	character				
+project_id	Identifier for project that funded the cruise (or sample when available)	categorical				
+nearest_station	Nearest station is provided per cruise	character				
+station_distance	Distance from sample location to nearest station	numeric	kilometer		NaN	Distance to nearest station is greater than 2 km

@@ -1,7 +1,7 @@
 ---
 title: "Creating a Data Package for NES-LTER Nutrient Transect Cruise Data"
 author: "Kate Morkeski, Joanne Koch, Stace Beaulieu and Joe Futrelle"
-date: "2024-07-15"
+date: "2024-07-24"
 output: html_document
 ---
 
@@ -10,12 +10,20 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
+# two of the required packages are installed from GitHub
+# library(remotes)
+# remotes::install_github("EDIorg/EMLassemblyline")
+# remotes::install_github("WHOIGit/ediutilities")
+
 library(EMLassemblyline)
 library(ediutilities)
 library(here)
 library(lubridate)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(readxl)
+library(readr)
+library(compareDF)
 library(lubridate)
 library(devtools)
 library(EML)
@@ -23,10 +31,6 @@ library(maps)
 library(xml2)
 
 base_api_url <- 'https://nes-lter-data.whoi.edu/api'
-
-# install necessary libraries
-# install.packages("devtools")
-# install_github("EDIorg/EMLassemblyline")
 
 ```
 
@@ -62,7 +66,7 @@ for(cruise_id in cruise_list) {
 ```{r}
 all_cruises <- all_cruises[order(all_cruises$date), ]
 
-# rename "distance_km" -> "station_distance" for consistency with v1
+# rename "distance_km" 
 names(all_cruises)[names(all_cruises) == 'distance_km'] <- 'station_distance'
 
 # define columns to round
@@ -74,57 +78,69 @@ all_cruises[, c("latitude", "longitude")] <- round(all_cruises[, c("latitude", "
 # round depth
 all_cruises[, c("depth")] <- round(all_cruises[, c("depth")], 1)
 
-
-# fill outliers for station_distance > 2km with NA
-all_cruises$nearest_station[all_cruises$station_distance > 2] <- NA
-all_cruises$station_distance[all_cruises$station_distance > 2] <- NA
-
 ```
 ## Read in Sosik data that are not out put from API because they lack Niskin metadata 
 
 ```{r}
 
-# samples that do not have metadata output from API
-# Read in the samples lacking bottle metadata csv file.
-# If the entry exists in all_cruises, copy pertinent data from the samples file
-# to all_cruises. If the entry does not exist in all_cruises, do not add it to 
-# all_cruises because the nutient data is missing from the samples file.
-
-need_metadata <-read_csv('samples_lacking_bottle_metadata-v2.csv')
-need_metadata <- need_metadata %>%
-  mutate(chl = round(chl, 3)) %>% 
-  mutate(phaeo = round(phaeo, 3)) %>% 
-  mutate(depth = round(depth, 1)) 
-
-need_metadata$date <- as.POSIXct(need_metadata$date, tz = "GMT", "%m/%d/%Y %H:%M")
-
-all_cruises$cast <- as.character(all_cruises$cast)
-need_metadata$cast <- as.character(need_metadata$cast)
-all_cruises$niskin <- as.character(all_cruises$niskin)
-need_metadata$niskin <- as.character(need_metadata$niskin)
-
-# Fill in row data from need_metadata for rows found in all_cruises
-all_cruises$key <- with(all_cruises, paste(cruise, cast, niskin, replicate, sep = "_"))
-need_metadata$key <- with(need_metadata, paste(cruise, cast, niskin, replicate, sep = "_"))
-
-indices <- match(all_cruises$key, need_metadata$key)
-
-all_cruises$date[!is.na(indices)] <- need_metadata$date[indices[!is.na(indices)]]
-all_cruises$latitude[!is.na(indices)] <- need_metadata$latitude[indices[!is.na(indices)]]
-all_cruises$longitude[!is.na(indices)] <- need_metadata$longitude[indices[!is.na(indices)]]
-all_cruises$depth[!is.na(indices)] <- need_metadata$depth[indices[!is.na(indices)]]
-all_cruises$project_id[!is.na(indices)] <- need_metadata$project_id[indices[!is.na(indices)]]
-all_cruises$nearest_station[!is.na(indices)] <- need_metadata$nearest_station[indices[!is.na(indices)]]
-all_cruises$station_distance[!is.na(indices)] <- need_metadata$distance[indices[!is.na(indices)]]
-
-# Remove the temporary key columns
-all_cruises$key <- NULL
-need_metadata$key <- NULL
-head(all_cruises)
-
-all_cruises$nearest_station[is.na(all_cruises$nearest_station)] <- ""
+# # samples that do not have metadata output from API
+# # Read in the samples lacking bottle metadata csv file.
+# # If the entry exists in all_cruises, copy pertinent data from the samples file
+# # to all_cruises. If the entry does not exist in all_cruises, do not add it to 
+# # all_cruises because the nutient data is missing from the samples file.
+# 
+# need_metadata <- read_csv('samples_lacking_bottle_metadata-v2.csv')
+# need_metadata <- need_metadata %>%
+#   mutate(depth = round(depth, 1)) 
+# need_metadata$date <- as.POSIXct(need_metadata$date, tz = "GMT", "%m/%d/%Y %H:%M")
+# 
+# all_cruises$cast <- as.character(all_cruises$cast)
+# need_metadata$cast <- as.character(need_metadata$cast)
+# all_cruises$niskin <- as.character(all_cruises$niskin)
+# need_metadata$niskin <- as.character(need_metadata$niskin)
+# 
+# # Fill in row data from need_metadata for rows found in all_cruises
+# all_cruises$key <- with(all_cruises, paste(cruise, cast, niskin, replicate, sep = "_"))
+# need_metadata$key <- with(need_metadata, paste(cruise, cast, niskin, replicate, sep = "_"))
+# 
+# indices <- match(all_cruises$key, need_metadata$key)
+# 
+# all_cruises$date[!is.na(indices)] <- need_metadata$date[indices[!is.na(indices)]]
+# all_cruises$latitude[!is.na(indices)] <- need_metadata$latitude[indices[!is.na(indices)]]
+# all_cruises$longitude[!is.na(indices)] <- need_metadata$longitude[indices[!is.na(indices)]]
+# all_cruises$depth[!is.na(indices)] <- need_metadata$depth[indices[!is.na(indices)]]
+# all_cruises$project_id[!is.na(indices)] <- need_metadata$project_id[indices[!is.na(indices)]]
+# all_cruises$nearest_station[!is.na(indices)] <- need_metadata$nearest_station[indices[!is.na(indices)]]
+# all_cruises$station_distance[!is.na(indices)] <- need_metadata$distance[indices[!is.na(indices)]]
+# 
+# # Remove the temporary key columns
+# all_cruises$key <- NULL
+# need_metadata$key <- NULL
+# head(all_cruises)
+# 
+# all_cruises$nearest_station[is.na(all_cruises$nearest_station)] <- ""
 
 ```
+
+
+```{r}
+
+# read new locally-produced table
+v3 = all_cruises
+
+# read v1 table from GitHub
+v1_commit_hash='06badc2f5fc07d3a995b72af260ce68f0c69119d'  # version 1
+v2_commit_hash='4236d91cd1289ce6b0958e01d2a45e286de789e7'  # version 2
+
+#v1 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v1_commit_hash}/nes-lter-nutrient-transect.csv'))
+v2 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v2_commit_hash}/nes-lter-nutrient-transect.csv'))
+
+comparison <- compare_df(v3, v2, c("cruise", "cast", "niskin"))
+
+create_output_table(comparison, output_type='xlsx', file_name='version_comparison.xlsx')
+
+```
+
 
 ## QA: Nutrient Outlier Check
 
@@ -226,6 +242,7 @@ Step 4: Inserting a custom NES-LTER parent project node
 ```{r}
 
 all_cruises$alternate_sample_id[all_cruises$alternate_sample_id == NaN] <- ""
+all_cruises$nearest_station[is.na(all_cruises$nearest_station)] <- ""
 all_cruises <- all_cruises[order(all_cruises$date), ]
 
 # Write to the csv file
