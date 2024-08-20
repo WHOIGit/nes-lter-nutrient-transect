@@ -90,36 +90,25 @@ all_cruises[, c("depth")] <- round(all_cruises[, c("depth")], 1)
 # # If the entry exists in all_cruises, copy pertinent data from the samples file
 # # to all_cruises. If the entry does not exist in all_cruises, do not add it to 
 # # all_cruises because the nutient data is missing from the samples file.
-# 
-# need_metadata <- read_csv('samples_lacking_bottle_metadata-v2.csv')
-# need_metadata <- need_metadata %>%
-#   mutate(depth = round(depth, 1)) 
-# need_metadata$date <- as.POSIXct(need_metadata$date, tz = "GMT", "%m/%d/%Y %H:%M")
-# 
-# all_cruises$cast <- as.character(all_cruises$cast)
-# need_metadata$cast <- as.character(need_metadata$cast)
-# all_cruises$niskin <- as.character(all_cruises$niskin)
-# need_metadata$niskin <- as.character(need_metadata$niskin)
-# 
-# # Fill in row data from need_metadata for rows found in all_cruises
-# all_cruises$key <- with(all_cruises, paste(cruise, cast, niskin, replicate, sep = "_"))
-# need_metadata$key <- with(need_metadata, paste(cruise, cast, niskin, replicate, sep = "_"))
-# 
-# indices <- match(all_cruises$key, need_metadata$key)
-# 
-# all_cruises$date[!is.na(indices)] <- need_metadata$date[indices[!is.na(indices)]]
-# all_cruises$latitude[!is.na(indices)] <- need_metadata$latitude[indices[!is.na(indices)]]
-# all_cruises$longitude[!is.na(indices)] <- need_metadata$longitude[indices[!is.na(indices)]]
-# all_cruises$depth[!is.na(indices)] <- need_metadata$depth[indices[!is.na(indices)]]
-# all_cruises$project_id[!is.na(indices)] <- need_metadata$project_id[indices[!is.na(indices)]]
-# all_cruises$nearest_station[!is.na(indices)] <- need_metadata$nearest_station[indices[!is.na(indices)]]
-# all_cruises$station_distance[!is.na(indices)] <- need_metadata$distance[indices[!is.na(indices)]]
-# 
-# # Remove the temporary key columns
-# all_cruises$key <- NULL
-# need_metadata$key <- NULL
-# head(all_cruises)
-# 
+
+need_metadata <- read_csv('samples_lacking_bottle_metadata_nutrients.csv')
+need_metadata <- need_metadata %>%
+  mutate(depth = round(depth, 1))
+need_metadata$date <- as.POSIXct(need_metadata$date, tz = "GMT", "%m/%d/%Y %H:%M")
+
+all_cruises$cast <- as.character(all_cruises$cast)
+need_metadata$cast <- as.character(need_metadata$cast)
+all_cruises$niskin <- as.character(all_cruises$niskin)
+need_metadata$niskin <- as.character(need_metadata$niskin)
+
+# prevents adding duplicate rows
+all_cruises <- all_cruises %>% anti_join(need_metadata, by = c("cruise", "cast", "niskin", "sample_id", "replicate"))
+
+# add rows rename new data frame  
+all_nutrients <- bind_rows(all_cruises, need_metadata)
+
+all_nutrients <- all_nutrients %>% arrange(date, cruise, cast, niskin, replicate)
+
 # all_cruises$nearest_station[is.na(all_cruises$nearest_station)] <- ""
 
 ```
@@ -128,7 +117,7 @@ all_cruises[, c("depth")] <- round(all_cruises[, c("depth")], 1)
 ```{r}
 
 # read new locally-produced table
-v3 = all_cruises
+v3 = all_nutrients
 
 # read v1 table from GitHub
 v1_commit_hash='06badc2f5fc07d3a995b72af260ce68f0c69119d'  # version 1
@@ -146,12 +135,12 @@ create_output_table(comparison, output_type='xlsx', file_name='version_compariso
 
 ## QA: Nutrient Outlier Check
 
-Check if there are severe differences in nutrient values between the replicates across cruise, cast, niskin, and depth. Plot these differences to perform a visual check.
+Check if there are severe differences in nutrient values between the replicates across cruise, cast, Niskin, and depth. Plot these differences to perform a visual check.
 
 ```{r}
 
 # calculate the difference between the replicates across all nutrients
-nut_check <- all_cruises %>%
+nut_check <- all_nutrients %>%
   group_by(cruise, cast, niskin, depth) %>%
   mutate(nitrate_nitrite_diff = abs(nitrate_nitrite - lead(nitrate_nitrite)),
          ammonium_diff = abs(ammonium - lead(ammonium)),
@@ -185,7 +174,7 @@ Call the map_locs function from edi-utility.R to map the sampling locations. Per
 ```{r}
 
 # Map Check
-map_locs(df = all_cruises, xvar = "longitude", yvar = "latitude",
+map_locs(df = all_nutrients, xvar = "longitude", yvar = "latitude",
          region = "transect", colorvar = "cruise")
 
 ```
@@ -200,7 +189,7 @@ Plot the distribution of nutrient values across all cruises using a boxplot.
 nut_cols <- c("nitrate_nitrite", "phosphate", "ammonium", "silicate")
 
 # convert to long for ease of plotting
-cruises_long <- all_cruises %>%
+cruises_long <- all_nutrients %>%
     gather(nutrients, value, nut_cols, factor_key = TRUE)
 
 # loop through nutrient columns
@@ -223,12 +212,12 @@ for (i in 1:length(nut_cols)) {
 According to a global range check: nitrate less than 30 umol/l and ammonium less than 5 umol/l based on [Rees et al. 2006](https://doi.org/10.1016/j.dsr2.2006.05.008), phosphate less than 3 (no great reference but this appears to be upper for Atlantic), silicate less than 60 (Elements of Physical Oceanography chapter on marine silica cycle, for deep Atlantic, this is probably too high).
 
 ```{r}
-summary(all_cruises) # visual min max for all columns
+summary(all_nutrients) # visual min max for all columns
 
-if(any(all_cruises$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds") 
-if(any(all_cruises$ammonium > 5)) cat("ammonium_exceeds")
-if(any(all_cruises$phosphate > 3)) cat("phosphate_exceeds")
-if(any(all_cruises$silicate > 60)) cat("silicate_exceeds")
+if(any(all_nutrients$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds") 
+if(any(all_nutrients$ammonium > 5)) cat("ammonium_exceeds")
+if(any(all_nutrients$phosphate > 3)) cat("phosphate_exceeds")
+if(any(all_nutrients$silicate > 60)) cat("silicate_exceeds")
 
 ```
 
@@ -243,12 +232,12 @@ Step 4: Inserting a custom NES-LTER parent project node
 
 ```{r}
 
-all_cruises$alternate_sample_id[all_cruises$alternate_sample_id == NaN] <- ""
-all_cruises$nearest_station[is.na(all_cruises$nearest_station)] <- ""
-all_cruises <- all_cruises[order(all_cruises$date), ]
+all_nutrients$alternate_sample_id[all_nutrients$alternate_sample_id == NaN] <- ""
+all_nutrients$nearest_station[is.na(all_nutrients$nearest_station)] <- ""
+#all_nutrients <- all_nutrients[order(all_nutrients$date), ]
 
 # Write to the csv file
-write.csv(all_cruises, "nes-lter-nutrient-transect.csv", na = "NaN", row.names = FALSE, quote = FALSE)
+write.csv(all_nutrients, "nes-lter-nutrient-transect.csv", na = "NaN", row.names = FALSE, quote = FALSE)
 
 # define input files
 metadata <- "nutrient-transect-info"
@@ -260,9 +249,9 @@ excel_to_template(here(metadata), edi_filename, rights='CC0', file_type=".md", d
 
 # Data Coverage
 # isolate date and geospatial columns for input
-date_col <- as.Date(all_cruises$date)
-lat_col <- all_cruises$latitude
-lon_col <- all_cruises$longitude
+date_col <- as.Date(all_nutrients$date)
+lat_col <- all_nutrients$latitude
+lon_col <- all_nutrients$longitude
 # run function to determine geospatial and temporal coverage
 coverage <- data_coverage(dates = date_col, lat = lat_col, lon = lon_col)
 
