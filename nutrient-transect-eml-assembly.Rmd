@@ -1,7 +1,7 @@
 ---
 title: "Creating a Data Package for NES-LTER Nutrient Transect Cruise Data"
 author: "Kate Morkeski, Joanne Koch, Stace Beaulieu and Joe Futrelle"
-date: "2024-07-24"
+date: "2024-09-23"
 output: html_document
 ---
 
@@ -91,7 +91,7 @@ all_cruises[, c("depth")] <- round(all_cruises[, c("depth")], 1)
 # # to all_cruises. If the entry does not exist in all_cruises, do not add it to 
 # # all_cruises because the nutient data is missing from the samples file.
 
-need_metadata <- read_csv('samples_lacking_bottle_metadata_nutrients.csv')
+need_metadata <- read_csv('samples_lacking_bottle_metadata_nutrients_nearest_station.csv')
 need_metadata <- need_metadata %>%
   mutate(depth = round(depth, 1))
 need_metadata$date <- as.POSIXct(need_metadata$date, tz = "GMT", "%m/%d/%Y %H:%M")
