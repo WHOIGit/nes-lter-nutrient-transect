@@ -55,7 +55,7 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0003-4537-5853</userId>
       <role>softwareDeveloper</role>
     </associatedParty>
-    <pubDate>2024-09-23</pubDate>
+    <pubDate>2024-10-07</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle
 samples taken on NES-LTER Transect cruises (ongoing since 2017) and
@@ -338,8 +338,8 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">433385</size>
-        <authentication method="MD5">5362e56dabfb93367169f2d5a98fe91f</authentication>
+        <size unit="bytes">433317</size>
+        <authentication method="MD5">1bf91e1ec3021c4fff37b24f3248be04</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
