@@ -55,7 +55,16 @@
       <userId directory="https://orcid.org">https://orcid.org/0000-0003-4537-5853</userId>
       <role>softwareDeveloper</role>
     </associatedParty>
-    <pubDate>2024-10-07</pubDate>
+    <associatedParty>
+      <individualName>
+        <givenName>Joanne</givenName>
+        <surName>Koch</surName>
+      </individualName>
+      <organizationName>Northeast U.S. Shelf LTER</organizationName>
+      <electronicMailAddress>jkoch@whoi.edu</electronicMailAddress>
+      <role>softwareDeveloper</role>
+    </associatedParty>
+    <pubDate>2024-12-09</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle
 samples taken on NES-LTER Transect cruises (ongoing since 2017) and
@@ -172,11 +181,11 @@ https://github.com/WHOIGit/nes-lter-nutrient-transect.&#13;
 &#13;
 We assured that the geographic and temporal coverage of the clean data table are within expected ranges. No values changed as compared to the previous version of this data package. For each nutrient we checked differences between replicates, visually inspected plotted values, and performed a range check.&#13;
 &#13;
-For published version 3, preliminary quality flags were assigned to the data. Automated code was used each nutrient type individually to check for differences between replicates. Quality is indicated in the data table with IODE Primary Level flags: 1 good; 2 not evaluated, not available or unknown; 3 questionable/suspect; 4 bad; 9 missing data. [See IODE Ocean Data Standards recommendation here: https://www.iode.org/index.php?option=com_oe&amp;task=viewDocumentRecord&amp;docID=10762] Thresholds for flag 3 and 4 were set for each nutrient type, and if poor replication was above a threshold, both replicates received the same flag of 3 or 4. It is possible one replicate is good, and future versions of the package will include manual checking to assess the automated flagging and apply appropriate flagging quality control. Due to the preliminary nature of the current flagging scheme, no data have been removed from the data set at this time. Future manually checked versions of flagging will possibly replace values with NA. &#13;
+For published version 3, preliminary quality flags were assigned to the data. Automation was used to check each nutrient for differences between replicates. Quality is indicated in the data table with IODE Primary Level flags: 1 good; 2 not evaluated, not available or unknown; 3 questionable/suspect; 4 bad; 9 missing data. [See IODE Ocean Data Standards recommendation here: https://www.iode.org/index.php?option=com_oe&amp;task=viewDocumentRecord&amp;docID=10762] Thresholds for flag 3 and 4 were set for each nutrient type, and if poor replication was above a threshold, both replicates received the same flag of 3 or 4. It is possible one replicate is good, and future versions of the package will include manual checking to assess the automated flagging and apply appropriate flagging quality control. Due to the preliminary nature of the current flagging scheme, no data have been removed from the data set at this time. Future manually checked versions of flagging will possibly replace values with NA. &#13;
 &#13;
 # Differences from Previous Version&#13;
 &#13;
-In version 3, in addition to the flagging changes described above, 2,650 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. collected Depth in all rows has been rounded to one decimal place. &#13;
+In version 3, in addition to the flagging changes described above, 2,650 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Depth in all rows has been rounded to one decimal place. &#13;
 &#13;
 # Related Data Sets&#13;
 &#13;
@@ -338,8 +347,8 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">433317</size>
-        <authentication method="MD5">1bf91e1ec3021c4fff37b24f3248be04</authentication>
+        <size unit="bytes">444447</size>
+        <authentication method="MD5">c2e9e70e3f853ad5354b21e03a828d3f</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -413,7 +422,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
           </missingValueCode>
         </attribute>
         <attribute>
-          <attributeName>date</attributeName>
+          <attributeName>date_time_utc</attributeName>
           <attributeDefinition>Date and time in UTC when rosette bottle closed</attributeDefinition>
           <storageType>date</storageType>
           <measurementScale>
@@ -687,7 +696,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">0</minimum>
-                  <maximum exclusive="false">18.798</maximum>
+                  <maximum exclusive="false">1.997</maximum>
                 </bounds>
               </numericDomain>
             </ratio>

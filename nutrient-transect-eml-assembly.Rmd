@@ -1,7 +1,7 @@
 ---
 title: "Creating a Data Package for NES-LTER Nutrient Transect Cruise Data"
 author: "Kate Morkeski, Joanne Koch, Stace Beaulieu and Joe Futrelle"
-date: "2024-09-23"
+date: "2024-12-09"
 output: html_document
 ---
 
@@ -26,7 +26,6 @@ library(ggplot2)
 library(readxl)
 library(readr)
 library(compareDF)
-library(lubridate)
 library(devtools)
 library(EML)
 library(maps)
@@ -70,6 +69,7 @@ all_cruises <- all_cruises[order(all_cruises$date), ]
 
 # rename "distance_km" 
 names(all_cruises)[names(all_cruises) == 'distance_km'] <- 'station_distance'
+names(all_cruises)[names(all_cruises) == 'date'] <- 'date_time_utc'
 
 # define columns to round
 round_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth", "station_distance")
@@ -93,8 +93,11 @@ all_cruises[, c("depth")] <- round(all_cruises[, c("depth")], 1)
 
 need_metadata <- read_csv('samples_lacking_bottle_metadata_nutrients_nearest_station.csv')
 need_metadata <- need_metadata %>%
-  mutate(depth = round(depth, 1))
-need_metadata$date <- as.POSIXct(need_metadata$date, tz = "GMT", "%m/%d/%Y %H:%M")
+  mutate(depth = round(depth, 1)) %>%
+  rename(date_time_utc = date) %>%
+  mutate(station_distance = case_when(station_distance > 2 ~ NA, TRUE ~ station_distance)) %>%
+  mutate(nearest_station = case_when(station_distance == NA ~ NA, TRUE ~ nearest_station)) 
+need_metadata$date_time_utc <- as.POSIXct(need_metadata$date_time_utc, tz = "GMT", "%m/%d/%Y %H:%M")
 
 all_cruises$cast <- as.character(all_cruises$cast)
 need_metadata$cast <- as.character(need_metadata$cast)
@@ -107,7 +110,7 @@ all_cruises <- all_cruises %>% anti_join(need_metadata, by = c("cruise", "cast",
 # add rows rename new data frame  
 all_nutrients <- bind_rows(all_cruises, need_metadata)
 
-all_nutrients <- all_nutrients %>% arrange(date, cruise, cast, niskin, replicate)
+all_nutrients <- all_nutrients %>% arrange(date_time_utc, cruise, cast, niskin, replicate)
 
 # all_cruises$nearest_station[is.na(all_cruises$nearest_station)] <- ""
 
@@ -126,6 +129,7 @@ v2_commit_hash='4236d91cd1289ce6b0958e01d2a45e286de789e7'  # version 2
 #v1 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v1_commit_hash}/nes-lter-nutrient-transect.csv'))
 v2 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v2_commit_hash}/nes-lter-nutrient-transect.csv'))
 
+names(v2)[names(v2) == 'date'] <- 'date_time_utc'
 comparison <- compare_df(v3, v2, c("cruise", "cast", "niskin"))
 
 create_output_table(comparison, output_type='xlsx', file_name='version_comparison.xlsx')
@@ -197,7 +201,7 @@ for (i in 1:length(nut_cols)) {
   nut_subset <- cruises_long %>% filter(nutrients == nut_cols[i])
   
   # ggplot where x = cast, y = value and the lineplots are grouped by cruise
-  p <- ggplot(data = nut_subset, aes(x = date, y = value, color = cruise)) +
+  p <- ggplot(data = nut_subset, aes(x = date_time_utc, y = value, color = cruise)) +
     geom_boxplot(outlier.size = 0.5) +
     # scale_x_datetime(date_breaks = "6 weeks") +
     ylab(paste0(nut_cols[i], " concentration (µmol/L)")) +
@@ -220,25 +224,24 @@ if(any(all_nutrients$phosphate > 3)) cat("phosphate_exceeds")
 if(any(all_nutrients$silicate > 60)) cat("silicate_exceeds")
 
 ```
-
-## EML Assembly
-
-This chunk outputs the final xml file for EDI through the following steps:
-
-Step 1: Populating EML Assembly Line templates with metadata
-Step 2: Calculating the geospatial and temporal coverage 
-Step 3: Making the XML file 
-Step 4: Inserting a custom NES-LTER parent project node 
+## Output final data file
 
 ```{r}
 
-all_nutrients$alternate_sample_id[all_nutrients$alternate_sample_id == NaN] <- ""
+all_nutrients$alternate_sample_id[is.nan(all_nutrients$alternate_sample_id)] <- ""
+#all_nutrients$alternate_sample_id[all_nutrients$alternate_sample_id == NaN] <- ""
 all_nutrients$nearest_station[is.na(all_nutrients$nearest_station)] <- ""
 #all_nutrients <- all_nutrients[order(all_nutrients$date), ]
 
 # Write to the csv file
 write.csv(all_nutrients, "nes-lter-nutrient-transect.csv", na = "NaN", row.names = FALSE, quote = FALSE)
 
+```
+
+## EML Assembly
+Generate the package and insert the parent project node into the resulting EML
+
+```{r}
 # define input files
 metadata <- "nutrient-transect-info"
 edi_filename <- "nes-lter-nutrient-transect"
@@ -249,7 +252,7 @@ excel_to_template(here(metadata), edi_filename, rights='CC0', file_type=".md", d
 
 # Data Coverage
 # isolate date and geospatial columns for input
-date_col <- as.Date(all_nutrients$date)
+date_col <- as.Date(all_nutrients$date_time_utc)
 lat_col <- all_nutrients$latitude
 lon_col <- all_nutrients$longitude
 # run function to determine geospatial and temporal coverage
