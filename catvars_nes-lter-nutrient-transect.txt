@@ -2,3 +2,23 @@ attributeName	code	definition
 project_id	LTER	Long-Term Ecological Research
 project_id	JP	MIT-WHOI Joint Program
 project_id	OOI	Ocean Observatories Initiative
+flag_nitrate_nitrite	1	good
+flag_nitrate_nitrite	2	quality not evaluated, not available or unknown
+flag_nitrate_nitrite	3	questionable/suspect
+flag_nitrate_nitrite	4	bad
+flag_nitrate_nitrite	9	missing
+flag_ammonium	1	good
+flag_ammonium	2	quality not evaluated, not available or unknown
+flag_ammonium	3	questionable/suspect
+flag_ammonium	4	bad
+flag_ammonium	9	missing
+flag_phosphate	1	good
+flag_phosphate	2	quality not evaluated, not available or unknown
+flag_phosphate	3	questionable/suspect
+flag_phosphate	4	bad
+flag_phosphate	9	missing
+flag_silicate	1	good
+flag_silicate	2	quality not evaluated, not available or unknown
+flag_silicate	3	questionable/suspect
+flag_silicate	4	bad
+flag_silicate	9	missing

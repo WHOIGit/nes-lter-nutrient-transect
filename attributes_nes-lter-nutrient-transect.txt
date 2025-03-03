@@ -5,14 +5,18 @@ niskin	Rosette bottle position number	numeric	dimensionless		NaN	Missing value
 date_time_utc	Date and time in UTC when rosette bottle closed	Date		YYYY-MM-DD hh:mm:ss		
 latitude	Ship's latitude when rosette bottle closed	numeric	degree		NaN	Missing value
 longitude	Ship's longitude when rosette bottle closed	numeric	degree		NaN	Missing value
+nearest_station	Nearest station is provided per cruise	character				
+station_distance	Distance from sample location to nearest station	numeric	kilometer		NaN	Distance to nearest station is greater than 2 km
 depth	Depth of sample below sea surface. URI http://vocab.nerc.ac.uk/collection/P09/current/DEPH/	numeric	meter		NaN	Missing value
 sample_id	Identifier for subsample drawn from rosette bottle	numeric	dimensionless		NaN	Missing value
 replicate	Lowercase letter indicating replicate subsample drawn from the same rosette bottle	character				
+alternate_sample_id	Sample identifier for project other than LTER	character				
+project_id	Identifier for project that funded the cruise or sample	categorical				
 nitrate_nitrite	Nitrate+nitrite concentration in the water column http://vocab.nerc.ac.uk/collection/P02/current/NTRA/	numeric	micromolePerLiter		NaN	Missing value
 ammonium	Ammonium concentration in the water column http://vocab.nerc.ac.uk/collection/P02/current/AMON/	numeric	micromolePerLiter		NaN	Missing value
 phosphate	Phosphate concentration in the water column http://vocab.nerc.ac.uk/collection/P02/current/PHOS/	numeric	micromolePerLiter		NaN	Missing value
 silicate	Silicate concentration in the water column http://vocab.nerc.ac.uk/collection/P02/current/SLCA/	numeric	micromolePerLiter		NaN	Missing value
-alternate_sample_id	Sample identifier for project other than LTER	character				
-project_id	Identifier for project that funded the cruise (or sample when available)	categorical				
-nearest_station	Nearest station is provided per cruise	character				
-station_distance	Distance from sample location to nearest station	numeric	kilometer		NaN	Distance to nearest station is greater than 2 km
+flag_nitrate_nitrite	IODE Quality Flag primary level	categorical				
+flag_ammonium	IODE Quality Flag primary level	categorical				
+flag_phosphate	IODE Quality Flag primary level	categorical				
+flag_silicate	IODE Quality Flag primary level	categorical				

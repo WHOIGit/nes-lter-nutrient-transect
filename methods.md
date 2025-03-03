@@ -17,6 +17,8 @@ Completely fill syringe with sample water and force 60 ml through a EMD Millipor
 
 All samples: Then, without touching filter to sample vial (acid-washed 20-ml scintillation vial), rinse sample vial with 5 ml of filtered water 3 times. For each rinse, replace the cap and shake vigorously. Filter 17 ml of sample directly into the sample vial and replace the cap and proceed to the next sample. Store samples in a -20 deg C freezer and keep frozen until analysis. If applicable, flush AcroPak filter with Milli-Q water and refrigerate for use on next cast (AcroPak filter may process up to 20 liters).
 
+Note regarding ammonium: Due to the method of samples being filtered and frozen before analysis, ammonium data are subject to various potential artifacts. Ammonium samples are best analyzed immediately without freezing, but this is not feasible on NES cruises.
+
 # WHOI Nutrient Facility Nutrient Analysis
 
 Samples are stored at -20 degrees C until submitted to the Woods Hole Oceanographic Institution's Nutrient Analytical Facility

@@ -118,21 +118,21 @@ all_nutrients <- all_nutrients %>% arrange(date_time_utc, cruise, cast, niskin, 
 
 
 ```{r}
-
-# read new locally-produced table
-v3 = all_nutrients
-
-# read v1 table from GitHub
-v1_commit_hash='06badc2f5fc07d3a995b72af260ce68f0c69119d'  # version 1
-v2_commit_hash='4236d91cd1289ce6b0958e01d2a45e286de789e7'  # version 2
-
-#v1 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v1_commit_hash}/nes-lter-nutrient-transect.csv'))
-v2 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v2_commit_hash}/nes-lter-nutrient-transect.csv'))
-
-names(v2)[names(v2) == 'date'] <- 'date_time_utc'
-comparison <- compare_df(v3, v2, c("cruise", "cast", "niskin"))
-
-create_output_table(comparison, output_type='xlsx', file_name='version_comparison.xlsx')
+# 
+# # read new locally-produced table
+# v3 = all_nutrients
+# 
+# # read v1 table from GitHub
+# v1_commit_hash='06badc2f5fc07d3a995b72af260ce68f0c69119d'  # version 1
+# v2_commit_hash='4236d91cd1289ce6b0958e01d2a45e286de789e7'  # version 2
+# 
+# #v1 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v1_commit_hash}/nes-lter-nutrient-transect.csv'))
+# v2 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v2_commit_hash}/nes-lter-nutrient-transect.csv'))
+# 
+# names(v2)[names(v2) == 'date'] <- 'date_time_utc'
+# comparison <- compare_df(v3, v2, c("cruise", "cast", "niskin"))
+# 
+# create_output_table(comparison, output_type='xlsx', file_name='version_comparison.xlsx')
 
 ```
 
@@ -232,6 +232,11 @@ all_nutrients$alternate_sample_id[is.nan(all_nutrients$alternate_sample_id)] <- 
 #all_nutrients$alternate_sample_id[all_nutrients$alternate_sample_id == NaN] <- ""
 all_nutrients$nearest_station[is.na(all_nutrients$nearest_station)] <- ""
 #all_nutrients <- all_nutrients[order(all_nutrients$date), ]
+
+# define headers for columns in desired order
+headers <- c("cruise", "cast", "niskin", "date_time_utc", "latitude", "longitude", "nearest_station", "station_distance", "depth", "sample_id", "replicate", "alternate_sample_id", "project_id", "nitrate_nitrite", "ammonium", "phosphate", "silicate", "flag_nitrate_nitrite", "flag_ammonium", "flag_phosphate", "flag_silicate")
+# reorder columns as necessary
+all_nutrients <- all_nutrients[, headers]
 
 # Write to the csv file
 write.csv(all_nutrients, "nes-lter-nutrient-transect.csv", na = "NaN", row.names = FALSE, quote = FALSE)

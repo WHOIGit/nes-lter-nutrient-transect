@@ -1,7 +1,7 @@
 givenName	middleInitial	surName	organizationName	electronicMailAddress	userId	role	projectTitle	fundingAgency	fundingNumber
 Heidi	M	Sosik	Northeast U.S. Shelf LTER	hsosik@whoi.edu	0000-0002-4591-2842	creator	Northeast U.S. Shelf LTER	NSF	OCE-2322676
 Heidi	M	Sosik	Northeast U.S. Shelf LTER	hsosik@whoi.edu	0000-0002-4591-2842	PI	Northeast U.S. Shelf LTER	NSF	OCE-2322676
-E. Taylor		Crockford	Northeast U.S. Shelf LTER	ecrockford@whoi.edu		creator	Northeast U.S. Shelf LTER	NSF	OCE-2322676
+E.	Taylor	Crockford	Northeast U.S. Shelf LTER	ecrockford@whoi.edu		creator	Northeast U.S. Shelf LTER	NSF	OCE-2322676
 Emily		Peacock	Northeast U.S. Shelf LTER	epeacock@whoi.edu		creator	Northeast U.S. Shelf LTER	NSF	OCE-2322676
 		OOI CGSN Data Team	Ocean Observatories Initiative	help@oceanobservatories.org		creator	Ocean Observatories Initiative	NSF	OCE-1743430
 NES-LTER Information Manager			Northeast U.S. Shelf LTER	lter-nes-info@whoi.edu		contact	Northeast U.S. Shelf LTER	NSF	OCE-2322676

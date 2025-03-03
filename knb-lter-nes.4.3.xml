@@ -24,7 +24,8 @@
     </creator>
     <creator>
       <individualName>
-        <givenName>E. Taylor</givenName>
+        <givenName>E.</givenName>
+        <givenName>Taylor</givenName>
         <surName>Crockford</surName>
       </individualName>
       <organizationName>Northeast U.S. Shelf LTER</organizationName>
@@ -64,7 +65,7 @@
       <electronicMailAddress>jkoch@whoi.edu</electronicMailAddress>
       <role>softwareDeveloper</role>
     </associatedParty>
-    <pubDate>2024-12-09</pubDate>
+    <pubDate>2025-03-03</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle
 samples taken on NES-LTER Transect cruises (ongoing since 2017) and
@@ -145,57 +146,59 @@ Facility for analyzing the samples collected for this data package.
     <methods>
       <methodStep>
         <description>
-          <markdown>Three projects, NES-LTER, Ocean Observatories Initiative (OOI), and MIT-WHOI Joint Program (JP), provide dissolved inorganic nutrient data from CTD rosette bottle and bucket sampling on NES-LTER Transect cruises. Methods are the same across the three projects.&#13;
-&#13;
-From 2017 through 2022, spring and fall sample collection typically occurred on cruises funded and operated by the Ocean Observatories Initiative (OOI). These cruises are identified with the project_id OOI, and they include data collected for both the NES-LTER and OOI projects. Please note that OOI data are included here as a convenience to researchers wishing to use the data from both projects, and that the authoritative source for OOI data is the OOI Alfresco document server for Cruise Data from the Coastal Pioneer NES Array (https://alfresco.oceanobservatories.org/).&#13;
-&#13;
-MIT-WHOI Joint Program (JP) cruises (AR22, AR32, and AR38) are funded by WHOI Academic Programs Office.&#13;
-&#13;
-# CTD Rosette Bottle and Bucket Sampling on NES-LTER cruises&#13;
-&#13;
-Samples were collected from the water column at multiple depths using Niskin bottles on a CTD rosette system. Some samples were collected at the surface with a bucket.&#13;
-&#13;
-# Nutrient Filtering Protocol&#13;
-&#13;
-Prior to 2018, and for bucket samples: Wearing nitrile gloves, collect water from the Niskin or bucket with a clean bottle that is rinsed 3 times with the sample water. Rinse the full length of a 60 ml syringe with a small volume of sample water 3 times.&#13;
-Completely fill syringe with sample water and force 60 ml through a EMD Millipore sterile Sterivex 0.22 um filter. Then refill the syringe.&#13;
-&#13;
-2018 to present: Wearing nitrile gloves, connect AcroPak 200 Capsule with Super Membrane 0.2 um filter with barb and tubing to Niskin spigot and fill with water. Rinse filter with 3 times the volume of the filter. Then refill the filter.&#13;
-&#13;
-All samples: Then, without touching filter to sample vial (acid-washed 20-ml scintillation vial), rinse sample vial with 5 ml of filtered water 3 times. For each rinse, replace the cap and shake vigorously. Filter 17 ml of sample directly into the sample vial and replace the cap and proceed to the next sample. Store samples in a -20 deg C freezer and keep frozen until analysis. If applicable, flush AcroPak filter with Milli-Q water and refrigerate for use on next cast (AcroPak filter may process up to 20 liters).&#13;
-&#13;
-# WHOI Nutrient Facility Nutrient Analysis&#13;
-&#13;
-Samples are stored at -20 degrees C until submitted to the Woods Hole Oceanographic Institution's Nutrient Analytical Facility&#13;
-(https://web.whoi.edu/nutrient/) which operates a four-channel segmented flow SEAL AA3 HR Autoanalyzer. Duplicates and spiked additions are run for quality control. Standards are made daily and Certified Reference material is run daily to ensure the standards and/or reagents are good. If the samples fall outside of the duplicate or spike addition quality&#13;
-control they are rerun until they fall within quality control parameters. Precision is 0.001 micromoles per liter. Please refer to the Facility's website for current detection limits which are different depending on the nutrient.&#13;
-&#13;
-# Nutrient Data Cleaning&#13;
-&#13;
-The data table is made by concatenating cruises called from the REST API of the NES-LTER data system. All Below Detection Limit values are set to zero. Nearest station is calculated based on the station location on the date of sample collection. Station locations have been consistent over the course of the project with the following exceptions: Station L5 was shifted 1 nautical mile due south during the first year of the project, in July 2018 for cruise EN617, and has remained there since. Stations L7, L8, and L9 were shifted at the start of 2023 (after the removal of the OOI Pioneer Array), moving L8 west to the main line and evenly spacing L7 and L9 along the main line.  &#13;
-&#13;
-Data assembly, cleaning, and metadata template assembly are performed in R Markdown. Additional nutrients data for Ocean Observatories Initiative (OOI) cruises on R/V Neil Armstrong are available from the OOI Alfresco document server (Coastal Pioneer NES Array \&gt; Cruise Data \&gt; select a cruise \&gt; Ship Data \&gt; Water Sampling). Further documentation can be found on GitHub, at&#13;
-https://github.com/WHOIGit/nes-lter-nutrient-transect.&#13;
-&#13;
-# Quality Assurance&#13;
-&#13;
-We assured that the geographic and temporal coverage of the clean data table are within expected ranges. No values changed as compared to the previous version of this data package. For each nutrient we checked differences between replicates, visually inspected plotted values, and performed a range check.&#13;
-&#13;
-For published version 3, preliminary quality flags were assigned to the data. Automation was used to check each nutrient for differences between replicates. Quality is indicated in the data table with IODE Primary Level flags: 1 good; 2 not evaluated, not available or unknown; 3 questionable/suspect; 4 bad; 9 missing data. [See IODE Ocean Data Standards recommendation here: https://www.iode.org/index.php?option=com_oe&amp;task=viewDocumentRecord&amp;docID=10762] Thresholds for flag 3 and 4 were set for each nutrient type, and if poor replication was above a threshold, both replicates received the same flag of 3 or 4. It is possible one replicate is good, and future versions of the package will include manual checking to assess the automated flagging and apply appropriate flagging quality control. Due to the preliminary nature of the current flagging scheme, no data have been removed from the data set at this time. Future manually checked versions of flagging will possibly replace values with NA. &#13;
-&#13;
-# Differences from Previous Version&#13;
-&#13;
-In version 3, in addition to the flagging changes described above, 2,650 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Depth in all rows has been rounded to one decimal place. &#13;
-&#13;
-# Related Data Sets&#13;
-&#13;
-Additional discrete nutrient data from NES-LTER cruises EN608, EN627, and EN644:&#13;
-Jenkins, B. D., Bertin, M. (2021) Pseudo-nitzschia spp. cell counts, nutrients water temperature and salinity, and concentrations of the toxin domoic acid from weekly samples and offshore cruises with the Northeast U.S. Shelf (NES) Long-Term Ecological Research (LTER). Biological and Chemical Oceanography Data Management Office (BCO-DMO). (Version 1) Version Date 2021-04-05. doi:10.26008/1912/bco-dmo.847448.1 [2024-07-24]&#13;
-&#13;
-Additional discrete nutrient data from cross-shelf transects in April 2018, May 2019, and July 2019 from Shelfbreak Productivity Interdisciplinary Research Operation at the Pioneer Array (SPIROPA) project. &#13;
-https://www.bco-dmo.org/project/748894&#13;
-&#13;
-Additional discrete nutrient data from the Martha's Vineyard Coastal Observatory:&#13;
+          <markdown>Three projects, NES-LTER, Ocean Observatories Initiative (OOI), and MIT-WHOI Joint Program (JP), provide dissolved inorganic nutrient data from CTD rosette bottle and bucket sampling on NES-LTER Transect cruises. Methods are the same across the three projects.
+
+From 2017 through 2022, spring and fall sample collection typically occurred on cruises funded and operated by the Ocean Observatories Initiative (OOI). These cruises are identified with the project_id OOI, and they include data collected for both the NES-LTER and OOI projects. Please note that OOI data are included here as a convenience to researchers wishing to use the data from both projects, and that the authoritative source for OOI data is the OOI Alfresco document server for Cruise Data from the Coastal Pioneer NES Array (https://alfresco.oceanobservatories.org/).
+
+MIT-WHOI Joint Program (JP) cruises (AR22, AR32, and AR38) are funded by WHOI Academic Programs Office.
+
+# CTD Rosette Bottle and Bucket Sampling on NES-LTER cruises
+
+Samples were collected from the water column at multiple depths using Niskin bottles on a CTD rosette system. Some samples were collected at the surface with a bucket.
+
+# Nutrient Filtering Protocol
+
+Prior to 2018, and for bucket samples: Wearing nitrile gloves, collect water from the Niskin or bucket with a clean bottle that is rinsed 3 times with the sample water. Rinse the full length of a 60 ml syringe with a small volume of sample water 3 times.
+Completely fill syringe with sample water and force 60 ml through a EMD Millipore sterile Sterivex 0.22 um filter. Then refill the syringe.
+
+2018 to present: Wearing nitrile gloves, connect AcroPak 200 Capsule with Super Membrane 0.2 um filter with barb and tubing to Niskin spigot and fill with water. Rinse filter with 3 times the volume of the filter. Then refill the filter.
+
+All samples: Then, without touching filter to sample vial (acid-washed 20-ml scintillation vial), rinse sample vial with 5 ml of filtered water 3 times. For each rinse, replace the cap and shake vigorously. Filter 17 ml of sample directly into the sample vial and replace the cap and proceed to the next sample. Store samples in a -20 deg C freezer and keep frozen until analysis. If applicable, flush AcroPak filter with Milli-Q water and refrigerate for use on next cast (AcroPak filter may process up to 20 liters).
+
+Note regarding ammonium: Due to the method of samples being filtered and frozen before analysis, ammonium data are subject to various potential artifacts. Ammonium samples are best analyzed immediately without freezing, but this is not feasible on NES cruises.
+
+# WHOI Nutrient Facility Nutrient Analysis
+
+Samples are stored at -20 degrees C until submitted to the Woods Hole Oceanographic Institution's Nutrient Analytical Facility
+(https://web.whoi.edu/nutrient/) which operates a four-channel segmented flow SEAL AA3 HR Autoanalyzer. Duplicates and spiked additions are run for quality control. Standards are made daily and Certified Reference material is run daily to ensure the standards and/or reagents are good. If the samples fall outside of the duplicate or spike addition quality
+control they are rerun until they fall within quality control parameters. Precision is 0.001 micromoles per liter. Please refer to the Facility's website for current detection limits which are different depending on the nutrient.
+
+# Nutrient Data Cleaning
+
+The data table is made by concatenating cruises called from the REST API of the NES-LTER data system. All Below Detection Limit values are set to zero. Nearest station is calculated based on the station location on the date of sample collection. Station locations have been consistent over the course of the project with the following exceptions: Station L5 was shifted 1 nautical mile due south during the first year of the project, in July 2018 for cruise EN617, and has remained there since. Stations L7, L8, and L9 were shifted at the start of 2023 (after the removal of the OOI Pioneer Array), moving L8 west to the main line and evenly spacing L7 and L9 along the main line.  
+
+Data assembly, cleaning, and metadata template assembly are performed in R Markdown. Additional nutrients data for Ocean Observatories Initiative (OOI) cruises on R/V Neil Armstrong are available from the OOI Alfresco document server (Coastal Pioneer NES Array \&gt; Cruise Data \&gt; select a cruise \&gt; Ship Data \&gt; Water Sampling). Further documentation can be found on GitHub, at
+https://github.com/WHOIGit/nes-lter-nutrient-transect.
+
+# Quality Assurance
+
+We assured that the geographic and temporal coverage of the clean data table are within expected ranges. No values changed as compared to the previous version of this data package. For each nutrient we checked differences between replicates, visually inspected plotted values, and performed a range check.
+
+For published version 3, preliminary quality flags were assigned to the data. Automation was used to check each nutrient for differences between replicates. Quality is indicated in the data table with IODE Primary Level flags: 1 good; 2 not evaluated, not available or unknown; 3 questionable/suspect; 4 bad; 9 missing data. [See IODE Ocean Data Standards recommendation here: https://www.iode.org/index.php?option=com_oe&amp;task=viewDocumentRecord&amp;docID=10762] Thresholds for flag 3 and 4 were set for each nutrient type, and if poor replication was above a threshold, both replicates received the same flag of 3 or 4. It is possible one replicate is good, and future versions of the package will include manual checking to assess the automated flagging and apply appropriate flagging quality control. Due to the preliminary nature of the current flagging scheme, no data have been removed from the data set at this time. Future manually checked versions of flagging will possibly replace values with NA. 
+
+# Differences from Previous Version
+
+In version 3, in addition to the flagging changes described above, 2,650 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Depth in all rows has been rounded to one decimal place. 
+
+# Related Data Sets
+
+Additional discrete nutrient data from NES-LTER cruises EN608, EN627, and EN644:
+Jenkins, B. D., Bertin, M. (2021) Pseudo-nitzschia spp. cell counts, nutrients water temperature and salinity, and concentrations of the toxin domoic acid from weekly samples and offshore cruises with the Northeast U.S. Shelf (NES) Long-Term Ecological Research (LTER). Biological and Chemical Oceanography Data Management Office (BCO-DMO). (Version 1) Version Date 2021-04-05. doi:10.26008/1912/bco-dmo.847448.1 [2024-07-24]
+
+Additional discrete nutrient data from cross-shelf transects in April 2018, May 2019, and July 2019 from Shelfbreak Productivity Interdisciplinary Research Operation at the Pioneer Array (SPIROPA) project. 
+https://www.bco-dmo.org/project/748894
+
+Additional discrete nutrient data from the Martha's Vineyard Coastal Observatory:
 Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients from the Martha's Vineyard Coastal Observatory (MVCO), including 4 macro-nutrients from water column bottle samples, ongoing since 2003 (NES-LTER since 2017) ver 3. Environmental Data Initiative. https://doi.org/10.6073/pasta/ca34be7554ddc67c9fa0f8dea01f375b (Accessed 2024-07-24).</markdown>
         </description>
       </methodStep>
@@ -347,8 +350,8 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">444447</size>
-        <authentication method="MD5">c2e9e70e3f853ad5354b21e03a828d3f</authentication>
+        <size unit="bytes">491276</size>
+        <authentication method="MD5">c96aae74af235d91bc148978cb3976f9</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -479,6 +482,43 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
           </missingValueCode>
         </attribute>
         <attribute>
+          <attributeName>nearest_station</attributeName>
+          <attributeDefinition>Nearest station is provided per cruise</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Nearest station is provided per cruise</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>station_distance</attributeName>
+          <attributeDefinition>Distance from sample location to nearest station</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>kilometer</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0</minimum>
+                  <maximum exclusive="false">1.997</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Distance to nearest station is greater than 2 km</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
           <attributeName>depth</attributeName>
           <attributeDefinition>Depth of sample below sea surface. URI http://vocab.nerc.ac.uk/collection/P09/current/DEPH/</attributeDefinition>
           <storageType>float</storageType>
@@ -539,6 +579,45 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
           </measurementScale>
         </attribute>
         <attribute>
+          <attributeName>alternate_sample_id</attributeName>
+          <attributeDefinition>Sample identifier for project other than LTER</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Sample identifier for project other than LTER</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>project_id</attributeName>
+          <attributeDefinition>Identifier for project that funded the cruise or sample</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>LTER</code>
+                    <definition>Long-Term Ecological Research</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>JP</code>
+                    <definition>MIT-WHOI Joint Program</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>OOI</code>
+                    <definition>Ocean Observatories Initiative</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
           <attributeName>nitrate_nitrite</attributeName>
           <attributeDefinition>Nitrate+nitrite concentration in the water column http://vocab.nerc.ac.uk/collection/P02/current/NTRA/</attributeDefinition>
           <storageType>float</storageType>
@@ -573,7 +652,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">0</minimum>
+                  <minimum exclusive="false">0.01</minimum>
                   <maximum exclusive="false">7.658</maximum>
                 </bounds>
               </numericDomain>
@@ -596,7 +675,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">0</minimum>
+                  <minimum exclusive="false">0.009</minimum>
                   <maximum exclusive="false">2.066</maximum>
                 </bounds>
               </numericDomain>
@@ -619,7 +698,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">0</minimum>
+                  <minimum exclusive="false">0.03</minimum>
                   <maximum exclusive="false">28.767</maximum>
                 </bounds>
               </numericDomain>
@@ -631,38 +710,32 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
           </missingValueCode>
         </attribute>
         <attribute>
-          <attributeName>alternate_sample_id</attributeName>
-          <attributeDefinition>Sample identifier for project other than LTER</attributeDefinition>
-          <storageType>string</storageType>
-          <measurementScale>
-            <nominal>
-              <nonNumericDomain>
-                <textDomain>
-                  <definition>Sample identifier for project other than LTER</definition>
-                </textDomain>
-              </nonNumericDomain>
-            </nominal>
-          </measurementScale>
-        </attribute>
-        <attribute>
-          <attributeName>project_id</attributeName>
-          <attributeDefinition>Identifier for project that funded the cruise (or sample when available)</attributeDefinition>
+          <attributeName>flag_nitrate_nitrite</attributeName>
+          <attributeDefinition>IODE Quality Flag primary level</attributeDefinition>
           <storageType>string</storageType>
           <measurementScale>
             <nominal>
               <nonNumericDomain>
                 <enumeratedDomain>
                   <codeDefinition>
-                    <code>LTER</code>
-                    <definition>Long-Term Ecological Research</definition>
+                    <code>1</code>
+                    <definition>good</definition>
                   </codeDefinition>
                   <codeDefinition>
-                    <code>JP</code>
-                    <definition>MIT-WHOI Joint Program</definition>
+                    <code>2</code>
+                    <definition>quality not evaluated, not available or unknown</definition>
                   </codeDefinition>
                   <codeDefinition>
-                    <code>OOI</code>
-                    <definition>Ocean Observatories Initiative</definition>
+                    <code>3</code>
+                    <definition>questionable/suspect</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>bad</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>9</code>
+                    <definition>missing</definition>
                   </codeDefinition>
                 </enumeratedDomain>
               </nonNumericDomain>
@@ -670,41 +743,103 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
           </measurementScale>
         </attribute>
         <attribute>
-          <attributeName>nearest_station</attributeName>
-          <attributeDefinition>Nearest station is provided per cruise</attributeDefinition>
+          <attributeName>flag_ammonium</attributeName>
+          <attributeDefinition>IODE Quality Flag primary level</attributeDefinition>
           <storageType>string</storageType>
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <textDomain>
-                  <definition>Nearest station is provided per cruise</definition>
-                </textDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>good</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>quality not evaluated, not available or unknown</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>questionable/suspect</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>bad</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>9</code>
+                    <definition>missing</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
         </attribute>
         <attribute>
-          <attributeName>station_distance</attributeName>
-          <attributeDefinition>Distance from sample location to nearest station</attributeDefinition>
-          <storageType>float</storageType>
+          <attributeName>flag_phosphate</attributeName>
+          <attributeDefinition>IODE Quality Flag primary level</attributeDefinition>
+          <storageType>string</storageType>
           <measurementScale>
-            <ratio>
-              <unit>
-                <standardUnit>kilometer</standardUnit>
-              </unit>
-              <numericDomain>
-                <numberType>real</numberType>
-                <bounds>
-                  <minimum exclusive="false">0</minimum>
-                  <maximum exclusive="false">1.997</maximum>
-                </bounds>
-              </numericDomain>
-            </ratio>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>good</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>quality not evaluated, not available or unknown</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>questionable/suspect</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>bad</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>9</code>
+                    <definition>missing</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
           </measurementScale>
-          <missingValueCode>
-            <code>NaN</code>
-            <codeExplanation>Distance to nearest station is greater than 2 km</codeExplanation>
-          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>flag_silicate</attributeName>
+          <attributeDefinition>IODE Quality Flag primary level</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>good</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>quality not evaluated, not available or unknown</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>questionable/suspect</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>bad</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>9</code>
+                    <definition>missing</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
         </attribute>
       </attributeList>
       <numberOfRecords>4538</numberOfRecords>
@@ -714,7 +849,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
     <metadata>
       <emlEditor>
         <app>EMLassemblyline</app>
-        <release>3.5.5</release>
+        <release>3.5.7</release>
       </emlEditor>
     </metadata>
   </additionalMetadata>
