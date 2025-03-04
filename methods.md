@@ -27,7 +27,7 @@ control they are rerun until they fall within quality control parameters. Precis
 
 # Nutrient Data Cleaning
 
-The data table is made by concatenating cruises called from the REST API of the NES-LTER data system. All Below Detection Limit values are set to zero. Nearest station is calculated based on the station location on the date of sample collection. Station locations have been consistent over the course of the project with the following exceptions: Station L5 was shifted 1 nautical mile due south during the first year of the project, in July 2018 for cruise EN617, and has remained there since. Stations L7, L8, and L9 were shifted at the start of 2023 (after the removal of the OOI Pioneer Array), moving L8 west to the main line and evenly spacing L7 and L9 along the main line.  
+The data table is made by concatenating cruises called from the REST API of the NES-LTER data system. All Below Detection Limit values are set to zero. Nearest station is calculated based on the station location on the date of sample collection. Nearest\_station and station\_distance are provided wherever the distance between the station and the ship at the time of the sample is within 2 kilometers. Station locations have been consistent over the course of the project with the following exceptions: Station L5 was shifted 1 nautical mile due south during the first year of the project, in July 2018 for cruise EN617, and has remained there since. Stations L7, L8, and L9 were shifted at the start of 2023 (after the removal of the OOI Pioneer Array), moving L8 west to the main line and evenly spacing L7 and L9 along the main line.  Visit https://nes-lter.whoi.edu/about/#where for a table of all past and present station locations. 
 
 Data assembly, cleaning, and metadata template assembly are performed in R Markdown. Additional nutrients data for Ocean Observatories Initiative (OOI) cruises on R/V Neil Armstrong are available from the OOI Alfresco document server (Coastal Pioneer NES Array \> Cruise Data \> select a cruise \> Ship Data \> Water Sampling). Further documentation can be found on GitHub, at
 https://github.com/WHOIGit/nes-lter-nutrient-transect.
@@ -40,7 +40,7 @@ For published version 3, preliminary quality flags were assigned to the data. Au
 
 # Differences from Previous Version
 
-In version 3, in addition to the flagging changes described above, 2,650 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Depth in all rows has been rounded to one decimal place. 
+In version 3, in addition to the flagging changes described above, 2,650 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Depth in all rows has been rounded to one decimal place. The column order was updated. 
 
 # Related Data Sets
 
