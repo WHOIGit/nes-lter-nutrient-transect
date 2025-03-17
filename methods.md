@@ -1,6 +1,6 @@
 Three projects, NES-LTER, Ocean Observatories Initiative (OOI), and MIT-WHOI Joint Program (JP), provide dissolved inorganic nutrient data from CTD rosette bottle and bucket sampling on NES-LTER Transect cruises. Methods are the same across the three projects.
 
-From 2017 through 2022, spring and fall sample collection typically occurred on cruises funded and operated by the Ocean Observatories Initiative (OOI). These cruises are identified with the project_id OOI, and they include data collected for both the NES-LTER and OOI projects. Please note that OOI data are included here as a convenience to researchers wishing to use the data from both projects, and that the authoritative source for OOI data is the OOI Alfresco document server for Cruise Data from the Coastal Pioneer NES Array (https://alfresco.oceanobservatories.org/).
+From 2017 through 2022, spring and fall sample collection typically occurred on cruises funded and operated by the Ocean Observatories Initiative (OOI). These cruises are identified with the project_id OOI, and they include data collected for both the NES-LTER and OOI projects. Please note that OOI data are included here as a convenience to researchers wishing to use the data from both projects, and that the authoritative source for OOI data is the Raw Data Archive for Cruise Data from the Coastal Pioneer NES Array (https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES/).
 
 MIT-WHOI Joint Program (JP) cruises (AR22, AR32, and AR38) are funded by WHOI Academic Programs Office.
 
