@@ -42,7 +42,7 @@ A reminder: as noted in the filtering protocol section, ammonium data are subjec
 
 # Differences from Previous Version
 
-In version 3, in addition to the flagging changes described above, 2,650 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Values below detection were previously set to zero and here are set to the detection limit. Depth in all rows has been rounded to one decimal place. The column order was updated. 
+In version 3, in addition to the flagging changes described above, 2,659 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Values below detection were previously set to zero and here are set to the detection limit. Depth in all rows has been rounded to one decimal place. The column order was updated. 
 
 # Related Data Sets
 

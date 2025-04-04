@@ -89,7 +89,7 @@ all_cruises[, c("depth")] <- round(all_cruises[, c("depth")], 1)
 # # Read in the samples lacking bottle metadata csv file.
 # # If the entry exists in all_cruises, copy pertinent data from the samples file
 # # to all_cruises. If the entry does not exist in all_cruises, do not add it to 
-# # all_cruises because the nutient data is missing from the samples file.
+# # all_cruises because the nutrient data is missing from the samples file.
 
 need_metadata <- read_csv('samples_lacking_bottle_metadata_nutrients_nearest_station.csv')
 need_metadata <- need_metadata %>%
@@ -112,27 +112,69 @@ all_nutrients <- bind_rows(all_cruises, need_metadata)
 
 all_nutrients <- all_nutrients %>% arrange(date_time_utc, cruise, cast, niskin, replicate)
 
+# set flag for these samples to 2 for not evaluated
+all_nutrients <- all_nutrients |>
+  mutate(flag_nitrate_nitrite = case_when(is.na(flag_nitrate_nitrite) ~ 2, TRUE ~ flag_nitrate_nitrite)) |>
+  mutate(flag_ammonium = case_when(is.na(flag_ammonium) ~ 2, TRUE ~ flag_ammonium)) |>
+  mutate(flag_phosphate = case_when(is.na(flag_phosphate) ~ 2, TRUE ~ flag_phosphate)) |>
+  mutate(flag_silicate = case_when(is.na(flag_silicate) ~ 2, TRUE ~ flag_silicate)) 
+
 # all_cruises$nearest_station[is.na(all_cruises$nearest_station)] <- ""
+
+```
+
+## Check for duplicate sample ID
+
+```{r}
+
+dupe_id <- all_nutrients |> count(sample_id) |> filter(n>1)
+
+# Eliminate this when corrections are made in API!
+# convert duplicate IDs and nutrient values to NA for this version
+all_nutrients <- all_nutrients |>
+  mutate(sample_id = case_when(sample_id == 187 & cast == 5 ~ NA, TRUE ~ sample_id)) |>
+  mutate(sample_id = case_when(sample_id == 436 & cast == 10 ~ NA, TRUE ~ sample_id)) |>
+  mutate(sample_id = case_when(sample_id == 437 & cast == 11 ~ NA, TRUE ~ sample_id)) |>
+  mutate(sample_id = case_when(sample_id == 1041 & replicate == "b" ~ NA, TRUE ~ sample_id)) |>
+  mutate(sample_id = case_when(sample_id == 1099 & cast == 20 ~ NA, TRUE ~ sample_id)) |>
+  mutate(sample_id = case_when(sample_id == 1683 & cast == 3 ~ NA, TRUE ~ sample_id)) |>
+  mutate(sample_id = case_when(sample_id == 3583 & cast == 3 ~ NA, TRUE ~ sample_id)) |>
+  mutate(sample_id = case_when(sample_id == 3834 & cast == 5 ~ NA, TRUE ~ sample_id)) |>
+  mutate(sample_id = case_when(sample_id == 4147 & cast == 9 ~ NA, TRUE ~ sample_id)) |>
+  mutate(sample_id = case_when(sample_id == 4225 & cast == 6 ~ NA, TRUE ~ sample_id))
+  
+all_nutrients <- all_nutrients |>
+  mutate(nitrate_nitrite = case_when(is.na(sample_id) ~ NA, TRUE ~ nitrate_nitrite)) |>
+  mutate(flag_nitrate_nitrite = case_when(is.na(sample_id) ~ 9, TRUE ~ flag_nitrate_nitrite)) |>
+  mutate(ammonium = case_when(is.na(sample_id) ~ NA, TRUE ~ ammonium)) |>
+  mutate(flag_ammonium = case_when(is.na(sample_id) ~ 9, TRUE ~ flag_ammonium)) |>
+  mutate(phosphate = case_when(is.na(sample_id) ~ NA, TRUE ~ phosphate)) |>
+  mutate(flag_phosphate = case_when(is.na(sample_id) ~ 9, TRUE ~ flag_phosphate)) |>
+  mutate(silicate = case_when(is.na(sample_id) ~ NA, TRUE ~ silicate)) |>
+  mutate(flag_silicate = case_when(is.na(sample_id) ~ 9, TRUE ~ flag_silicate)) 
 
 ```
 
 
 ```{r}
-# 
-# # read new locally-produced table
-# v3 = all_nutrients
-# 
-# # read v1 table from GitHub
-# v1_commit_hash='06badc2f5fc07d3a995b72af260ce68f0c69119d'  # version 1
-# v2_commit_hash='4236d91cd1289ce6b0958e01d2a45e286de789e7'  # version 2
-# 
-# #v1 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v1_commit_hash}/nes-lter-nutrient-transect.csv'))
-# v2 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v2_commit_hash}/nes-lter-nutrient-transect.csv'))
-# 
-# names(v2)[names(v2) == 'date'] <- 'date_time_utc'
-# comparison <- compare_df(v3, v2, c("cruise", "cast", "niskin"))
-# 
-# create_output_table(comparison, output_type='xlsx', file_name='version_comparison.xlsx')
+
+# read new locally-produced table
+#v3 = all_nutrients
+v3 <- all_nutrients |>
+  select(-t090c, -t190c, -sal00, -sal11) |>
+  select(-matches("flag")) 
+
+# read v1 table from GitHub
+v1_commit_hash='06badc2f5fc07d3a995b72af260ce68f0c69119d'  # version 1
+v2_commit_hash='4236d91cd1289ce6b0958e01d2a45e286de789e7'  # version 2
+
+#v1 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v1_commit_hash}/nes-lter-nutrient-transect.csv'))
+v2 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v2_commit_hash}/nes-lter-nutrient-transect.csv'))
+
+names(v2)[names(v2) == 'date'] <- 'date_time_utc'
+comparison <- compare_df(v3, v2, c("cruise", "cast", "niskin"))
+
+create_output_table(comparison, output_type='xlsx', file_name='version_comparison.xlsx')
 
 ```
 
@@ -218,10 +260,11 @@ According to a global range check: nitrate less than 30 umol/l and ammonium less
 ```{r}
 summary(all_nutrients) # visual min max for all columns
 
-if(any(all_nutrients$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds") 
-if(any(all_nutrients$ammonium > 5)) cat("ammonium_exceeds")
-if(any(all_nutrients$phosphate > 3)) cat("phosphate_exceeds")
-if(any(all_nutrients$silicate > 60)) cat("silicate_exceeds")
+## this doesn't work with NA in the concentration columns
+# if(any(all_nutrients$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds") 
+# if(any(all_nutrients$ammonium > 5)) cat("ammonium_exceeds")
+# if(any(all_nutrients$phosphate > 3)) cat("phosphate_exceeds")
+# if(any(all_nutrients$silicate > 60)) cat("silicate_exceeds")
 
 ```
 ## Output final data file
