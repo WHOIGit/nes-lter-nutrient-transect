@@ -38,6 +38,8 @@ We assured that the geographic and temporal coverage of the clean data table are
 
 For published version 3, preliminary quality flags were assigned to the data. Automation was used to check each nutrient for differences between replicates. Quality is indicated in the data table with IODE Primary Level flags: 1 good; 2 not evaluated, not available or unknown; 3 questionable/suspect; 4 bad; 9 missing data. [See IODE Ocean Data Standards recommendation here: https://www.iode.org/index.php?option=com_oe&task=viewDocumentRecord&docID=10762] Thresholds for flag 3 and 4 were set for each nutrient type, and if poor replication was above a threshold, both replicates received the same flag of 3 or 4. It is possible one replicate is good, and future versions of the package will include manual checking to assess the automated flagging and apply appropriate flagging quality control. Due to the preliminary nature of the current flagging scheme, no data have been removed from the data set at this time. Future manually checked versions of flagging will possibly replace values with NA. 
 
+A reminder: as noted in the filtering protocol section, ammonium data are subject to various potential artifacts due to the method of samples being filtered and frozen before analysis. 
+
 # Differences from Previous Version
 
 In version 3, in addition to the flagging changes described above, 2,650 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Values below detection were previously set to zero and here are set to the detection limit. Depth in all rows has been rounded to one decimal place. The column order was updated. 
