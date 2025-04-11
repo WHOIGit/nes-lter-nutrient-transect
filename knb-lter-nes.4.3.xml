@@ -65,7 +65,7 @@
       <electronicMailAddress>jkoch@whoi.edu</electronicMailAddress>
       <role>softwareDeveloper</role>
     </associatedParty>
-    <pubDate>2025-04-04</pubDate>
+    <pubDate>2025-04-11</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle
 samples taken on NES-LTER Transect cruises (ongoing since 2017) and
@@ -353,8 +353,8 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">491002</size>
-        <authentication method="MD5">2c83b11e9af18f542c8283874ee127e9</authentication>
+        <size unit="bytes">491026</size>
+        <authentication method="MD5">ddd1e02713d6f69fa62d607cee510f45</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -632,7 +632,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">0</minimum>
+                  <minimum exclusive="false">0.04</minimum>
                   <maximum exclusive="false">27.321</maximum>
                 </bounds>
               </numericDomain>

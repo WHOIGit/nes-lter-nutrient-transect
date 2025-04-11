@@ -113,13 +113,13 @@ all_nutrients <- bind_rows(all_cruises, need_metadata)
 all_nutrients <- all_nutrients %>% arrange(date_time_utc, cruise, cast, niskin, replicate)
 
 # set flag for these samples to 2 for not evaluated
+# set nitrate values of zero to detection limit
 all_nutrients <- all_nutrients |>
   mutate(flag_nitrate_nitrite = case_when(is.na(flag_nitrate_nitrite) ~ 2, TRUE ~ flag_nitrate_nitrite)) |>
   mutate(flag_ammonium = case_when(is.na(flag_ammonium) ~ 2, TRUE ~ flag_ammonium)) |>
   mutate(flag_phosphate = case_when(is.na(flag_phosphate) ~ 2, TRUE ~ flag_phosphate)) |>
-  mutate(flag_silicate = case_when(is.na(flag_silicate) ~ 2, TRUE ~ flag_silicate)) 
-
-# all_cruises$nearest_station[is.na(all_cruises$nearest_station)] <- ""
+  mutate(flag_silicate = case_when(is.na(flag_silicate) ~ 2, TRUE ~ flag_silicate)) |>
+  mutate(nitrate_nitrite = case_when(nitrate_nitrite == 0 ~ 0.04, TRUE ~ nitrate_nitrite))
 
 ```
 
