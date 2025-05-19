@@ -30,6 +30,7 @@
       </individualName>
       <organizationName>Northeast U.S. Shelf LTER</organizationName>
       <electronicMailAddress>ecrockford@whoi.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0002-2122-0462</userId>
     </creator>
     <creator>
       <individualName>
@@ -38,6 +39,7 @@
       </individualName>
       <organizationName>Northeast U.S. Shelf LTER</organizationName>
       <electronicMailAddress>epeacock@whoi.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-0194-7282</userId>
     </creator>
     <creator>
       <individualName>
@@ -65,7 +67,7 @@
       <electronicMailAddress>jkoch@whoi.edu</electronicMailAddress>
       <role>softwareDeveloper</role>
     </associatedParty>
-    <pubDate>2025-04-11</pubDate>
+    <pubDate>2025-05-19</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle
 samples taken on NES-LTER Transect cruises (ongoing since 2017) and
@@ -148,7 +150,7 @@ Facility for analyzing the samples collected for this data package.
         <description>
           <markdown>Three projects, NES-LTER, Ocean Observatories Initiative (OOI), and MIT-WHOI Joint Program (JP), provide dissolved inorganic nutrient data from CTD rosette bottle and bucket sampling on NES-LTER Transect cruises. Methods are the same across the three projects.&#13;
 &#13;
-From 2017 through 2022, spring and fall sample collection typically occurred on cruises funded and operated by the Ocean Observatories Initiative (OOI). These cruises are identified with the project_id OOI, and they include data collected for both the NES-LTER and OOI projects. Please note that OOI data are included here as a convenience to researchers wishing to use the data from both projects, and that the authoritative source for OOI data is the Raw Data Archive for Cruise Data from the Coastal Pioneer NES Array (https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES/).&#13;
+From 2017 through 2022, spring and fall sample collection typically occurred on cruises funded and operated by the Ocean Observatories Initiative (OOI). Please note that OOI data are included here as a convenience to researchers wishing to use the data from both projects, and that the authoritative source for OOI data is the Raw Data Archive for Cruise Data from the Coastal Pioneer NES Array (https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES/). OOI samples are identified with the project\_id OOI.&#13;
 &#13;
 MIT-WHOI Joint Program (JP) cruises (AR22, AR32, and AR38) are funded by WHOI Academic Programs Office.&#13;
 &#13;
@@ -190,7 +192,7 @@ A reminder: as noted in the filtering protocol section, ammonium data are subjec
 &#13;
 # Differences from Previous Version&#13;
 &#13;
-In version 3, in addition to the flagging changes described above, 2,659 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Values below detection were previously set to zero and here are set to the detection limit. Depth in all rows has been rounded to one decimal place. The column order was updated. &#13;
+In version 3, in addition to the flagging changes described above, 2,659 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Values below detection were previously set to zero and here are set to the detection limit. Depth in all rows has been rounded to one decimal place. The column order was updated. For five samples, identifer was inadvertently duplicated in the prior version, resulting in erroneous values being reported in five rows; this has been corrected in version 3.&#13;
 &#13;
 # Related Data Sets&#13;
 &#13;
@@ -353,8 +355,8 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">491026</size>
-        <authentication method="MD5">ddd1e02713d6f69fa62d607cee510f45</authentication>
+        <size unit="bytes">491216</size>
+        <authentication method="MD5">c207331cac56305d9e803e92e2758166</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -845,7 +847,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
           </measurementScale>
         </attribute>
       </attributeList>
-      <numberOfRecords>4537</numberOfRecords>
+      <numberOfRecords>4538</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>

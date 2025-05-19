@@ -250,6 +250,31 @@ for (i in 1:length(nut_cols)) {
     theme_classic()
   print(p)
 }
+```
+
+Plot climatology
+
+```{r}
+
+cruises_long$doy <-as.numeric(NA)
+cruises_long$year <-as.numeric(NA)
+
+cruises_long <- cruises_long |>
+  mutate(doy = yday(date_time_utc)) |>
+  mutate(year = year(date_time_utc))
+
+for (i in 1:length(nut_cols)) {
+  nut_subset <- cruises_long %>% filter(nutrients == nut_cols[i])
+  
+  # ggplot where x = cast, y = value and the lineplots are grouped by cruise
+  p <- ggplot(data = nut_subset, aes(x = doy, y = value, color = year)) +
+    geom_point() +
+   xlab("day of year") +
+    ylab(paste0(nut_cols[i], " concentration (µmol/L)")) +
+    theme_minimal()
+  print(p)
+  ggsave(paste0(nut_cols[i], "_doy.png"))
+}
 
 ```
 

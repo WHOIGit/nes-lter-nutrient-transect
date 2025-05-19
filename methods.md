@@ -1,6 +1,6 @@
 Three projects, NES-LTER, Ocean Observatories Initiative (OOI), and MIT-WHOI Joint Program (JP), provide dissolved inorganic nutrient data from CTD rosette bottle and bucket sampling on NES-LTER Transect cruises. Methods are the same across the three projects.
 
-From 2017 through 2022, spring and fall sample collection typically occurred on cruises funded and operated by the Ocean Observatories Initiative (OOI). These cruises are identified with the project_id OOI, and they include data collected for both the NES-LTER and OOI projects. Please note that OOI data are included here as a convenience to researchers wishing to use the data from both projects, and that the authoritative source for OOI data is the Raw Data Archive for Cruise Data from the Coastal Pioneer NES Array (https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES/).
+From 2017 through 2022, spring and fall sample collection typically occurred on cruises funded and operated by the Ocean Observatories Initiative (OOI). Please note that OOI data are included here as a convenience to researchers wishing to use the data from both projects, and that the authoritative source for OOI data is the Raw Data Archive for Cruise Data from the Coastal Pioneer NES Array (https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES/). OOI samples are identified with the project\_id OOI.
 
 MIT-WHOI Joint Program (JP) cruises (AR22, AR32, and AR38) are funded by WHOI Academic Programs Office.
 
@@ -42,7 +42,7 @@ A reminder: as noted in the filtering protocol section, ammonium data are subjec
 
 # Differences from Previous Version
 
-In version 3, in addition to the flagging changes described above, 2,659 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Values below detection were previously set to zero and here are set to the detection limit. Depth in all rows has been rounded to one decimal place. The column order was updated. 
+In version 3, in addition to the flagging changes described above, 2,659 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Values below detection were previously set to zero and here are set to the detection limit. Depth in all rows has been rounded to one decimal place. The column order was updated. For five samples, identifer was inadvertently duplicated in the prior version, resulting in erroneous values being reported in five rows; this has been corrected in version 3.
 
 # Related Data Sets
 
