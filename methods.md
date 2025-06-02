@@ -32,6 +32,8 @@ The data table is made by concatenating cruises called from the REST API of the 
 Data assembly, cleaning, and metadata template assembly are performed in R Markdown. Additional nutrients data for Ocean Observatories Initiative (OOI) cruises on R/V Neil Armstrong are available from the OOI Alfresco document server (Coastal Pioneer NES Array \> Cruise Data \> select a cruise \> Ship Data \> Water Sampling). Further documentation can be found on GitHub, at
 https://github.com/WHOIGit/nes-lter-nutrient-transect.
 
+Please note that for cruise AR52, legs A and B, location metadata are sourced from the OOI Raw Data Repository. The latitude and longitude provided are the position at the start of the cast, not the position at which the rosette bottle closed as for all other cruises. One cast was targeted at LTER station L11 (all other casts were OOI stations), and this is listed in the column nearest_station and sourced from OOI parameter Target Asset. 
+
 # Quality Assurance
 
 We assured that the geographic and temporal coverage of the clean data table are within expected ranges. No values changed as compared to the previous version of this data package. For each nutrient we checked differences between replicates, visually inspected plotted values, and performed a range check.
@@ -42,14 +44,17 @@ A reminder: as noted in the filtering protocol section, ammonium data are subjec
 
 # Differences from Previous Version
 
-In version 3, in addition to the flagging changes described above, 2,659 rows have been added. These include data from 28 additional OOI and NES-LTER cruises as well as OOI samples from cruises that previously included only LTER samples. Values below detection were previously set to zero and here are set to the detection limit. Depth in all rows has been rounded to one decimal place. The column order was updated. For five samples, identifer was inadvertently duplicated in the prior version, resulting in erroneous values being reported in five rows; this has been corrected in version 3.
+In version 3, in addition to the flagging changes described above, 2,660 rows have been added. These comprise data from 28 OOI and NES-LTER cruises as well as additional OOI samples from cruises that previously included only LTER samples. Values below detection were previously set to zero and here are set to the detection limit. Depth in all rows has been rounded to one decimal place. The column order was updated. For five samples, identifer was inadvertently duplicated in the prior version, resulting in erroneous values being reported in five rows; this has been corrected in version 3.
 
 # Related Data Sets
+
+High-resolution nitrate profiles from a CTD-mounted SUNA sensor:
+Zheng, Bofu; Crockford, E. Taylor; Morkeski, Kate; Sosik, Heidi M. (2024). High-resolution vertical nitrate profiles from the CTD rosette-mounted submersible ultraviolet nitrate analyzer over the Northeast U.S. Shelf since February 2019 (NCEI Accession 0297573). [indicate subset used]. NOAA National Centers for Environmental Information. Dataset. https://doi.org/10.25921/8pea-z372. Accessed [2025-05-29].
 
 Additional discrete nutrient data from NES-LTER cruises EN608, EN627, and EN644:
 Jenkins, B. D., Bertin, M. (2021) Pseudo-nitzschia spp. cell counts, nutrients water temperature and salinity, and concentrations of the toxin domoic acid from weekly samples and offshore cruises with the Northeast U.S. Shelf (NES) Long-Term Ecological Research (LTER). Biological and Chemical Oceanography Data Management Office (BCO-DMO). (Version 1) Version Date 2021-04-05. doi:10.26008/1912/bco-dmo.847448.1 [2024-07-24]
 
-Additional discrete nutrient data from cross-shelf transects in April 2018, May 2019, and July 2019 from Shelfbreak Productivity Interdisciplinary Research Operation at the Pioneer Array (SPIROPA) project. 
+Additional discrete nutrient data from cross-shelf transects in April 2018, May 2019, and July 2019 from Shelfbreak Productivity Interdisciplinary Research Operation at the Pioneer Array (SPIROPA) project:
 https://www.bco-dmo.org/project/748894
 
 Additional discrete nutrient data from the Martha's Vineyard Coastal Observatory:

@@ -1,7 +1,7 @@
 ---
 title: "Creating a Data Package for NES-LTER Nutrient Transect Cruise Data"
 author: "Kate Morkeski, Joanne Koch, Stace Beaulieu and Joe Futrelle"
-date: "2024-12-09"
+date: "2025-05-29"
 output: html_document
 ---
 
@@ -18,6 +18,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 library(EMLassemblyline)
 library(ediutilities)
 library(here)
+library(janitor)
 library(lubridate)
 library(dplyr)
 library(stringr)
@@ -30,6 +31,7 @@ library(devtools)
 library(EML)
 library(maps)
 library(xml2)
+library(httr)
 
 base_api_url <- 'https://nes-lter-data.whoi.edu/api'
 
@@ -71,16 +73,69 @@ all_cruises <- all_cruises[order(all_cruises$date), ]
 names(all_cruises)[names(all_cruises) == 'distance_km'] <- 'station_distance'
 names(all_cruises)[names(all_cruises) == 'date'] <- 'date_time_utc'
 
-# define columns to round
-round_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth", "station_distance")
-# round nutrient, distance, and depth columns
-all_cruises[, round_cols] <- round(all_cruises[, round_cols], 3)
-# round lat and lon columns
-all_cruises[, c("latitude", "longitude")] <- round(all_cruises[, c("latitude", "longitude")], 4)
-# round depth
-all_cruises[, c("depth")] <- round(all_cruises[, c("depth")], 1)
+```
+
+## Read in AR52 data from OOI to fill in missing location 
+
+```{r}
+
+# Pioneer 16 Discrete Summary
+log_url <-('https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES/Pioneer-16_AR52_2021-03-29/Water_Sampling/Pioneer-16_AR52_Discrete_Summary.csv')
+
+httr::GET(log_url, write_disk(logtf <- tempfile(fileext = ".csv")))
+logtf
+AR52 <- read_csv(logtf) 
+AR52 <- clean_names(AR52)
+AR52 <- AR52 |> 
+  select(cruise, station, target_asset, start_latitude_degrees, start_longitude_degrees, start_time_utc, cast, niskin_bottle_position, ctd_bottle_closure_time_utc, ctd_depth_m, discrete_phosphate_u_m, discrete_silicate_u_m, discrete_nitrate_u_m, discrete_nitrite_u_m, discrete_ammonium_u_m, discrete_nutrients_flag, discrete_nutrients_replicate_flag) |>
+  rename(niskin = niskin_bottle_position)
+# ctd_latitude_deg and ctd_longitude_deg are all -9999999 so don't bother keeping these
+AR52 <- AR52 |> filter(discrete_phosphate_u_m > -9999999)
+
+# inspect OOI flags
+unique(AR52$discrete_nutrients_flag)
+unique(AR52$discrete_nutrients_replicate_flag)
+# all flags are identical, so remove them
+AR52 <- AR52 |> select(-station, -discrete_nutrients_flag, -discrete_nutrients_replicate_flag)
+
+# # compare nutrient values from the two sources
+ # all_cruises <- read_csv("nes-lter-nutrient-transect.csv")
+ # AR52lter <- all_cruises |> filter(cruise == "AR52A" | cruise == "AR52B")
+# 
+# AR52both <- left_join(AR52, AR52lter, by = (c("cruise", "cast", "niskin")))
+# # OOI reports nitrate and nitrite separately
+# # check that ammonium and phosphate values are equivalent
+# AR52both$amm_diff = AR52both$discrete_ammonium_u_m - AR52both$ammonium
+# unique(AR52both$amm_diff)
+# AR52both$phos_diff = AR52both$discrete_phosphate_u_m - AR52both$phosphate
+# unique(AR52both$phos_diff)
+
+all_cruises <- left_join(all_cruises, AR52, by = (c("cruise", "cast", "niskin")))
+
+# OOI reports nitrate and nitrite separately
+# check that ammonium and phosphate values are equivalent to confirm correct matching
+all_cruises$amm_diff = all_cruises$discrete_ammonium_u_m - all_cruises$ammonium
+unique(all_cruises$amm_diff)
+all_cruises$phos_diff = all_cruises$discrete_phosphate_u_m - all_cruises$phosphate
+unique(all_cruises$phos_diff)
+
+# populate lat, long, nearest_station, and depth from OOI columns
+all_cruises <- all_cruises |>
+  mutate(latitude = case_when(startsWith(cruise, "AR52") ~ start_latitude_degrees, TRUE ~latitude)) |>
+  mutate(longitude = case_when(startsWith(cruise, "AR52") ~ start_longitude_degrees, TRUE ~longitude)) |>
+  mutate(nearest_station = case_when(startsWith(cruise, "AR52") & startsWith(target_asset, "LTER") ~ target_asset, TRUE ~nearest_station)) |>
+  mutate(depth = case_when(startsWith(cruise, "AR52") ~ ctd_depth_m, TRUE ~ depth))
+all_cruises$nearest_station<- str_remove(all_cruises$nearest_station, "LTER ")
+
+# filter AR52 rows for inspection
+AR52lter <- all_cruises |> filter(cruise == "AR52A" | cruise == "AR52B")
+
+# keep only transect package columns
+all_cruises <- all_cruises[(1:25)]
 
 ```
+
+
 ## Read in Sosik data that are not out put from API because they lack Niskin metadata 
 
 ```{r}
@@ -123,43 +178,33 @@ all_nutrients <- all_nutrients |>
 
 ```
 
+## Round columns
+
+```{r}
+# define columns to round
+round_cols <- c("nitrate_nitrite", "ammonium", "phosphate", "silicate", "depth", "station_distance")
+# round nutrient, distance, and depth columns
+all_nutrients[, round_cols] <- round(all_nutrients[, round_cols], 3)
+# round lat and lon columns
+all_nutrients[, c("latitude", "longitude")] <- round(all_nutrients[, c("latitude", "longitude")], 4)
+# round depth
+all_nutrients[, c("depth")] <- round(all_nutrients[, c("depth")], 1)
+
+```
+
 ## Check for duplicate sample ID
 
 ```{r}
 
 dupe_id <- all_nutrients |> count(sample_id) |> filter(n>1)
 
-# Eliminate this when corrections are made in API!
-# convert duplicate IDs and nutrient values to NA for this version
-all_nutrients <- all_nutrients |>
-  mutate(sample_id = case_when(sample_id == 187 & cast == 5 ~ NA, TRUE ~ sample_id)) |>
-  mutate(sample_id = case_when(sample_id == 436 & cast == 10 ~ NA, TRUE ~ sample_id)) |>
-  mutate(sample_id = case_when(sample_id == 437 & cast == 11 ~ NA, TRUE ~ sample_id)) |>
-  mutate(sample_id = case_when(sample_id == 1041 & replicate == "b" ~ NA, TRUE ~ sample_id)) |>
-  mutate(sample_id = case_when(sample_id == 1099 & cast == 20 ~ NA, TRUE ~ sample_id)) |>
-  mutate(sample_id = case_when(sample_id == 1683 & cast == 3 ~ NA, TRUE ~ sample_id)) |>
-  mutate(sample_id = case_when(sample_id == 3583 & cast == 3 ~ NA, TRUE ~ sample_id)) |>
-  mutate(sample_id = case_when(sample_id == 3834 & cast == 5 ~ NA, TRUE ~ sample_id)) |>
-  mutate(sample_id = case_when(sample_id == 4147 & cast == 9 ~ NA, TRUE ~ sample_id)) |>
-  mutate(sample_id = case_when(sample_id == 4225 & cast == 6 ~ NA, TRUE ~ sample_id))
-  
-all_nutrients <- all_nutrients |>
-  mutate(nitrate_nitrite = case_when(is.na(sample_id) ~ NA, TRUE ~ nitrate_nitrite)) |>
-  mutate(flag_nitrate_nitrite = case_when(is.na(sample_id) ~ 9, TRUE ~ flag_nitrate_nitrite)) |>
-  mutate(ammonium = case_when(is.na(sample_id) ~ NA, TRUE ~ ammonium)) |>
-  mutate(flag_ammonium = case_when(is.na(sample_id) ~ 9, TRUE ~ flag_ammonium)) |>
-  mutate(phosphate = case_when(is.na(sample_id) ~ NA, TRUE ~ phosphate)) |>
-  mutate(flag_phosphate = case_when(is.na(sample_id) ~ 9, TRUE ~ flag_phosphate)) |>
-  mutate(silicate = case_when(is.na(sample_id) ~ NA, TRUE ~ silicate)) |>
-  mutate(flag_silicate = case_when(is.na(sample_id) ~ 9, TRUE ~ flag_silicate)) 
-
 ```
 
+# Compare versions
 
 ```{r}
 
 # read new locally-produced table
-#v3 = all_nutrients
 v3 <- all_nutrients |>
   select(-t090c, -t190c, -sal00, -sal11) |>
   select(-matches("flag")) 
@@ -285,11 +330,11 @@ According to a global range check: nitrate less than 30 umol/l and ammonium less
 ```{r}
 summary(all_nutrients) # visual min max for all columns
 
-## this doesn't work with NA in the concentration columns
-# if(any(all_nutrients$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds") 
-# if(any(all_nutrients$ammonium > 5)) cat("ammonium_exceeds")
-# if(any(all_nutrients$phosphate > 3)) cat("phosphate_exceeds")
-# if(any(all_nutrients$silicate > 60)) cat("silicate_exceeds")
+# this doesn't work with NA in the concentration columns
+if(any(all_nutrients$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds")
+if(any(all_nutrients$ammonium > 5)) cat("ammonium_exceeds")
+if(any(all_nutrients$phosphate > 3)) cat("phosphate_exceeds")
+if(any(all_nutrients$silicate > 60)) cat("silicate_exceeds")
 
 ```
 ## Output final data file
