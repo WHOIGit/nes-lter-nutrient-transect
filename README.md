@@ -7,6 +7,3 @@ This workflow includes the following:
 2) cleans the provided data
 3) performs quality assurance on the data
 4) assembles and outputs the final XML file for submission to EDI
-
-### Package Status:
-Version 2 of this data package is published to the EDI repository [here](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-nes&identifier=4&revision=2).
