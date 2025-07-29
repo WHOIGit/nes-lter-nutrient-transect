@@ -16,7 +16,6 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 # remotes::install_github("WHOIGit/ediutilities")
 
 library(EMLassemblyline)
-library(ediutilities)
 library(here)
 library(janitor)
 library(lubridate)
@@ -32,8 +31,9 @@ library(EML)
 library(maps)
 library(xml2)
 library(httr)
+library(config)
 
-base_api_url <- 'https://nes-lter-data.whoi.edu/api'
+base_api_url <- config::get("base_api_url")   # set in local config.yml
 
 ```
 
@@ -42,28 +42,18 @@ base_api_url <- 'https://nes-lter-data.whoi.edu/api'
 This chunk loads in the cruise data compiled from the REST API.
 
 ```{r}
-cruise_list <- api_list_cruises()
+#cruise_list <- api_list_cruises()
 
 all_cruises <- NA
-print(cruise_list)
-for(cruise_id in cruise_list) {
-  cruise_id <- str_to_lower(cruise_id)
-  nut_url <- glue::glue('{base_api_url}/nut/{cruise_id}.csv')
-  print(nut_url)
 
-  cruise_nut <- tryCatch(read_csv(nut_url), 
+nut_url <- glue::glue('{base_api_url}/nut/all')
+print(nut_url)
+
+all_cruises <- tryCatch(read_csv(nut_url), 
                  error=function(cond) 
                      { message(cond)
                        return(NULL) })
 
-  if(nrow(cruise_nut) > 0 && !is.null(cruise_nut)) {
-    if(length(all_cruises) == 1 && is.na(all_cruises)) {
-      all_cruises <- cruise_nut
-    } else {
-      all_cruises <- plyr::rbind.fill(all_cruises, cruise_nut)
-    }
-  }
-}
 ```
 
 ```{r}
@@ -85,6 +75,7 @@ log_url <-('https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES
 httr::GET(log_url, write_disk(logtf <- tempfile(fileext = ".csv")))
 logtf
 AR52 <- read_csv(logtf) 
+
 AR52 <- clean_names(AR52)
 AR52 <- AR52 |> 
   select(cruise, station, target_asset, start_latitude_degrees, start_longitude_degrees, start_time_utc, cast, niskin_bottle_position, ctd_bottle_closure_time_utc, ctd_depth_m, discrete_phosphate_u_m, discrete_silicate_u_m, discrete_nitrate_u_m, discrete_nitrite_u_m, discrete_ammonium_u_m, discrete_nutrients_flag, discrete_nutrients_replicate_flag) |>

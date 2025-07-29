@@ -37,3 +37,9 @@ rsconnect/
 
 # python Jupyter notebook checkpoints
 .ipynb_checkpoints/
+
+# Specifies NES-LTER API 2 URL
+config.yml
+
+# PNG files to save plots locally
+*.png
