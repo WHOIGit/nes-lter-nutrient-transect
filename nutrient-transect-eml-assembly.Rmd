@@ -16,6 +16,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 # remotes::install_github("WHOIGit/ediutilities")
 
 library(EMLassemblyline)
+library(ediutilities)
 library(here)
 library(janitor)
 library(lubridate)
@@ -31,7 +32,6 @@ library(EML)
 library(maps)
 library(xml2)
 library(httr)
-library(config)
 
 base_api_url <- config::get("base_api_url")   # set in local config.yml
 
@@ -42,8 +42,6 @@ base_api_url <- config::get("base_api_url")   # set in local config.yml
 This chunk loads in the cruise data compiled from the REST API.
 
 ```{r}
-#cruise_list <- api_list_cruises()
-
 all_cruises <- NA
 
 nut_url <- glue::glue('{base_api_url}/nut/all')
@@ -65,61 +63,73 @@ names(all_cruises)[names(all_cruises) == 'date'] <- 'date_time_utc'
 
 ```
 
-## Read in AR52 data from OOI to fill in missing location 
+# Read in AR52A, AR52B data from OOI to fill in missing location 
 
 ```{r}
 
-# Pioneer 16 Discrete Summary
-log_url <-('https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES/Pioneer-16_AR52_2021-03-29/Water_Sampling/Pioneer-16_AR52_Discrete_Summary.csv')
+read_ooi_discrete <- function(log_url) {
+  # download the csv
+  httr::GET(log_url, write_disk(logtf <- tempfile(fileext = ".csv")))
+  
+  readr::read_csv(logtf) |>
+    clean_names() |>
+    select(
+      cruise, station, target_asset,
+      start_latitude_degrees, start_longitude_degrees, start_time_utc,
+      cast, niskin_bottle_position,
+      ctd_bottle_closure_time_utc, ctd_depth_m,
+      discrete_phosphate_u_m, discrete_silicate_u_m,
+      discrete_nitrate_u_m, discrete_nitrite_u_m,
+      discrete_ammonium_u_m,
+      discrete_nutrients_flag, discrete_nutrients_replicate_flag
+    ) |>
+    mutate(
+      cruise = tolower(cruise)
+    ) |>
+    rename(
+      date_time_utc = start_time_utc,
+      niskin        = niskin_bottle_position,
+      phosphate     = discrete_phosphate_u_m,
+      silicate      = discrete_silicate_u_m,
+      nitrate_nitrite = discrete_nitrate_u_m,
+      ammonium      = discrete_ammonium_u_m
+    ) |>
+    # drop bad dummy values
+    filter(phosphate > -9999999) |>
+    # flags are constant, so drop them
+    select(-station, -discrete_nutrients_flag, -discrete_nutrients_replicate_flag) |>
+    mutate(
+      nitrate_nitrite = as.numeric(nitrate_nitrite),
+      cast = as.numeric(cast),
+      phosphate = as.numeric(phosphate),
+      ctd_bottle_closure_time_utc = as.numeric(ctd_bottle_closure_time_utc)
+    )
+}
 
-httr::GET(log_url, write_disk(logtf <- tempfile(fileext = ".csv")))
-logtf
-AR52 <- read_csv(logtf) 
+# AR52
+log_url_ar52 <- "https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES/Pioneer-16_AR52_2021-03-29/Water_Sampling/Pioneer-16_AR52_Discrete_Summary.csv"
+AR52  <- read_ooi_discrete(log_url_ar52)
 
-AR52 <- clean_names(AR52)
-AR52 <- AR52 |> 
-  select(cruise, station, target_asset, start_latitude_degrees, start_longitude_degrees, start_time_utc, cast, niskin_bottle_position, ctd_bottle_closure_time_utc, ctd_depth_m, discrete_phosphate_u_m, discrete_silicate_u_m, discrete_nitrate_u_m, discrete_nitrite_u_m, discrete_ammonium_u_m, discrete_nutrients_flag, discrete_nutrients_replicate_flag) |>
-  rename(niskin = niskin_bottle_position)
-# ctd_latitude_deg and ctd_longitude_deg are all -9999999 so don't bother keeping these
-AR52 <- AR52 |> filter(discrete_phosphate_u_m > -9999999)
-
-# inspect OOI flags
-unique(AR52$discrete_nutrients_flag)
-unique(AR52$discrete_nutrients_replicate_flag)
-# all flags are identical, so remove them
-AR52 <- AR52 |> select(-station, -discrete_nutrients_flag, -discrete_nutrients_replicate_flag)
-
-# # compare nutrient values from the two sources
- # all_cruises <- read_csv("nes-lter-nutrient-transect.csv")
- # AR52lter <- all_cruises |> filter(cruise == "AR52A" | cruise == "AR52B")
-# 
-# AR52both <- left_join(AR52, AR52lter, by = (c("cruise", "cast", "niskin")))
-# # OOI reports nitrate and nitrite separately
-# # check that ammonium and phosphate values are equivalent
-# AR52both$amm_diff = AR52both$discrete_ammonium_u_m - AR52both$ammonium
-# unique(AR52both$amm_diff)
-# AR52both$phos_diff = AR52both$discrete_phosphate_u_m - AR52both$phosphate
-# unique(AR52both$phos_diff)
-
-all_cruises <- left_join(all_cruises, AR52, by = (c("cruise", "cast", "niskin")))
-
-# OOI reports nitrate and nitrite separately
-# check that ammonium and phosphate values are equivalent to confirm correct matching
-all_cruises$amm_diff = all_cruises$discrete_ammonium_u_m - all_cruises$ammonium
-unique(all_cruises$amm_diff)
-all_cruises$phos_diff = all_cruises$discrete_phosphate_u_m - all_cruises$phosphate
-unique(all_cruises$phos_diff)
+all_cruises <- bind_rows(all_cruises, AR52)
 
 # populate lat, long, nearest_station, and depth from OOI columns
-all_cruises <- all_cruises |>
-  mutate(latitude = case_when(startsWith(cruise, "AR52") ~ start_latitude_degrees, TRUE ~latitude)) |>
-  mutate(longitude = case_when(startsWith(cruise, "AR52") ~ start_longitude_degrees, TRUE ~longitude)) |>
-  mutate(nearest_station = case_when(startsWith(cruise, "AR52") & startsWith(target_asset, "LTER") ~ target_asset, TRUE ~nearest_station)) |>
-  mutate(depth = case_when(startsWith(cruise, "AR52") ~ ctd_depth_m, TRUE ~ depth))
-all_cruises$nearest_station<- str_remove(all_cruises$nearest_station, "LTER ")
+OOI_CRUISES <- c("ar52a", "ar52b")
 
-# filter AR52 rows for inspection
-AR52lter <- all_cruises |> filter(cruise == "AR52A" | cruise == "AR52B")
+all_cruises <- all_cruises |>
+  mutate(
+    latitude  = case_when(cruise %in% OOI_CRUISES ~ start_latitude_degrees, TRUE ~ latitude),
+    longitude = case_when(cruise %in% OOI_CRUISES ~ start_longitude_degrees, TRUE ~ longitude),
+    nearest_station = case_when(
+      cruise %in% OOI_CRUISES & startsWith(target_asset, "LTER") ~ target_asset,
+      TRUE ~ nearest_station
+    ),
+    depth = case_when(cruise %in% OOI_CRUISES ~ ctd_depth_m, TRUE ~ depth)
+  )
+
+all_cruises$nearest_station <- str_remove(all_cruises$nearest_station, "LTER ")
+
+# filter rows for inspection
+OOI_lter <- all_cruises |> filter(cruise %in% c("ar52a", "ar52b"))
 
 # keep only transect package columns
 all_cruises <- all_cruises[(1:25)]
@@ -321,11 +331,10 @@ According to a global range check: nitrate less than 30 umol/l and ammonium less
 ```{r}
 summary(all_nutrients) # visual min max for all columns
 
-# this doesn't work with NA in the concentration columns
-if(any(all_nutrients$nitrate_nitrite > 30)) cat("nitrate_nitrite_exceeds")
-if(any(all_nutrients$ammonium > 5)) cat("ammonium_exceeds")
-if(any(all_nutrients$phosphate > 3)) cat("phosphate_exceeds")
-if(any(all_nutrients$silicate > 60)) cat("silicate_exceeds")
+if(any(all_nutrients$nitrate_nitrite > 30, na.rm = TRUE)) cat("nitrate_nitrite_exceeds")
+if(any(all_nutrients$ammonium > 5, na.rm = TRUE)) cat("ammonium_exceeds")
+if(any(all_nutrients$phosphate > 3, na.rm = TRUE)) cat("phosphate_exceeds")
+if(any(all_nutrients$silicate > 60, na.rm = TRUE)) cat("silicate_exceeds")
 
 ```
 ## Output final data file
@@ -354,7 +363,7 @@ Generate the package and insert the parent project node into the resulting EML
 # define input files
 metadata <- "nutrient-transect-info"
 edi_filename <- "nes-lter-nutrient-transect"
-pkg_id <- "knb-lter-nes.4.3"
+pkg_id <- "knb-lter-nes.4.4"
 
 # Make EML Templates 
 excel_to_template(here(metadata), edi_filename, rights='CC0', file_type=".md", del_rights = FALSE)
