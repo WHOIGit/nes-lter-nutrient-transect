@@ -83,9 +83,6 @@ read_ooi_discrete <- function(log_url) {
       discrete_ammonium_u_m,
       discrete_nutrients_flag, discrete_nutrients_replicate_flag
     ) |>
-    mutate(
-      cruise = tolower(cruise)
-    ) |>
     rename(
       date_time_utc = start_time_utc,
       niskin        = niskin_bottle_position,
@@ -113,7 +110,7 @@ AR52  <- read_ooi_discrete(log_url_ar52)
 all_cruises <- bind_rows(all_cruises, AR52)
 
 # populate lat, long, nearest_station, and depth from OOI columns
-OOI_CRUISES <- c("ar52a", "ar52b")
+OOI_CRUISES <- c("AR52A", "AR52B")
 
 all_cruises <- all_cruises |>
   mutate(
@@ -129,7 +126,7 @@ all_cruises <- all_cruises |>
 all_cruises$nearest_station <- str_remove(all_cruises$nearest_station, "LTER ")
 
 # filter rows for inspection
-OOI_lter <- all_cruises |> filter(cruise %in% c("ar52a", "ar52b"))
+OOI_lter <- all_cruises |> filter(cruise %in% c("AR52A", "AR52B"))
 
 # keep only transect package columns
 all_cruises <- all_cruises[(1:25)]

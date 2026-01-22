@@ -67,7 +67,7 @@
       <electronicMailAddress>jkoch@whoi.edu</electronicMailAddress>
       <role>softwareDeveloper</role>
     </associatedParty>
-    <pubDate>2025-12-18</pubDate>
+    <pubDate>2026-01-21</pubDate>
     <abstract>
       <para>Dissolved inorganic nutrients are measured from water column bottle
 samples taken on NES-LTER Transect cruises (ongoing since 2017) and
@@ -120,10 +120,10 @@ Facility for analyzing the samples collected for this data package.&#13;
       <geographicCoverage>
         <geographicDescription>NES-LTER Transect</geographicDescription>
         <boundingCoordinates>
-          <westBoundingCoordinate>-71.1032</westBoundingCoordinate>
+          <westBoundingCoordinate>-74.7075</westBoundingCoordinate>
           <eastBoundingCoordinate>-70.3445</eastBoundingCoordinate>
           <northBoundingCoordinate>41.36</northBoundingCoordinate>
-          <southBoundingCoordinate>39.7551</southBoundingCoordinate>
+          <southBoundingCoordinate>36.1693</southBoundingCoordinate>
         </boundingCoordinates>
       </geographicCoverage>
       <temporalCoverage>
@@ -132,7 +132,7 @@ Facility for analyzing the samples collected for this data package.&#13;
             <calendarDate>2017-09-02</calendarDate>
           </beginDate>
           <endDate>
-            <calendarDate>2024-05-08</calendarDate>
+            <calendarDate>2025-11-09</calendarDate>
           </endDate>
         </rangeOfDates>
       </temporalCoverage>
@@ -360,8 +360,8 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
       <entityDescription>Dissolved inorganic nutrients from water column bottle samples taken on NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-nutrient-transect.csv</objectName>
-        <size unit="bytes">495238</size>
-        <authentication method="MD5">c6acf63b051c730282ecfc708ba2307e</authentication>
+        <size unit="bytes">588532</size>
+        <authentication method="MD5">d4a710415110a6ca857202a40aebc6ad</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -457,7 +457,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">39.7551</minimum>
+                  <minimum exclusive="false">36.1693</minimum>
                   <maximum exclusive="false">41.36</maximum>
                 </bounds>
               </numericDomain>
@@ -480,7 +480,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">-71.1032</minimum>
+                  <minimum exclusive="false">-74.7075</minimum>
                   <maximum exclusive="false">-70.3445</maximum>
                 </bounds>
               </numericDomain>
@@ -518,7 +518,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">0</minimum>
-                  <maximum exclusive="false">48.603</maximum>
+                  <maximum exclusive="false">510.379</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -564,7 +564,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
                 <numberType>natural</numberType>
                 <bounds>
                   <minimum exclusive="false">7</minimum>
-                  <maximum exclusive="false">4609</maximum>
+                  <maximum exclusive="false">5481</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -709,7 +709,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">0.03</minimum>
-                  <maximum exclusive="false">28.767</maximum>
+                  <maximum exclusive="false">95.37</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -852,7 +852,7 @@ Sosik, H.M., E. Crockford, and E. Peacock. 2022. Dissolved inorganic nutrients f
           </measurementScale>
         </attribute>
       </attributeList>
-      <numberOfRecords>4538</numberOfRecords>
+      <numberOfRecords>5388</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>
