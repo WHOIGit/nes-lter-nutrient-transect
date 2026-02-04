@@ -1,7 +1,7 @@
 ---
 title: "Creating a Data Package for NES-LTER Nutrient Transect Cruise Data"
 author: "Kate Morkeski, Joanne Koch, Stace Beaulieu and Joe Futrelle"
-date: "2025-05-29"
+date: "2026-02-04"
 output: html_document
 ---
 
@@ -188,6 +188,9 @@ all_nutrients[, c("latitude", "longitude")] <- round(all_nutrients[, c("latitude
 # round depth
 all_nutrients[, c("depth")] <- round(all_nutrients[, c("depth")], 1)
 
+# convert station "MVCO-ASIT" to "MVCO" 
+all_nutrients <- all_nutrients |> mutate(nearest_station = case_when(nearest_station == "MVCO-ASIT" ~ "MVCO", TRUE ~ nearest_station))
+
 ```
 
 ## Check for duplicate sample ID
@@ -203,19 +206,20 @@ dupe_id <- all_nutrients |> count(sample_id) |> filter(n>1)
 ```{r}
 
 # read new locally-produced table
-v3 <- all_nutrients |>
-  select(-t090c, -t190c, -sal00, -sal11) |>
-  select(-matches("flag")) 
+v4 <- all_nutrients |> 
+  select(-t090c, -t190c, -sal00, -sal11) #|>  select(-matches("flag")) 
 
 # read v1 table from GitHub
-v1_commit_hash='06badc2f5fc07d3a995b72af260ce68f0c69119d'  # version 1
-v2_commit_hash='4236d91cd1289ce6b0958e01d2a45e286de789e7'  # version 2
+#v1_commit_hash='06badc2f5fc07d3a995b72af260ce68f0c69119d'  # version 1
+#v2_commit_hash='4236d91cd1289ce6b0958e01d2a45e286de789e7'  # version 2
+v3_commit_hash='8682300a213d0e58763d03bc3e454d31c083f8bb'  # version 3
 
 #v1 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v1_commit_hash}/nes-lter-nutrient-transect.csv'))
-v2 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v2_commit_hash}/nes-lter-nutrient-transect.csv'))
+#v2 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v2_commit_hash}/nes-lter-nutrient-transect.csv'))
+v3 = read_csv(glue::glue('https://raw.githubusercontent.com/WHOIGit/nes-lter-nutrient-transect/{v3_commit_hash}/nes-lter-nutrient-transect.csv'))
 
-names(v2)[names(v2) == 'date'] <- 'date_time_utc'
-comparison <- compare_df(v3, v2, c("cruise", "cast", "niskin"))
+#names(v2)[names(v2) == 'date'] <- 'date_time_utc'
+comparison <- compare_df(v4, v3, c("cruise", "cast", "niskin"))
 
 create_output_table(comparison, output_type='xlsx', file_name='version_comparison.xlsx')
 
