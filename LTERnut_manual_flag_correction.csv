@@ -1,27 +1,27 @@
-cruise,cast,niskin,replicate,station,flag_nitrate_nitrite,flag_ammonium,flag_phosphate,flag_silicate,comments,,
-EN627,3,7,a,L1,4,4,,,,,
-EN627,3,7,b,L1,1,1,,,,,
-EN657,1,2,a,L1,4,,,,,,
-EN657,1,2,b,L1,1,,,,,,
-EN720,3,18,a,L2,,,1,,,,
-EN720,3,18,b,L2,,,1,,,,
-AR48A,2,1,a,,4,,4,4,,,ex to ask Heidi
-AR48A,2,1,b,,1,,1,1,,,ex to ask Heidi
-AR22,2,1,a,NA,3,1,3,1,thought N and S would be a little higher but within reasonable values,,
-AR22,2,1,b,midshelf,4,1,4,4,"N much higher Si way too high, assume sample contaminated",,
-AR22,3,5,a,NA,,4,,,,,
-AR22,3,5,b,midshelf,,1,,,,,
-AR38,8,1,a,L6,1,1,1,1,Keep as flag 1 okay because bottom matches log sheet and btl file,,
-AR38,8,1,b,L6,3,1,3,3,Confident it's the proper depth but mis match in several nutrients,,
-AR38,8,5,a,L6,3,3,3,3,,,
-AR38,8,5,b,L6,3,3,3,3,,,
-AR38,8,7,a,L6,4,4,4,4,Issue firing Niskins during crew plus poor log sheeting,,
-AR38,8,7,b,L6,4,4,4,4,,,
-AR38,8,9,a,L6,4,4,4,4,,,
-AR38,8,9,b,L6,4,4,4,4,,,
-AR38,8,12,a,L6,4,4,4,4,,,
-AR38,8,12,b,L6,4,4,4,4,,,
-AR38,8,14,a,L6,4,4,4,4,,,
-AR38,8,14,b,L6,4,4,4,4,,,
-AR38,8,16,a,L6,1,1,1,1,automated flagging bunches N14&16 which is why it got flagged 3 but N16 replicates look good,,
-AR38,8,16,b,L6,1,1,1,1,automated flagging bunches N14&16 which is why it got flagged 3 but N16 replicates look good,,
+cruise,cast,niskin,replicate,station,flag_nitrate_nitrite,flag_ammonium,flag_phosphate,flag_silicate,comments
+EN627,3,7,a,L1,4,4,,,
+EN627,3,7,b,L1,1,1,,,
+EN657,1,2,a,L1,4,,,,
+EN657,1,2,b,L1,1,,,,
+EN720,3,18,a,L2,,,1,,
+EN720,3,18,b,L2,,,1,,
+AR48A,2,1,a,,4,,4,4,ex to ask Heidi
+AR48A,2,1,b,,1,,1,1,ex to ask Heidi
+AR22,2,1,a,NA,3,1,3,1,thought N and S would be a little higher but within reasonable values
+AR22,2,1,b,midshelf,4,1,4,4,"N much higher Si way too high, assume sample contaminated"
+AR22,3,5,a,NA,,4,,,
+AR22,3,5,b,midshelf,,1,,,
+AR38,8,1,a,L6,1,1,1,1,Keep as flag 1 okay because bottom matches log sheet and btl file
+AR38,8,1,b,L6,3,1,3,3,Confident it's the proper depth but mis match in several nutrients
+AR38,8,5,a,L6,3,3,3,3,
+AR38,8,5,b,L6,3,3,3,3,
+AR38,8,7,a,L6,4,4,4,4,Issue firing Niskins during cast plus poor log sheeting
+AR38,8,7,b,L6,4,4,4,4,
+AR38,8,9,a,L6,4,4,4,4,
+AR38,8,9,b,L6,4,4,4,4,
+AR38,8,12,a,L6,4,4,4,4,
+AR38,8,12,b,L6,4,4,4,4,
+AR38,8,14,a,L6,4,4,4,4,
+AR38,8,14,b,L6,4,4,4,4,
+AR38,8,16,a,L6,1,1,1,1,automated flagging bunches N14&16 which is why it got flagged 3 but N16 replicates look good
+AR38,8,16,b,L6,1,1,1,1,automated flagging bunches N14&16 which is why it got flagged 3 but N16 replicates look good

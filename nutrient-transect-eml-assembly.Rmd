@@ -1,7 +1,7 @@
 ---
 title: "Creating a Data Package for NES-LTER Nutrient Transect Cruise Data"
 author: "Kate Morkeski, Joanne Koch, Stace Beaulieu and Joe Futrelle"
-date: "2026-02-04"
+date: "2026-02-05"
 output: html_document
 ---
 
@@ -160,10 +160,42 @@ need_metadata$niskin <- as.character(need_metadata$niskin)
 # prevents adding duplicate rows
 all_cruises <- all_cruises %>% anti_join(need_metadata, by = c("cruise", "cast", "niskin", "sample_id", "replicate"))
 
-# add rows rename new data frame  
+# add rows, rename new data frame, put rows in order 
 all_nutrients <- bind_rows(all_cruises, need_metadata)
-
 all_nutrients <- all_nutrients %>% arrange(date_time_utc, cruise, cast, niskin, replicate)
+
+# incorporate manual flags
+manual_flags <- read_csv('LTERnut_manual_flag_correction.csv')
+manual_flags <- manual_flags |>
+  select(-comments, -station) |>
+  rename(
+      man_flag_nitr = flag_nitrate_nitrite,
+      man_flag_amm  = flag_ammonium,
+      man_flag_phos = flag_phosphate,
+      man_flag_sil  = flag_silicate)
+manual_flags$cast <- as.character(manual_flags$cast)
+manual_flags$niskin <- as.character(manual_flags$niskin)
+all_nutrients <- full_join(all_nutrients, manual_flags, by = c("cruise", "cast", "niskin", "replicate"))
+
+flag_check_1 <- all_nutrients |> filter(!is.na(man_flag_nitr) | !is.na(man_flag_amm) | !is.na(man_flag_phos) | !is.na(man_flag_sil))
+
+# convert flag to manual flag value
+all_nutrients <- all_nutrients |>
+  mutate(flag_nitrate_nitrite = case_when(!is.na(man_flag_nitr) ~ man_flag_nitr, TRUE ~ flag_nitrate_nitrite)) |>
+  mutate(flag_ammonium = case_when(!is.na(man_flag_amm) ~ man_flag_amm, TRUE ~ flag_ammonium)) |>
+  mutate(flag_phosphate = case_when(!is.na(man_flag_phos) ~ man_flag_phos, TRUE ~ flag_phosphate)) |>
+  mutate(flag_silicate = case_when(!is.na(man_flag_sil) ~ man_flag_sil, TRUE ~ flag_silicate)) 
+
+# convert samples flagged bad to NA
+all_nutrients <- all_nutrients |>
+  mutate(nitrate_nitrite = replace(nitrate_nitrite, flag_nitrate_nitrite == "4", NA)) |>
+  mutate(ammonium = replace(ammonium, flag_ammonium == "4", NA)) |>
+  mutate(phosphate = replace(phosphate, flag_phosphate == "4", NA)) |>
+  mutate(silicate = replace(silicate, flag_silicate == "4", NA)) 
+  
+flag_check_2 <- all_nutrients |> filter(!is.na(man_flag_nitr) | !is.na(man_flag_amm) | !is.na(man_flag_phos) | !is.na(man_flag_sil))
+
+all_nutrients <- all_nutrients |>  select(-man_flag_nitr, -man_flag_amm, -man_flag_phos, -man_flag_sil)
 
 # set flag for these samples to 2 for not evaluated
 # set nitrate values of zero to detection limit
