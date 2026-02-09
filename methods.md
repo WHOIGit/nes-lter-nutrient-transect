@@ -31,7 +31,7 @@ The data table is made by concatenating cruises called from the REST API of the 
 
 Data assembly, cleaning, and metadata template assembly are performed in R.  Further documentation can be found on GitHub, at https://github.com/WHOIGit/nes-lter-nutrient-transect.
 
-Additional nutrient data for Ocean Observatories Initiative (OOI) are available from the OOI Alfresco document server (Coastal Pioneer NES Array \> Cruise Data \> select a cruise \> Ship Data \> Water Sampling).
+Additional nutrient data for Ocean Observatories Initiative (OOI) are available from the OOI Alfresco document server (select a cruise \> Ship Data \> Water Sampling).
 
 Please note that for cruise AR52, legs A and B, location metadata are sourced from the OOI Raw Data Repository. The latitude and longitude provided are the position at the start of the cast, not the position at which the rosette bottle closed as for all other cruises. One cast was targeted at LTER station L11 (all other casts were OOI stations), and this is listed in the column nearest_station and sourced from OOI parameter Target Asset. 
 
