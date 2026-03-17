@@ -40,13 +40,14 @@ Please note that for cruise AR52, legs A and B, location metadata are sourced fr
 We assured that the geographic and temporal coverage of the clean data table are within expected ranges. For each nutrient we checked differences between replicates, visually inspected plotted values, and performed a range check.
 
 Quality is indicated in the data table with IODE Primary Level flags: 1 good; 2 not evaluated, not available or unknown; 3 questionable/suspect; 4 bad; 9 missing data. 
-Flagging occurred in two steps. First, preliminary quality flags were assigned to the data. Automation was used to check each nutrient for differences between replicates. Thresholds for flag 3 and 4 were set for each nutrient type, and if poor replication was above a threshold, both replicates received the same flag of 3 or 4. Second, flags of 3 or 4 were evaluated by the data provider and converted to a different flag as needed. Nutrient values with a flag of 4 were then converted to a null value. 
+
+Preliminary quality flags were assigned to the data. Automation was used to check each nutrient for differences between replicates. Quality is indicated in the data table with IODE Primary Level flags: 1 good; 2 not evaluated, not available or unknown; 3 questionable/suspect; 4 bad; 9 missing data. Thresholds for flag 3 and 4 were set for each nutrient type, and if poor replication was above a threshold, both replicates received the same flag of 3 or 4. It is possible one replicate is good, and future versions of the package will include manual checking to assess the automated flagging and apply appropriate flagging quality control. Due to the preliminary nature of the current flagging scheme, no data have been removed from the data set at this time. Future manually checked versions of flagging will possibly replace values with NA. 
 
 A reminder: as noted in the filtering protocol section, ammonium data are subject to various potential artifacts due to the method of samples being filtered and frozen before analysis. 
 
 # Differences from Previous Version
 
-In version 4, eight cruises comprising 851 rows were added. Nearest station was added for some rows in which it was previously missing. Manual flagging and conversion of bad values to NaN were initiated. 
+In version 4, eight cruises comprising 851 rows were added. Nearest station was added for some rows in which it was previously missing.  
 
 # Related Data Sets
 

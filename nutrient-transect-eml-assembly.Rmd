@@ -105,31 +105,26 @@ read_ooi_discrete <- function(log_url) {
 
 # AR52
 log_url_ar52 <- "https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES/Pioneer-16_AR52_2021-03-29/Water_Sampling/Pioneer-16_AR52_Discrete_Summary.csv"
-AR52  <- read_ooi_discrete(log_url_ar52)
+AR52ooi <- read_ooi_discrete(log_url_ar52)
+AR52ooi <- AR52ooi |> 
+  select(cruise, cast, niskin, start_latitude_degrees, start_longitude_degrees, date_time_utc, ctd_depth_m) |>
+  rename(latitude = start_latitude_degrees) |>
+  rename(longitude = start_longitude_degrees) |>
+  rename(depth = ctd_depth_m)
+  
+# get nutrient values from API
+ar52_url <- glue::glue('{base_api_url}nut/ar52_nutrient_samplelog')
+AR52lter <- read_csv(ar52_url)
+AR52lter <- distinct(AR52lter)
+AR52lter$flag_nitrate_nitrite <- as.integer(2)
+AR52lter$flag_ammonium <- as.integer(2)
+AR52lter$flag_phosphate <- as.integer(2)
+AR52lter$flag_silicate <- as.integer(2)
+AR52lter$project_id <- as.character("OOI")
 
-all_cruises <- bind_rows(all_cruises, AR52)
+AR52 <- left_join(AR52lter, AR52ooi, by = c("cruise", "cast", "niskin"))
 
-# populate lat, long, nearest_station, and depth from OOI columns
-OOI_CRUISES <- c("AR52A", "AR52B")
-
-all_cruises <- all_cruises |>
-  mutate(
-    latitude  = case_when(cruise %in% OOI_CRUISES ~ start_latitude_degrees, TRUE ~ latitude),
-    longitude = case_when(cruise %in% OOI_CRUISES ~ start_longitude_degrees, TRUE ~ longitude),
-    nearest_station = case_when(
-      cruise %in% OOI_CRUISES & startsWith(target_asset, "LTER") ~ target_asset,
-      TRUE ~ nearest_station
-    ),
-    depth = case_when(cruise %in% OOI_CRUISES ~ ctd_depth_m, TRUE ~ depth)
-  )
-
-all_cruises$nearest_station <- str_remove(all_cruises$nearest_station, "LTER ")
-
-# filter rows for inspection
-OOI_lter <- all_cruises |> filter(cruise %in% c("AR52A", "AR52B"))
-
-# keep only transect package columns
-all_cruises <- all_cruises[(1:25)]
+all_cruises <- full_join(all_cruises, AR52)
 
 ```
 
@@ -164,38 +159,38 @@ all_cruises <- all_cruises %>% anti_join(need_metadata, by = c("cruise", "cast",
 all_nutrients <- bind_rows(all_cruises, need_metadata)
 all_nutrients <- all_nutrients %>% arrange(date_time_utc, cruise, cast, niskin, replicate)
 
-# incorporate manual flags
-manual_flags <- read_csv('LTERnut_manual_flag_correction.csv')
-manual_flags <- manual_flags |>
-  select(-comments, -station) |>
-  rename(
-      man_flag_nitr = flag_nitrate_nitrite,
-      man_flag_amm  = flag_ammonium,
-      man_flag_phos = flag_phosphate,
-      man_flag_sil  = flag_silicate)
-manual_flags$cast <- as.character(manual_flags$cast)
-manual_flags$niskin <- as.character(manual_flags$niskin)
-all_nutrients <- full_join(all_nutrients, manual_flags, by = c("cruise", "cast", "niskin", "replicate"))
-
-flag_check_1 <- all_nutrients |> filter(!is.na(man_flag_nitr) | !is.na(man_flag_amm) | !is.na(man_flag_phos) | !is.na(man_flag_sil))
-
-# convert flag to manual flag value
-all_nutrients <- all_nutrients |>
-  mutate(flag_nitrate_nitrite = case_when(!is.na(man_flag_nitr) ~ man_flag_nitr, TRUE ~ flag_nitrate_nitrite)) |>
-  mutate(flag_ammonium = case_when(!is.na(man_flag_amm) ~ man_flag_amm, TRUE ~ flag_ammonium)) |>
-  mutate(flag_phosphate = case_when(!is.na(man_flag_phos) ~ man_flag_phos, TRUE ~ flag_phosphate)) |>
-  mutate(flag_silicate = case_when(!is.na(man_flag_sil) ~ man_flag_sil, TRUE ~ flag_silicate)) 
-
-# convert samples flagged bad to NA
-all_nutrients <- all_nutrients |>
-  mutate(nitrate_nitrite = replace(nitrate_nitrite, flag_nitrate_nitrite == "4", NA)) |>
-  mutate(ammonium = replace(ammonium, flag_ammonium == "4", NA)) |>
-  mutate(phosphate = replace(phosphate, flag_phosphate == "4", NA)) |>
-  mutate(silicate = replace(silicate, flag_silicate == "4", NA)) 
-  
-flag_check_2 <- all_nutrients |> filter(!is.na(man_flag_nitr) | !is.na(man_flag_amm) | !is.na(man_flag_phos) | !is.na(man_flag_sil))
-
-all_nutrients <- all_nutrients |>  select(-man_flag_nitr, -man_flag_amm, -man_flag_phos, -man_flag_sil)
+# # incorporate manual flags
+# manual_flags <- read_csv('LTERnut_manual_flag_correction.csv')
+# manual_flags <- manual_flags |>
+#   select(-comments, -station) |>
+#   rename(
+#       man_flag_nitr = flag_nitrate_nitrite,
+#       man_flag_amm  = flag_ammonium,
+#       man_flag_phos = flag_phosphate,
+#       man_flag_sil  = flag_silicate)
+# manual_flags$cast <- as.character(manual_flags$cast)
+# manual_flags$niskin <- as.character(manual_flags$niskin)
+# all_nutrients <- full_join(all_nutrients, manual_flags, by = c("cruise", "cast", "niskin", "replicate"))
+# 
+# flag_check_1 <- all_nutrients |> filter(!is.na(man_flag_nitr) | !is.na(man_flag_amm) | !is.na(man_flag_phos) | !is.na(man_flag_sil))
+# 
+# # convert flag to manual flag value
+# all_nutrients <- all_nutrients |>
+#   mutate(flag_nitrate_nitrite = case_when(!is.na(man_flag_nitr) ~ man_flag_nitr, TRUE ~ flag_nitrate_nitrite)) |>
+#   mutate(flag_ammonium = case_when(!is.na(man_flag_amm) ~ man_flag_amm, TRUE ~ flag_ammonium)) |>
+#   mutate(flag_phosphate = case_when(!is.na(man_flag_phos) ~ man_flag_phos, TRUE ~ flag_phosphate)) |>
+#   mutate(flag_silicate = case_when(!is.na(man_flag_sil) ~ man_flag_sil, TRUE ~ flag_silicate)) 
+# 
+# # convert samples flagged bad to NA
+# all_nutrients <- all_nutrients |>
+#   mutate(nitrate_nitrite = replace(nitrate_nitrite, flag_nitrate_nitrite == "4", NA)) |>
+#   mutate(ammonium = replace(ammonium, flag_ammonium == "4", NA)) |>
+#   mutate(phosphate = replace(phosphate, flag_phosphate == "4", NA)) |>
+#   mutate(silicate = replace(silicate, flag_silicate == "4", NA)) 
+#   
+# flag_check_2 <- all_nutrients |> filter(!is.na(man_flag_nitr) | !is.na(man_flag_amm) | !is.na(man_flag_phos) | !is.na(man_flag_sil))
+# 
+# all_nutrients <- all_nutrients |>  select(-man_flag_nitr, -man_flag_amm, -man_flag_phos, -man_flag_sil)
 
 # set flag for these samples to 2 for not evaluated
 # set nitrate values of zero to detection limit
@@ -205,6 +200,9 @@ all_nutrients <- all_nutrients |>
   mutate(flag_phosphate = case_when(is.na(flag_phosphate) ~ 2, TRUE ~ flag_phosphate)) |>
   mutate(flag_silicate = case_when(is.na(flag_silicate) ~ 2, TRUE ~ flag_silicate)) |>
   mutate(nitrate_nitrite = case_when(nitrate_nitrite == 0 ~ 0.04, TRUE ~ nitrate_nitrite))
+
+# filter rows for inspection
+AR52_check <- all_cruises |> filter(cruise %in% c("AR52A", "AR52B"))
 
 ```
 
