@@ -47,7 +47,7 @@ A reminder: as noted in the filtering protocol section, ammonium data are subjec
 
 # Differences from Previous Version
 
-In version 4, eight cruises comprising 851 rows were added. Nearest station was added for some rows in which it was previously missing.  
+In version 4, eight cruises comprising 851 rows were added. The preliminary flag for OOI ammonium values was updated from 3 to 2. Nearest station was added for some rows in which it was previously missing. Previously, designation of nearest station was limited to Niskins fired within 2 km of a standard NES-LTER station. In this version, that cutoff was eliminated so that nearest\_station and station\_distance are provided no matter the distance. For OOI and JP cruises, non-LTER stations were sampled, so distances are sometimes large, and the NES-LTER station provided is not necessarily the station targeted for sampling. 
 
 # Related Data Sets
 

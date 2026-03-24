@@ -1,7 +1,7 @@
 ---
 title: "Creating a Data Package for NES-LTER Nutrient Transect Cruise Data"
 author: "Kate Morkeski, Joanne Koch, Stace Beaulieu and Joe Futrelle"
-date: "2026-02-05"
+date: "2026-03-23"
 output: html_document
 ---
 
@@ -42,12 +42,12 @@ base_api_url <- config::get("base_api_url")   # set in local config.yml
 This chunk loads in the cruise data compiled from the REST API.
 
 ```{r}
-all_cruises <- NA
+nut_all <- NA
 
 nut_url <- glue::glue('{base_api_url}/nut/all')
 print(nut_url)
 
-all_cruises <- tryCatch(read_csv(nut_url), 
+nut_all <- tryCatch(read_csv(nut_url), 
                  error=function(cond) 
                      { message(cond)
                        return(NULL) })
@@ -55,11 +55,11 @@ all_cruises <- tryCatch(read_csv(nut_url),
 ```
 
 ```{r}
-all_cruises <- all_cruises[order(all_cruises$date), ]
+nut_all <- nut_all[order(nut_all$date), ]
 
 # rename "distance_km" 
-names(all_cruises)[names(all_cruises) == 'distance_km'] <- 'station_distance'
-names(all_cruises)[names(all_cruises) == 'date'] <- 'date_time_utc'
+names(nut_all)[names(nut_all) == 'distance_km'] <- 'station_distance'
+names(nut_all)[names(nut_all) == 'date'] <- 'date_time_utc'
 
 ```
 
@@ -74,44 +74,32 @@ read_ooi_discrete <- function(log_url) {
   readr::read_csv(logtf) |>
     clean_names() |>
     select(
-      cruise, station, target_asset,
-      start_latitude_degrees, start_longitude_degrees, start_time_utc,
-      cast, niskin_bottle_position,
-      ctd_bottle_closure_time_utc, ctd_depth_m,
-      discrete_phosphate_u_m, discrete_silicate_u_m,
-      discrete_nitrate_u_m, discrete_nitrite_u_m,
-      discrete_ammonium_u_m,
-      discrete_nutrients_flag, discrete_nutrients_replicate_flag
-    ) |>
+      cruise, target_asset, start_latitude_degrees, start_longitude_degrees, cast, 
+      niskin_bottle_position, ctd_bottle_closure_time_utc, ctd_depth_m,
+      ) |>
     rename(
-      date_time_utc = start_time_utc,
+      date_time_utc = ctd_bottle_closure_time_utc,
       niskin        = niskin_bottle_position,
-      phosphate     = discrete_phosphate_u_m,
-      silicate      = discrete_silicate_u_m,
-      nitrate_nitrite = discrete_nitrate_u_m,
-      ammonium      = discrete_ammonium_u_m
-    ) |>
-    # drop bad dummy values
-    filter(phosphate > -9999999) |>
-    # flags are constant, so drop them
-    select(-station, -discrete_nutrients_flag, -discrete_nutrients_replicate_flag) |>
-    mutate(
-      nitrate_nitrite = as.numeric(nitrate_nitrite),
-      cast = as.numeric(cast),
-      phosphate = as.numeric(phosphate),
-      ctd_bottle_closure_time_utc = as.numeric(ctd_bottle_closure_time_utc)
-    )
+      latitude      = start_latitude_degrees,
+      longitude     = start_longitude_degrees,
+      depth         = ctd_depth_m
+      ) |>
+    mutate(cast = as.numeric(cast),
+      )
 }
 
 # AR52
 log_url_ar52 <- "https://rawdata.oceanobservatories.org/files/cruise_data/Pioneer-NES/Pioneer-16_AR52_2021-03-29/Water_Sampling/Pioneer-16_AR52_Discrete_Summary.csv"
 AR52ooi <- read_ooi_discrete(log_url_ar52)
-AR52ooi <- AR52ooi |> 
-  select(cruise, cast, niskin, start_latitude_degrees, start_longitude_degrees, date_time_utc, ctd_depth_m) |>
-  rename(latitude = start_latitude_degrees) |>
-  rename(longitude = start_longitude_degrees) |>
-  rename(depth = ctd_depth_m)
-  
+AR52ooi <- distinct(AR52ooi)
+
+AR52ooi <- AR52ooi |>
+  mutate(target_asset = case_when(startsWith(target_asset, "LTER") ~ target_asset, TRUE ~ "")) |>
+  rename(nearest_station = target_asset)
+
+AR52ooi$nearest_station <- str_remove(AR52ooi$nearest_station, "LTER ")
+AR52ooi$nearest_station <- str_remove(AR52ooi$nearest_station, "LTER")
+
 # get nutrient values from API
 ar52_url <- glue::glue('{base_api_url}nut/ar52_nutrient_samplelog')
 AR52lter <- read_csv(ar52_url)
@@ -124,7 +112,7 @@ AR52lter$project_id <- as.character("OOI")
 
 AR52 <- left_join(AR52lter, AR52ooi, by = c("cruise", "cast", "niskin"))
 
-all_cruises <- full_join(all_cruises, AR52)
+all_cruises <- full_join(nut_all, AR52)
 
 ```
 
@@ -140,11 +128,7 @@ all_cruises <- full_join(all_cruises, AR52)
 # # all_cruises because the nutrient data is missing from the samples file.
 
 need_metadata <- read_csv('samples_lacking_bottle_metadata_nutrients_nearest_station.csv')
-need_metadata <- need_metadata %>%
-  mutate(depth = round(depth, 1)) %>%
-  rename(date_time_utc = date) %>%
-  mutate(station_distance = case_when(station_distance > 2 ~ NA, TRUE ~ station_distance)) %>%
-  mutate(nearest_station = case_when(station_distance == NA ~ NA, TRUE ~ nearest_station)) 
+need_metadata <- need_metadata |> rename(date_time_utc = date) 
 need_metadata$date_time_utc <- as.POSIXct(need_metadata$date_time_utc, tz = "GMT", "%m/%d/%Y %H:%M")
 
 all_cruises$cast <- as.character(all_cruises$cast)
@@ -159,6 +143,7 @@ all_cruises <- all_cruises %>% anti_join(need_metadata, by = c("cruise", "cast",
 all_nutrients <- bind_rows(all_cruises, need_metadata)
 all_nutrients <- all_nutrients %>% arrange(date_time_utc, cruise, cast, niskin, replicate)
 
+# For next version: 
 # # incorporate manual flags
 # manual_flags <- read_csv('LTERnut_manual_flag_correction.csv')
 # manual_flags <- manual_flags |>
