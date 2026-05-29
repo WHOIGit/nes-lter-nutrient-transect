@@ -1,0 +1,28 @@
+cruise,cast,niskin,replicate,station,flag_nitrate_nitrite,flag_ammonium,flag_phosphate,flag_silicate,comments
+AE2426,12,24,a,L9,4,4,4,4,nitrate and silicate and phosphate all way too high. A different water was sampled but what? Is this bottom water? Is the whole cast somehoe off in the bottles sampled??? How would we know. sample from wrong water or contaminated. Silica order of magnitude higher than any other sample in this cast
+AE2426,12,24,b,L9,4,4,4,4,sample from wrong water or contaminated. Silica order of magnitude higher than any other sample in this cast
+AR22,10,1,a,L12,4,4,4,4,N & S too low and pattern of repA<repB; rep A must be wrong water sampled
+AR22,10,1,b,L12,1,1,1,1,
+AR22,10,4,a,L12,1,1,1,1,confident repA N is correct similar pattern in Si so assume repA good
+AR22,10,4,b,L12,4,4,4,4,rep B probably wrong water was sampled throw everything out
+AR28B,28,1,a,L6,3,4,1,3,OOI N1 nitrate and silicate look low compared to LTER depth repliate and next depth up.
+AR28B,28,3,a,L6,1,1,1,1,not sure why these came back orgiinally with flag 2
+AR28B,28,7,a,L6,1,4,1,2,"OOI samples N7 &N8 same depth, N8 something wrong"
+AR28B,28,8,a,L6,4,4,4,4,"OOI samples N7 &N8 same depth, N8 something wrong"
+AR28B,28,11,a,L6,1,4,1,1,
+AR28B,28,13,a,L6,3,1,3,3,
+AR31B,1,1,a,L10,4,4,4,4,OOI sample ID#1-1 (C1N1)  nitrate only 0.64 at bottom - clearly wrong; looks like the surface but it's an OOI sample so we can't just move it therefore throw out
+AR44,6,1,a,L10,4,4,4,4,"Niskin nitrate very low definitely not deep sample put other nut types into question, just throw out everything"
+AR66A,4,1,a,L8,4,4,4,4,values too low and rep b looks correct. Wrong water sampled in this vial?
+AR66A,4,1,b,L8,1,1,1,1,rep a values too low and rep b looks correct. Wrong water sampled in this vial?
+AR66A,7,1,a,L10,1,1,1,1,skeptical this is bottom water but no replicate to compare to. Cast at same location 3 days earlier doesn't storngly argue against. Cast at L12 supports these bottom nitrate and silicate values….. So I guess real?
+AT46,7,3,a,L11,,,1,,"matches perfectly with same depth at adjacent station L10, this value falls nicely onto the curve of phosphate for the profile it's the intermediate between high and low"
+AT46,7,3,b,L11,,,4,,phosphate way too high
+EN627,3,7,a,L1,4,4,,,
+EN627,3,7,b,L1,1,1,,,
+EN657,1,2,a,L1,4,,,,
+EN657,1,2,b,L1,1,,,,
+EN661,7,1,a,L10,4,4,4,4,"very clearly wrong niskin was sampled. Nitrate concentration way too low, corresponding depth at L11 is much higher which confirms"
+EN661,7,1,b,L10,4,4,4,4,"very clearly wrong niskin was sampled. Nitrate concentration way too low, corresponding depth at L11 is much higher which confirms"
+EN706,19,3,a,L6,,,4,,phosphate high clearly bad
+EN706,19,3,b,L6,,,1,,phosphate consistent with adjacent stations of similar depths
